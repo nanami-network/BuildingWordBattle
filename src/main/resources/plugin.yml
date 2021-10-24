@@ -1,3 +1,6 @@
 name: BuildingWordBattle
 version: '${project.version}'
 main: me.koutachan.buildingwordbattle.BuildingWordBattle
+commands:
+  debug:
+    permission: minecraft.op

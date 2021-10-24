@@ -22,7 +22,7 @@ public class PlayerDataUtil {
         playerDataHashMap.put(player.getUniqueId(), new PlayerData(player));
     }
 
-    public PlayerData removePlayerData(Player player) {
-        return playerDataHashMap.remove(player.getUniqueId());
+    public void removePlayerData(Player player) {
+        playerDataHashMap.remove(player.getUniqueId());
     }
 }

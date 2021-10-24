@@ -10,9 +10,9 @@ public class PlayerData {
 
     public PlayerData(Player player) {
         this.player = player;
+        this.scoreBoardManager = new ScoreBoardManager(this);
     }
 
     private final Player player;
-    private final ScoreBoardManager scoreBoardManager = new ScoreBoardManager(this);
-
+    private final ScoreBoardManager scoreBoardManager;
 }

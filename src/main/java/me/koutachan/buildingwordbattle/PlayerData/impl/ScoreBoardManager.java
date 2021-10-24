@@ -5,7 +5,6 @@ import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import lombok.Getter;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 @Getter
 public class ScoreBoardManager {
