@@ -2,10 +2,10 @@ package me.koutachan.buildingwordbattle.Timer;
 
 import lombok.Getter;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
+import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -39,7 +39,7 @@ public class Scheduler {
 
             data.getScoreBoardManager().getScoreboard().setAll(
                     "",
-                    ChatColor.translateAlternateColorCodes('&', String.format("&c 現在のラグ: %sms", serverLagSpike)),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", serverLagSpike)),
                     ""
             );
 

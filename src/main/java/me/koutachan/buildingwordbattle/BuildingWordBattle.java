@@ -1,13 +1,9 @@
 package me.koutachan.buildingwordbattle;
 
-import lombok.experimental.UtilityClass;
 import me.koutachan.buildingwordbattle.Commands.debug;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
-import org.bukkit.Utility;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import javax.xml.bind.annotation.XmlType;
 
 public final class BuildingWordBattle extends JavaPlugin {
 

@@ -1,6 +1,5 @@
 package me.koutachan.buildingwordbattle;
 
-import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

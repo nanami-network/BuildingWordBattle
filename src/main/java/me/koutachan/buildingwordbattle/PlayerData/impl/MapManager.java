@@ -1,11 +1,8 @@
 package me.koutachan.buildingwordbattle.PlayerData.impl;
 
-import fr.minuskube.netherboard.Netherboard;
-import fr.minuskube.netherboard.bukkit.BPlayerBoard;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
-import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
