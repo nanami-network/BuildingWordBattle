@@ -59,7 +59,8 @@ public class BoxCreator {
             for (int y = yMin; y <= yMax; y++) {
                 for (int z = zMin; z <= zMax; z++) {
                     if (x == xMin || y == yMin || z == zMin || x == xMax || z == zMax) {
-                        center.clone().add(x, y, z).getBlock().setType(material);
+                        center.clone().getChunk().getBlock(x, y, z).setType(material);
+                        //center.clone().add(x, y, z).getBlock().setType(material);
                     } else {
                         if (setAir) center.clone().add(x, y, z).getBlock().setType(Material.AIR);
                     }
