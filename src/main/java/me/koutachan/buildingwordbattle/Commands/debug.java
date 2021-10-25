@@ -1,7 +1,7 @@
 package me.koutachan.buildingwordbattle.Commands;
 
 import me.koutachan.buildingwordbattle.BoxCreator;
-import me.koutachan.buildingwordbattle.Map.MapManager;
+import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 public class debug implements CommandExecutor {
 
-    private MapManager mapManager;
+    private AreaCreator mapManager;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -24,11 +24,12 @@ public class debug implements CommandExecutor {
             //player.getChunk();
             player.sendMessage("center!:" + location);
             BoxCreator boxCreator = new BoxCreator(location);
-            boxCreator.CreateCube(Material.BEDROCK, -30, 30, 0, 30, -30, 30, true);
+            boxCreator.CreateCubeFM(Material.BEDROCK, -300, 300, 0, 70, -300, 300, true);
+            //boxCreator.CreateCube(Material.BEDROCK, -30, 30, 0, 30, -30, 30, true);
 
 
             if (mapManager == null) {
-                this.mapManager = new MapManager(location.getBlockX() - 29, location.getBlockX() + 29, 1, 29, location.getBlockZ() - 29, location.getBlockZ() + 29);
+                this.mapManager = new AreaCreator(location.getBlockX() - 29, location.getBlockX() + 29, 1, 29, location.getBlockZ() - 29, location.getBlockZ() + 29);
             }
             player.sendMessage(String.valueOf(mapManager.isArea(player.getLocation())));
         }

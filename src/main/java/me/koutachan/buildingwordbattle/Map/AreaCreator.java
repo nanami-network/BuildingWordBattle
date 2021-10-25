@@ -4,11 +4,11 @@ import lombok.Getter;
 import org.bukkit.Location;
 
 @Getter
-public class MapManager {
+public class AreaCreator {
 
     private final int xMin, yMin, zMin, xMax, yMax, zMax;
 
-    public MapManager(int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
+    public AreaCreator(int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
         this.xMin = xMin;
         this.yMin = yMin;
         this.zMin = zMin;
