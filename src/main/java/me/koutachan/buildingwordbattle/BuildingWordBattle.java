@@ -1,5 +1,6 @@
 package me.koutachan.buildingwordbattle;
 
+import me.koutachan.buildingwordbattle.Commands.Start;
 import me.koutachan.buildingwordbattle.Commands.debug;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ public final class BuildingWordBattle extends JavaPlugin {
         INSTANCE = this;
         Bukkit.getServer().getPluginManager().registerEvents(new BukkitEvent(), this);
         getCommand("debug").setExecutor(new debug());
+        getCommand("start").setExecutor(new Start());
 
         this.scheduler = new Scheduler();
         scheduler.start();

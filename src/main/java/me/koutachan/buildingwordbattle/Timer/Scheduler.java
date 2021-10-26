@@ -38,7 +38,8 @@ public class Scheduler {
             data.getScoreBoardManager().getScoreboard().setAll(
                     ChatColorUtil.translateAlternateColorCodes("&1"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", serverLagSpike)),
-                    ChatColorUtil.translateAlternateColorCodes("&2")
+                    ChatColorUtil.translateAlternateColorCodes("&2"),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&b マップ: &l%s", data.getMapManager().getWhatMap()))
             );
 
         }

@@ -28,11 +28,11 @@ public class ConfigCache {
         return obj;
     }
 
-    public static Object getString(File file, String key) {
+    public static String getString(File file, String key) {
         Object cache = configCache.get(key);
 
         if (cache != null) {
-            return cache;
+            return (String) cache;
         }
 
         fileExists(file);

@@ -4,3 +4,5 @@ main: me.koutachan.buildingwordbattle.BuildingWordBattle
 commands:
   debug:
     permission: minecraft.op
+  start:
+    permission: minecraft.op
