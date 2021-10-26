@@ -2,6 +2,12 @@ package me.koutachan.buildingwordbattle.Commands;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
+import me.koutachan.buildingwordbattle.Game.GameInfo;
+import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
+import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
+import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -25,11 +31,26 @@ public class Start implements CommandExecutor {
         a = (int) Math.round((double) time / 3);
         b = (int) Math.round((double) time / 1.5);
 
+        GameInfo.gameState = GameEnum.STARTING;
+
         bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
 
             if (time <= 0) {
                 Bukkit.broadcastMessage("ゲーム開始！");
                 bukkitTask.cancel();
+
+                for (Player player : Bukkit.getOnlinePlayers()) {
+
+                    PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                    data.getTeamManager().setCurrentTeam(TeamEnum.PLAYER);
+                }
+
+                //CreateBox.start();
+
+                GameInfo.gameState = GameEnum.GAME;
+                GameInfo.nowState = GameStateEnum.THEME;
+
                 return;
             }
 

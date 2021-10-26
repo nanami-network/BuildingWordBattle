@@ -1,4 +1,4 @@
-package me.koutachan.buildingwordbattle.Game;
+package me.koutachan.buildingwordbattle.Game.GameEnum;
 
 public enum GameEnum {
     LOBBY,
