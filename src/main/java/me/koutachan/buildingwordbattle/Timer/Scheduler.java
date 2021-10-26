@@ -1,6 +1,5 @@
 package me.koutachan.buildingwordbattle.Timer;
 
-import lombok.Getter;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
@@ -9,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
-@Getter
 public class Scheduler {
 
     private long systemTime, serverLagSpike;

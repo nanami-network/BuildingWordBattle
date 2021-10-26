@@ -20,16 +20,22 @@ public class debug implements CommandExecutor {
             Player player = (Player) sender;
             Chunk onLoc = player.getLocation().getChunk();
             player.sendMessage(String.format("x=%s z=%s", onLoc.getX(), onLoc.getZ()));
-            Location location = player.getLocation().getChunk().getBlock(8, 0, 8).getLocation(); //center is 8?8? or 7?7?
+            Location location = player.getLocation(); //center is 8?8? or 7?7?
             //player.getChunk();
             player.sendMessage("center!:" + location);
             BoxCreator boxCreator = new BoxCreator(location);
-            boxCreator.CreateCubeFM(Material.BEDROCK, -300, 300, 0, 70, -300, 300, true);
+
+
+            boxCreator.CreateCube(Material.BEDROCK, -100,100,0,100,-100,100, true);
             //boxCreator.CreateCube(Material.BEDROCK, -30, 30, 0, 30, -30, 30, true);
 
 
             if (mapManager == null) {
-                this.mapManager = new AreaCreator(location.getBlockX() - 29, location.getBlockX() + 29, 1, 29, location.getBlockZ() - 29, location.getBlockZ() + 29);
+
+                Location l1 = location.clone().add(-299, 299, -299);
+                Location l2 = location.clone().add(299, 1, 299);
+
+                this.mapManager = new AreaCreator(null, l1, l2);
             }
             player.sendMessage(String.valueOf(mapManager.isArea(player.getLocation())));
         }
