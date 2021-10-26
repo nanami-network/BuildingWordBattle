@@ -22,7 +22,8 @@ public class Start implements CommandExecutor {
         if (args.length == 0) time = 10;
         else time = parseInt(args[0]);
 
-        int firstTime = time;
+        a = (int) Math.round((double) time / 3);
+        b = (int) Math.round((double) time / 1.5);
 
         bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
 
@@ -32,7 +33,7 @@ public class Start implements CommandExecutor {
                 return;
             }
 
-            message(firstTime, time);
+            message(time);
             time--;
         }, 0, 20);
         return false;
@@ -46,12 +47,14 @@ public class Start implements CommandExecutor {
         }
     }
 
-    private void message(int firstTime, int sec) {
+    private int a, b;
+
+    private void message(int sec) {
 
         String colorCode = "&a";
 
-        if (sec <= Math.round((double) firstTime / 3)) colorCode = "&c";
-        else if (sec <= Math.round((double) firstTime / 1.5)) colorCode = "&e";
+        if (sec <= a) colorCode = "&c";
+        else if (sec <= b) colorCode = "&e";
 
         Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes(String.format("%sゲームは %s 秒後に開始されます", colorCode, sec)));
         for (Player player : Bukkit.getOnlinePlayers()) {
