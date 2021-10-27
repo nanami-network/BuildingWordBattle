@@ -14,6 +14,6 @@ public class ScoreBoardManager {
 
     public ScoreBoardManager(PlayerData playerData) {
         this.data = playerData;
-        this.scoreboard = Netherboard.instance().createBoard(data.getPlayer(), ChatColor.YELLOW + "BuildingWorldBattle");
+        this.scoreboard = Netherboard.instance().createBoard(data.getPlayer(), ChatColor.YELLOW + "BuildingWordBattle");
     }
 }

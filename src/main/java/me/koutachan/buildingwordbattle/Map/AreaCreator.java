@@ -18,6 +18,7 @@ public class AreaCreator {
 
     public AreaCreator(String author, UUID authorUUID, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
         this.author = author;
+        this.authorUUID = authorUUID;
         this.mapName = mapName;
 
         this.xMin = xMin;
@@ -31,6 +32,7 @@ public class AreaCreator {
 
     public AreaCreator(String author, UUID authorUUID, String mapName,Location location1, Location location2) {
         this.author = author;
+        this.authorUUID = authorUUID;
         this.mapName = mapName;
 
         if (location1.getBlockX() >= location2.getBlockX()) {

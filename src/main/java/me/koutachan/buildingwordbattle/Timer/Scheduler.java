@@ -74,7 +74,7 @@ public class Scheduler {
                     count++;
                 }
 
-                if(count == 0) {
+                if (count == 0) {
                     Theme.startShuffle();
                     return;
                 }
@@ -108,9 +108,10 @@ public class Scheduler {
                     ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameState))),
                     ChatColorUtil.translateAlternateColorCodes("&3"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&b マップ: &l%s", data.getMapManager().getWhatMap())),
-                    ChatColorUtil.translateAlternateColorCodes("&4"),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
+                    //ChatColorUtil.translateAlternateColorCodes("&4"),
                     ChatColorUtil.translateAlternateColorCodes("&5"),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
                     ChatColorUtil.translateAlternateColorCodes("&6")
             );
         }
