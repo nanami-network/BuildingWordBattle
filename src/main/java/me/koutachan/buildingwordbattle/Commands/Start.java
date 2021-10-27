@@ -3,11 +3,12 @@ package me.koutachan.buildingwordbattle.Commands;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
-import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -51,6 +52,7 @@ public class Start implements CommandExecutor {
                 GameInfo.gameState = GameEnum.GAME;
                 GameInfo.nowState = GameStateEnum.THEME;
 
+                Scheduler.themeTime = BuildingWordBattle.INSTANCE.getConfig().getInt("themeTime");
                 return;
             }
 

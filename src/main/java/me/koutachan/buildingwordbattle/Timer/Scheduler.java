@@ -18,6 +18,8 @@ public class Scheduler {
 
     private long systemTime, serverLagSpike;
 
+    public static int themeTime;
+
     private BukkitTask bukkitTask;
 
     public void start() {
@@ -43,17 +45,27 @@ public class Scheduler {
 
             if (GameInfo.nowState == GameStateEnum.THEME && data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
+
+                if(themeTime <= 0) {
+                    GameInfo.nowState = GameStateEnum.BUILDING;
+                    return;
+                }
+
                 String theme = data.getThemeManager().getTheme();
 
                 if (theme == null) theme = "お題を設定してください (チャットに入力)";
 
                 theme = ChatColorUtil.translateAlternateColorCodes(" &6[お題] " + theme);
 
+                data.getScoreBoardManager().getScoreboard().set(ChatColorUtil.translateAlternateColorCodes("&e > 残り時間: " + themeTime), 9);
+
                 try {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));
                 } catch (NoSuchMethodError e) {
-                    data.getScoreBoardManager().getScoreboard().set(theme, 4);
+                    data.getScoreBoardManager().getScoreboard().set(theme, 7);
                 }
+
+                themeTime--;
             }
         }
     }
@@ -69,7 +81,10 @@ public class Scheduler {
                     ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameState))),
                     ChatColorUtil.translateAlternateColorCodes("&3"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&b マップ: &l%s", data.getMapManager().getWhatMap()))
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&b マップ: &l%s", data.getMapManager().getWhatMap())),
+                    ChatColorUtil.translateAlternateColorCodes("&4"),
+                    ChatColorUtil.translateAlternateColorCodes("&5"),
+                    ChatColorUtil.translateAlternateColorCodes("&6")
             );
         }
     }
