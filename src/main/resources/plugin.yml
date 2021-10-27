@@ -6,3 +6,5 @@ commands:
     permission: minecraft.op
   start:
     permission: minecraft.op
+  admin:
+    permission: minecraft.op

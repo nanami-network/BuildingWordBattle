@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class BukkitEvent implements Listener {
-    
+
     @EventHandler
     public void onJoinEvent(PlayerJoinEvent e) {
         PlayerDataUtil.createPlayerData(e.getPlayer());

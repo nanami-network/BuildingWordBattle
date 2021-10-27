@@ -1,5 +1,6 @@
 package me.koutachan.buildingwordbattle.Timer;
 
+import fr.minuskube.netherboard.Netherboard;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
@@ -11,7 +12,9 @@ import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.apache.commons.lang.UnhandledException;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -101,19 +104,24 @@ public class Scheduler {
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-            data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatColorUtil.translateAlternateColorCodes("&1"),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", serverLagSpike)),
-                    ChatColorUtil.translateAlternateColorCodes("&2"),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameState))),
-                    ChatColorUtil.translateAlternateColorCodes("&3"),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    //ChatColorUtil.translateAlternateColorCodes("&4"),
-                    ChatColorUtil.translateAlternateColorCodes("&5"),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
-                    ChatColorUtil.translateAlternateColorCodes("&6")
-            );
+            try {
+                data.getScoreBoardManager().getScoreboard().setAll(
+                        ChatColorUtil.translateAlternateColorCodes("&1"),
+                        ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", serverLagSpike)),
+                        ChatColorUtil.translateAlternateColorCodes("&2"),
+                        ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameState))),
+                        ChatColorUtil.translateAlternateColorCodes("&3"),
+                        ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
+                        ChatColorUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
+                        //ChatColorUtil.translateAlternateColorCodes("&4"),
+                        ChatColorUtil.translateAlternateColorCodes("&5"),
+                        ChatColorUtil.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
+                        ChatColorUtil.translateAlternateColorCodes("&6")
+                );
+            } catch (UnhandledException | IllegalStateException e) {
+                data.getScoreBoardManager().setScoreboard(Netherboard.instance().createBoard(data.getPlayer(), ChatColor.YELLOW + "BuildingWordBattle"));
+                updateBoard();
+            }
         }
     }
 
