@@ -16,5 +16,5 @@ public class TeamManager {
     }
 
     private TeamEnum currentTeam = TeamEnum.SPEC;
+    private boolean isStreamer = false;
 }
-

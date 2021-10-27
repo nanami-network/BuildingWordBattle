@@ -9,6 +9,7 @@ import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 public class ThemeManager {
     private final PlayerData data;
     private String theme;
+    private int themeMap;
 
     public ThemeManager(PlayerData playerData) {
         this.data = playerData;

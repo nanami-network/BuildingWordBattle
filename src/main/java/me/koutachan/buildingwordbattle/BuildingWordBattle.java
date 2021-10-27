@@ -1,6 +1,7 @@
 package me.koutachan.buildingwordbattle;
 
 import me.koutachan.buildingwordbattle.Commands.AdminCommand;
+import me.koutachan.buildingwordbattle.Commands.ReloadConfig;
 import me.koutachan.buildingwordbattle.Commands.Start;
 import me.koutachan.buildingwordbattle.Commands.debug;
 import me.koutachan.buildingwordbattle.ConfigCache.ConfigCache;
@@ -30,6 +31,7 @@ public final class BuildingWordBattle extends JavaPlugin {
         getCommand("debug").setExecutor(new debug());
         getCommand("start").setExecutor(new Start());
         getCommand("admin").setExecutor(new AdminCommand());
+        getCommand("reloadConfig").setExecutor(new ReloadConfig());
 
         Bukkit.getWorld("world").setDifficulty(Difficulty.PEACEFUL);
 

@@ -32,7 +32,9 @@ public class BukkitEvent implements Listener {
 
     @EventHandler
     public void onQuitEvent(PlayerQuitEvent e) {
-        PlayerDataUtil.removePlayerData(e.getPlayer());
+        PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
+
+        GameInfo.mapList.remove((Integer) data.getThemeManager().getThemeMap());
     }
 
     @EventHandler

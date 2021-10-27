@@ -1,5 +1,7 @@
 package me.koutachan.buildingwordbattle.Game;
 
+import me.koutachan.buildingwordbattle.BuildingWordBattle;
+import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
@@ -15,26 +17,50 @@ import java.util.List;
 public class Theme {
     public static void startShuffle() {
 
-        GameInfo.nowState = GameStateEnum.BUILDING;
         CreateBox.start();
 
-        List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-        Collections.shuffle(onlinePlayers);
+        Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
 
-        int count = 0;
 
-        for (Player player : onlinePlayers) {
+        Bukkit.getScheduler().runTaskLater(BuildingWordBattle.INSTANCE, () -> {
 
-            PlayerData data = PlayerDataUtil.getPlayerData(player);
+            List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
+            Collections.shuffle(onlinePlayers);
 
-            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+            Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ ゲームを開始します"));
 
-                count++;
+            GameInfo.nowState = GameStateEnum.BUILDING;
 
-                AreaCreator areaCreator = CreateBox.areaCreatorMap.get(String.valueOf(count));
-                areaCreator.setAuthor(data.getPlayer().getName());
-                areaCreator.setAuthorUUID(data.getPlayer().getUniqueId());
+            int count = 0;
+
+            for (Player player : onlinePlayers) {
+
+                PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+
+                    count++;
+
+                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(count + "-" + 1);
+                    areaCreator.setTheme(data.getThemeManager().getTheme());
+                    areaCreator.setThemePlayer(player.getName());
+                    areaCreator.setThemeUUID(player.getUniqueId());
+
+
+                    GameInfo.mapList.add(count);
+                    data.getMapManager().addMap(count);
+                    data.getThemeManager().setThemeMap(count);
+
+                    //areaCreator.setAuthor(data.getPlayer().getName());
+                    //areaCreator.setAuthorUUID(data.getPlayer().getUniqueId());
+                }
             }
-        }
+
+            GameInfo.maxRound = count;
+            GameInfo.mapListSize = GameInfo.mapList.size();
+            GameInfo.round = 1;
+
+            Game.startShuffle();
+        }, Bukkit.getOnlinePlayers().size() * 3L);
     }
 }

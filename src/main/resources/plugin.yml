@@ -8,3 +8,5 @@ commands:
     permission: minecraft.op
   admin:
     permission: minecraft.op
+  reloadConfig:
+    permission: minecraft.op

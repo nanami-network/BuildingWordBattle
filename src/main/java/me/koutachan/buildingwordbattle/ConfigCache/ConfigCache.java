@@ -19,7 +19,6 @@ public class ConfigCache {
         return ChatColorUtil.translateAlternateColorCodes(messageConfig.getString(key).replaceAll("%prefix%", prefix));
     }
 
-
     public static void reload() {
         messageConfig = YamlConfiguration.loadConfiguration(new File(BuildingWordBattle.INSTANCE.getDataFolder(), "message.yml"));
     }

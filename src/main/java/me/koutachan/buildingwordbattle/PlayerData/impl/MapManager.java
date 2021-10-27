@@ -26,15 +26,19 @@ public class MapManager {
     public void handle() {
         Location location = data.getPlayer().getLocation();
 
+        whatMap = "NONE";
+        breakable = false;
+
         for (AreaCreator areaCreator : CreateBox.areaCreatorMap.values()) {
             if (areaCreator.isArea(location)) {
                 whatMap = areaCreator.getMapName();
                 breakable = areaCreator.getAuthorUUID() == data.getPlayer().getUniqueId();
                 break;
-            } else {
-                whatMap = "NONE";
-                breakable = false;
             }
         }
+    }
+
+    public void addMap(int mapID) {
+        MapList.add(mapID);
     }
 }
