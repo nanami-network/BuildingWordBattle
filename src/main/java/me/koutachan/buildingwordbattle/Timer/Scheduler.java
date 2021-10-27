@@ -5,6 +5,7 @@ import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
+import me.koutachan.buildingwordbattle.Game.Theme;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
@@ -33,12 +34,27 @@ public class Scheduler {
 
             this.systemTime = System.currentTimeMillis();
 
+            playerDataUpdate();
+
             updateBoard();
-            actionBar();
+            themeActionBar();
         }, 0, 20);
     }
 
-    private void actionBar() {
+    private void playerDataUpdate() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+
+            PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+            data.getMapManager().handle();
+
+        }
+    }
+
+    private void themeActionBar() {
+
+        int count = 0;
+
         for (Player player : Bukkit.getOnlinePlayers()) {
 
             PlayerData data = PlayerDataUtil.getPlayerData(player);
@@ -46,18 +62,28 @@ public class Scheduler {
             if (GameInfo.nowState == GameStateEnum.THEME && data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
 
-                if(themeTime <= 0) {
-                    GameInfo.nowState = GameStateEnum.BUILDING;
+                if (themeTime <= 0) {
+                    Theme.startShuffle();
                     return;
                 }
 
                 String theme = data.getThemeManager().getTheme();
 
-                if (theme == null) theme = "お題を設定してください (チャットに入力)";
+                if (theme == null) {
+                    theme = "お題を設定してください";
+                    count++;
+                }
+
+                if(count == 0) {
+                    Theme.startShuffle();
+                    return;
+                }
+
 
                 theme = ChatColorUtil.translateAlternateColorCodes(" &6[お題] " + theme);
 
                 data.getScoreBoardManager().getScoreboard().set(ChatColorUtil.translateAlternateColorCodes("&e > 残り時間: " + themeTime), 9);
+                data.getScoreBoardManager().getScoreboard().set(ChatColorUtil.translateAlternateColorCodes("&e > 残り人数: " + count), 8);
 
                 try {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));
@@ -69,6 +95,7 @@ public class Scheduler {
             }
         }
     }
+
 
     private void updateBoard() {
         for (Player player : Bukkit.getOnlinePlayers()) {

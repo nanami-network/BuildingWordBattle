@@ -26,7 +26,7 @@ public class debug implements CommandExecutor {
             BoxCreator boxCreator = new BoxCreator(location);
 
 
-            boxCreator.CreateCube(Material.BEDROCK, -100,100,0,100,-100,100, true);
+            boxCreator.CreateCube(Material.BEDROCK, -100, 100, 0, 100, -100, 100, true);
             //boxCreator.CreateCube(Material.BEDROCK, -30, 30, 0, 30, -30, 30, true);
 
 
@@ -35,7 +35,7 @@ public class debug implements CommandExecutor {
                 Location l1 = location.clone().add(-299, 299, -299);
                 Location l2 = location.clone().add(299, 1, 299);
 
-                this.mapManager = new AreaCreator(null, l1, l2);
+                this.mapManager = new AreaCreator(null, null, "0", l1, l2);
             }
             player.sendMessage(String.valueOf(mapManager.isArea(player.getLocation())));
         }

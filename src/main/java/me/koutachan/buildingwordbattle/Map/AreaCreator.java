@@ -4,16 +4,21 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class AreaCreator {
 
     private final int xMin, yMin, zMin, xMax, yMax, zMax;
 
-    private String author;
+    private String author, mapName;
 
-    public AreaCreator(String author, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
+    private UUID authorUUID;
+
+    public AreaCreator(String author, UUID authorUUID, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
         this.author = author;
+        this.mapName = mapName;
 
         this.xMin = xMin;
         this.yMin = yMin;
@@ -24,8 +29,9 @@ public class AreaCreator {
         this.zMax = zMax;
     }
 
-    public AreaCreator(String author, Location location1, Location location2) {
+    public AreaCreator(String author, UUID authorUUID, String mapName,Location location1, Location location2) {
         this.author = author;
+        this.mapName = mapName;
 
         if (location1.getBlockX() >= location2.getBlockX()) {
             xMax = location1.getBlockX();

@@ -53,6 +53,8 @@ public class Start implements CommandExecutor {
                 GameInfo.nowState = GameStateEnum.THEME;
 
                 Scheduler.themeTime = BuildingWordBattle.INSTANCE.getConfig().getInt("themeTime");
+                Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！"));
+
                 return;
             }
 
