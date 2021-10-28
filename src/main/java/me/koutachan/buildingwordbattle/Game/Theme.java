@@ -49,13 +49,6 @@ public class Theme {
 
                     GameInfo.mapList.add(count);
                     data.getMapManager().addMap(count);
-
-
-                    //ここでお題を決める
-                    //始めのマップ 1;
-                    // 1 ってマップ回されない
-
-
                     data.getThemeManager().setThemeMap(count);
 
                     //areaCreator.setAuthor(data.getPlayer().getName());

@@ -2,6 +2,8 @@ package me.koutachan.buildingwordbattle.PlayerData;
 
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
+import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -23,5 +25,19 @@ public class PlayerDataUtil {
 
     public PlayerData removePlayerData(Player player) {
        return playerDataHashMap.remove(player.getUniqueId());
+    }
+
+    public int getOnlinePlayers() {
+
+        int result = 0;
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerData data = getPlayerData(player);
+
+            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                result++;
+            }
+        }
+        return result;
     }
 }

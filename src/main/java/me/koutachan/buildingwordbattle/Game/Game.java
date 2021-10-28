@@ -30,7 +30,20 @@ public class Game {
 
                     AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.round);
 
+                    switch (GameInfo.nowState) {
+                        case BUILDING: {
+                            areaCreator.setAuthor(player.getName());
+                            areaCreator.setAuthorUUID(player.getUniqueId());
+                            break;
+                        }
+                        case ANSWER: {
+                            areaCreator.setAnswerPlayer(player.getName());
+                            areaCreator.setAnswerUUID(player.getUniqueId());
+                        }
+                    }
+
                     World world = Bukkit.getWorld("world");
+
 
                     Vector vector = new Vector(areaCreator.getXMax(), areaCreator.getYMax(), areaCreator.getZMax()).getMidpoint(new Vector(areaCreator.getXMin(), areaCreator.getYMin(), areaCreator.getZMin()));
 
@@ -43,16 +56,28 @@ public class Game {
     }
 
     private static Map<UUID, Integer> shuffleWhile() {
+        int a = 0;
+
         while (true) {
             int temp = 0;
+            a++;
+
+            //Bukkit.broadcastMessage("ループ回数: " + a);
+
+            //a > 100回行くことはあり得ない、 もし運が悪かったらあるかも、> 1000 必要？
+            if(a > 100) {
+                return null;
+            }
 
             Map<UUID, Integer> hashmap = new HashMap<>();
 
             List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
             Collections.shuffle(onlinePlayers);
 
+            int players = (int) (PlayerDataUtil.getOnlinePlayers() / 1.5);
+
             List<Integer> cloneMapList = new ArrayList<>(GameInfo.mapList);
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : onlinePlayers) {
 
                 PlayerData data = PlayerDataUtil.getPlayerData(player);
 
@@ -73,7 +98,7 @@ public class Game {
                     }
 
                     if (foundNumber == 0) {
-                        if (temp++ > 1) {
+                        if (temp++ >= players) {
                             return null;
                         }
                     }

@@ -12,9 +12,9 @@ public class AreaCreator {
 
     private final int xMin, yMin, zMin, xMax, yMax, zMax;
 
-    private String author, mapName, theme, themePlayer;
+    private String author, mapName, theme, themePlayer, answerPlayer;
 
-    private UUID authorUUID, themeUUID;
+    private UUID authorUUID, themeUUID, answerUUID;
 
     public AreaCreator(String author, UUID authorUUID, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
         this.author = author;
@@ -30,7 +30,7 @@ public class AreaCreator {
         this.zMax = zMax;
     }
 
-    public AreaCreator(String author, UUID authorUUID, String mapName,Location location1, Location location2) {
+    public AreaCreator(String author, UUID authorUUID, String mapName, Location location1, Location location2) {
         this.author = author;
         this.authorUUID = authorUUID;
         this.mapName = mapName;

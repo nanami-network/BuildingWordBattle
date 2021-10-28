@@ -1,12 +1,10 @@
-package me.koutachan.buildingwordbattle.ConfigCache;
+package me.koutachan.buildingwordbattle;
 
-import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.ChatColorUtil;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public class ConfigCache {
+public class MessageManager {
 
     private static YamlConfiguration messageConfig;
     private static String prefix;

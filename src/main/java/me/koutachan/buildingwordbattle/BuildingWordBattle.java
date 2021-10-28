@@ -4,7 +4,6 @@ import me.koutachan.buildingwordbattle.Commands.AdminCommand;
 import me.koutachan.buildingwordbattle.Commands.ReloadConfig;
 import me.koutachan.buildingwordbattle.Commands.Start;
 import me.koutachan.buildingwordbattle.Commands.debug;
-import me.koutachan.buildingwordbattle.ConfigCache.ConfigCache;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -23,9 +22,9 @@ public final class BuildingWordBattle extends JavaPlugin {
 
         saveDefaultConfig();
 
-        ConfigCache.init();
+        MessageManager.init();
 
-        Bukkit.getConsoleSender().sendMessage(ConfigCache.getStringColor("firstMessage"));
+        Bukkit.getConsoleSender().sendMessage(MessageManager.getStringColor("firstMessage"));
 
         Bukkit.getServer().getPluginManager().registerEvents(new BukkitEvent(), this);
         getCommand("debug").setExecutor(new debug());

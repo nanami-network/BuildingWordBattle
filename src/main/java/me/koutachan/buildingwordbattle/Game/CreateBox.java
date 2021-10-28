@@ -18,7 +18,6 @@ import java.util.Map;
 public class CreateBox {
 
     public static Map<String, AreaCreator> areaCreatorMap = new HashMap<>();
-    public static int count;
 
     public static void start() {
         int x = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosX");
@@ -64,6 +63,6 @@ public class CreateBox {
             boxCreator.CreateCube(Material.QUARTZ_BLOCK, 0, 30, 0, 45, 0, 30, true);
 
             areaCreatorMap.put(i + "-" + round, new AreaCreator(null, null, i + "-" + round, location.clone().add(1, 1, 1), location.clone().add(29, 40, 29)));
-        }, count * 2L);
+        }, i * 2L);
     }
 }
