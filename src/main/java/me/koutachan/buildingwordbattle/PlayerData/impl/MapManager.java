@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 public class MapManager {
     private final PlayerData data;
-    private String whatMap;
+    private String whatMap, theme = "無し";
     private boolean breakable;
     private List<Integer> MapList = new ArrayList<>();
 
@@ -32,7 +32,10 @@ public class MapManager {
         for (AreaCreator areaCreator : CreateBox.areaCreatorMap.values()) {
             if (areaCreator.isArea(location)) {
                 whatMap = areaCreator.getMapName();
-                breakable = areaCreator.getAuthorUUID() == data.getPlayer().getUniqueId();
+                if(areaCreator.getAuthorUUID() == data.getPlayer().getUniqueId()) {
+                    breakable = true;
+                    theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "無し";
+                }
                 break;
             }
         }

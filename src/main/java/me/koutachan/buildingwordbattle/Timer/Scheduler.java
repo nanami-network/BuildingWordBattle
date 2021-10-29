@@ -20,7 +20,7 @@ public class Scheduler {
 
     public static long serverLagSpike;
 
-    public static int themeTime, themeCount;
+    public static int themeTime, themeCount, buildingCount;
 
     private BukkitTask bukkitTask;
 
@@ -90,6 +90,12 @@ public class Scheduler {
             }
 
             themeTime--;
+        }
+    }
+
+    private void buildingCount() {
+        if(GameInfo.nowState == GameStateEnum.BUILDING) {
+            buildingCount--;
         }
     }
 

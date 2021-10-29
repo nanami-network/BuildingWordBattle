@@ -18,6 +18,7 @@ public class ScoreBoard {
                 onDefault();
                 break;
             case GAME:
+                if (GameInfo.nowState == GameStateEnum.NULL) onDefault();
                 if (GameInfo.nowState == GameStateEnum.THEME) onGameTHEME();
                 if (GameInfo.nowState == GameStateEnum.BUILDING) onGameBUILDING();
                 if (GameInfo.nowState == GameStateEnum.ANSWER) onGameANSWER();
@@ -73,14 +74,14 @@ public class ScoreBoard {
             data.getScoreBoardManager().getScoreboard().setAll(
                     ChatColorUtil.translateAlternateColorCodes("&1"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtil.translateAlternateColorCodes("&2"),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.buildingCount)),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.round, GameInfo.maxRound))),
-                    ChatColorUtil.translateAlternateColorCodes("&3"),
+                    ChatColorUtil.translateAlternateColorCodes("&2"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatColorUtil.translateAlternateColorCodes("&4"),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
-                    ChatColorUtil.translateAlternateColorCodes("&5")
+                    ChatColorUtil.translateAlternateColorCodes("&3"),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&e お題: %s", data.getMapManager().getTheme())),
+                    ChatColorUtil.translateAlternateColorCodes("&4")
             );
         }
     }

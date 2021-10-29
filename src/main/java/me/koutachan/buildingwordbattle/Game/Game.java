@@ -50,6 +50,9 @@ public class Game {
                     player.teleport(new Location(world, vector.getX(), vector.getY(), vector.getZ()));
                 }
             }
+
+            //カウントダウン開始
+
         } else {
             //ゲーム終了
         }
@@ -64,7 +67,7 @@ public class Game {
 
             //Bukkit.broadcastMessage("ループ回数: " + a);
 
-            //a > 100回行くことはあり得ない、 もし運が悪かったらあるかも、> 1000 必要？
+            //a > 100回行くことはあり得ない、 もし運が悪かったらあるかも。
             if(a > 100) {
                 return null;
             }

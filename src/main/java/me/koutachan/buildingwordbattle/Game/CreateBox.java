@@ -3,14 +3,11 @@ package me.koutachan.buildingwordbattle.Game;
 import me.koutachan.buildingwordbattle.BoxCreator;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
-import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,25 +21,11 @@ public class CreateBox {
         int y = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosY");
         int z = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosZ");
 
-        int temp = GameInfo.mapListSize != 0 ? GameInfo.mapListSize : tempGen();
+        int temp = GameInfo.mapListSize != 0 ? GameInfo.mapListSize : PlayerDataUtil.getOnlinePlayers();
 
         for (int i = 1; i <= temp; i++) {
             run(i, x, y, z);
         }
-    }
-
-    private static int tempGen() {
-        int temp = 0;
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-
-            PlayerData data = PlayerDataUtil.getPlayerData(player);
-
-            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-                temp++;
-            }
-        }
-        return temp;
     }
 
     private static void run(int i, int x, int y, int z) {
