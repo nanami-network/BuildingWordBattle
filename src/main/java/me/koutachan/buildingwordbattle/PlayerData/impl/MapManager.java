@@ -3,6 +3,7 @@ package me.koutachan.buildingwordbattle.PlayerData.impl;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.Game.CreateBox;
+import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import org.bukkit.Location;
@@ -14,28 +15,32 @@ import java.util.List;
 @Setter
 public class MapManager {
     private final PlayerData data;
-    private String whatMap, theme = "無し";
+    private String MapName, theme;
     private boolean breakable;
     private List<Integer> MapList = new ArrayList<>();
 
     public MapManager(PlayerData playerData) {
         this.data = playerData;
-        this.whatMap = "NONE";
     }
 
     public void handle() {
         Location location = data.getPlayer().getLocation();
 
-        whatMap = "NONE";
+        MapName = "NONE";
+        theme = "無し";
         breakable = false;
 
-        for (AreaCreator areaCreator : CreateBox.areaCreatorMap.values()) {
-            if (areaCreator.isArea(location)) {
-                whatMap = areaCreator.getMapName();
+        for (int map : MapList) {
+            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(map + "-" + GameInfo.round);
+
+            if(areaCreator.isArea(location)) {
+                MapName = areaCreator.getMapName();
+
                 if(areaCreator.getAuthorUUID() == data.getPlayer().getUniqueId()) {
                     breakable = true;
-                    theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "無し";
+                    theme = areaCreator.getTheme();
                 }
+
                 break;
             }
         }

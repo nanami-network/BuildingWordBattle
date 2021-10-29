@@ -2,6 +2,7 @@ package me.koutachan.buildingwordbattle.Timer;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Game.Game;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.Game.Theme;
@@ -37,6 +38,7 @@ public class Scheduler {
 
             playerDataUpdate();
             themeActionBar();
+            buildingCount();
             updateBoard();
         }, 0, 20);
     }
@@ -94,7 +96,13 @@ public class Scheduler {
     }
 
     private void buildingCount() {
-        if(GameInfo.nowState == GameStateEnum.BUILDING) {
+        if (GameInfo.nowState == GameStateEnum.BUILDING) {
+
+            if (buildingCount <= 0) {
+                Game.startAnswer();
+                return;
+            }
+
             buildingCount--;
         }
     }

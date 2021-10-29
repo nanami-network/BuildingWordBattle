@@ -1,5 +1,6 @@
 package me.koutachan.buildingwordbattle.Game;
 
+import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
@@ -14,7 +15,6 @@ import java.util.*;
 
 public class Game {
     public static void startShuffle() {
-
 
         Map<UUID, Integer> shuffle = shuffleWhile();
 
@@ -115,5 +115,13 @@ public class Game {
                 return hashmap;
             }
         }
+    }
+
+    public static void startAnswer() {
+        GameInfo.nowState = GameStateEnum.ANSWER;
+
+        startShuffle();
+
+        Bukkit.broadcastMessage("回答タイム！");
     }
 }
