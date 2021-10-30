@@ -98,6 +98,22 @@ public class Scheduler {
     private void buildingCount() {
         if (GameInfo.nowState == GameStateEnum.BUILDING) {
 
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+
+                PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+
+                    String theme = data.getMapManager().getTheme();
+
+                    try {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));
+                    } catch (NoSuchMethodError ignored) {
+                    }
+                }
+            }
+
             if (buildingCount <= 0) {
                 Game.startAnswer();
                 return;

@@ -79,10 +79,15 @@ public class BukkitEvent implements Listener {
 
             e.setCancelled(true);
 
-            for (AreaCreator areaCreator : CreateBox.areaCreatorMap.values()) {
-                if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
-                    e.setCancelled(false);
-                    break;
+            if (GameInfo.nowState == GameStateEnum.BUILDING) {
+                for (int mapID : data.getMapManager().getMapList()) {
+
+                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.round);
+
+                    if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
+                        e.setCancelled(false);
+                        break;
+                    }
                 }
             }
         }

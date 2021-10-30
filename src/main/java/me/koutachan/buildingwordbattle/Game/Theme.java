@@ -7,6 +7,7 @@ import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -50,9 +51,6 @@ public class Theme {
                     GameInfo.mapList.add(count);
                     data.getMapManager().addMap(count);
                     data.getThemeManager().setThemeMap(count);
-
-                    //areaCreator.setAuthor(data.getPlayer().getName());
-                    //areaCreator.setAuthorUUID(data.getPlayer().getUniqueId());
                 }
             }
 
@@ -61,6 +59,8 @@ public class Theme {
             GameInfo.round = 1;
 
             Game.startShuffle();
+
+            Scheduler.buildingCount = BuildingWordBattle.INSTANCE.getConfig().getInt("buldingTime");
         }, Bukkit.getOnlinePlayers().size() * 3L);
     }
 }

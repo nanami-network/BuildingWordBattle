@@ -1,5 +1,6 @@
 package me.koutachan.buildingwordbattle.Game;
 
+import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
@@ -34,6 +35,8 @@ public class Game {
                         case BUILDING: {
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
+
+                            player.sendMessage(ChatColorUtil.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
                             break;
                         }
                         case ANSWER: {
@@ -68,7 +71,7 @@ public class Game {
             //Bukkit.broadcastMessage("ループ回数: " + a);
 
             //a > 100回行くことはあり得ない、 もし運が悪かったらあるかも。
-            if(a > 100) {
+            if (a > 100) {
                 return null;
             }
 
