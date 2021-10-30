@@ -56,6 +56,7 @@ public class Theme {
 
             //GameInfo.maxRound = count;
             GameInfo.mapListSize = GameInfo.mapList.size();
+            GameInfo.round = 1;
             GameInfo.buildRound = 1;
 
             Game.startShuffle();

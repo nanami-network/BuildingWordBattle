@@ -1,10 +1,7 @@
 package me.koutachan.buildingwordbattle.PlayerData;
 
 import lombok.Getter;
-import me.koutachan.buildingwordbattle.PlayerData.impl.MapManager;
-import me.koutachan.buildingwordbattle.PlayerData.impl.ScoreBoardManager;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamManager;
-import me.koutachan.buildingwordbattle.PlayerData.impl.ThemeManager;
+import me.koutachan.buildingwordbattle.PlayerData.impl.*;
 import org.bukkit.entity.Player;
 
 @Getter
@@ -17,6 +14,7 @@ public class PlayerData {
         this.mapManager = new MapManager(this);
         this.teamManager = new TeamManager(this);
         this.themeManager = new ThemeManager(this);
+        this.answerManager = new AnswerManager(this);
     }
 
     private final Player player;
@@ -24,4 +22,5 @@ public class PlayerData {
     private final MapManager mapManager;
     private final TeamManager teamManager;
     private final ThemeManager themeManager;
+    private final AnswerManager answerManager;
 }

@@ -33,6 +33,8 @@ public class Game {
 
                     switch (GameInfo.nowState) {
                         case BUILDING: {
+                            GameInfo.round++;
+
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
 
@@ -40,6 +42,8 @@ public class Game {
                             break;
                         }
                         case ANSWER: {
+                            GameInfo.round++;
+
                             areaCreator.setAnswerPlayer(player.getName());
                             areaCreator.setAnswerUUID(player.getUniqueId());
                         }
@@ -120,13 +124,14 @@ public class Game {
         }
     }
 
-    //ここでのMaxRoundは 回答 又は 建築で１ラウンドとする
+    //ここでの1ラウンドは 回答 又は 建築で１ラウンドとする
     public static int getMaxRound() {
         int onlinePlayers = PlayerDataUtil.getOnlinePlayers();
 
         // onlinePlayers
         // - 1
         // 奇数 - 1
+        // 奇数の場合、建築の後回答できないため減らす。
 
         int maxRound = onlinePlayers - 1;
         boolean i = maxRound % 2 != 0;

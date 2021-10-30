@@ -68,6 +68,66 @@ public class BukkitEvent implements Listener {
                 data.getThemeManager().setTheme(e.getMessage());
             }
         }
+
+        if (GameInfo.nowState == GameStateEnum.THEME) {
+
+            PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+
+            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+
+                e.setCancelled(true);
+
+                if (e.getMessage().length() > 16) {
+                    e.getPlayer().sendMessage(ChatColor.RED + "お題は16文字までです！");
+                    try {
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
+                    } catch (NoSuchFieldError ignored) {
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("ANVIL_LAND"), 1f, 1f);
+                    }
+                    return;
+                }
+
+                e.getPlayer().sendMessage(ChatColorUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
+
+                try {
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+                } catch (NoSuchFieldError ignored) {
+                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("LEVEL_UP"), 1f, 1f);
+                }
+
+                data.getThemeManager().setTheme(e.getMessage());
+            }
+        } else {
+            if (GameInfo.nowState == GameStateEnum.ANSWER) {
+
+                PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+
+                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+
+                    e.setCancelled(true);
+
+                    if (e.getMessage().length() > 16) {
+                        e.getPlayer().sendMessage(ChatColor.RED + "回答は16文字までです！");
+                        try {
+                            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
+                        } catch (NoSuchFieldError ignored) {
+                            e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("ANVIL_LAND"), 1f, 1f);
+                        }
+                        return;
+                    }
+
+                    e.getPlayer().sendMessage(ChatColorUtil.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
+
+                    try {
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+                    } catch (NoSuchFieldError ignored) {
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("LEVEL_UP"), 1f, 1f);
+                    }
+
+                    data.getAnswerManager().setAnswer(e.getMessage());
+                }
+            }
+        }
     }
 
     @EventHandler
@@ -102,10 +162,15 @@ public class BukkitEvent implements Listener {
 
             e.setCancelled(true);
 
-            for (AreaCreator areaCreator : CreateBox.areaCreatorMap.values()) {
-                if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
-                    e.setCancelled(false);
-                    break;
+            if (GameInfo.nowState == GameStateEnum.BUILDING) {
+                for (int mapID : data.getMapManager().getMapList()) {
+
+                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+
+                    if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
+                        e.setCancelled(false);
+                        break;
+                    }
                 }
             }
         }

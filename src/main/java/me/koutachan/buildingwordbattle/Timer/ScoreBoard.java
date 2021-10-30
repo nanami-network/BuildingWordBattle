@@ -25,7 +25,6 @@ public class ScoreBoard {
         }
     }
 
-
     private static void onDefault() {
         for (Player player : Bukkit.getOnlinePlayers()) {
 
@@ -75,7 +74,7 @@ public class ScoreBoard {
                     ChatColorUtil.translateAlternateColorCodes("&1"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.buildingCount)),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.buildRound, GameInfo.maxRound))),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.round, GameInfo.maxRound))),
                     ChatColorUtil.translateAlternateColorCodes("&2"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
@@ -85,7 +84,6 @@ public class ScoreBoard {
             );
         }
     }
-
 
     private static void onGameANSWER() {
         for (Player player : Bukkit.getOnlinePlayers()) {

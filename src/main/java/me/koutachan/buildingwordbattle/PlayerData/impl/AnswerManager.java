@@ -3,18 +3,14 @@ package me.koutachan.buildingwordbattle.PlayerData.impl;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
 
 @Getter
 @Setter
-public class TeamManager {
-
+public class AnswerManager {
     private final PlayerData data;
+    private String answer;
 
-    public TeamManager(PlayerData playerData) {
+    public AnswerManager(PlayerData playerData) {
         this.data = playerData;
     }
-
-    private TeamEnum currentTeam = TeamEnum.SPEC;
-    private boolean isStreamer = false;
 }
