@@ -73,7 +73,7 @@ public class ScoreBoard {
             data.getScoreBoardManager().getScoreboard().setAll(
                     ChatColorUtil.translateAlternateColorCodes("&1"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.buildingCount)),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.buildingTime)),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.round, GameInfo.maxRound))),
                     ChatColorUtil.translateAlternateColorCodes("&2"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
@@ -93,7 +93,7 @@ public class ScoreBoard {
             data.getScoreBoardManager().getScoreboard().setAll(
                     ChatColorUtil.translateAlternateColorCodes("&1"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtil.translateAlternateColorCodes("&2"),
+                    ChatColorUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.answerTime)),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.buildRound, GameInfo.maxRound))),
                     ChatColorUtil.translateAlternateColorCodes("&3"),
                     ChatColorUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),

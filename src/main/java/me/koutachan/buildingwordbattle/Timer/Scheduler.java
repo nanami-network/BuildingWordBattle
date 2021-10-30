@@ -21,7 +21,7 @@ public class Scheduler {
 
     public static long serverLagSpike;
 
-    public static int themeTime, themeCount, buildingCount;
+    public static int themeTime, themeCount, buildingTime, answerTime;
 
     private BukkitTask bukkitTask;
 
@@ -40,7 +40,8 @@ public class Scheduler {
 
             playerDataUpdate();
             themeActionBar();
-            buildingCount();
+            buildingTime();
+            answerTime();
             updateBoard();
         }, 0, 20);
     }
@@ -97,7 +98,7 @@ public class Scheduler {
         }
     }
 
-    private void buildingCount() {
+    private void buildingTime() {
         if (GameInfo.nowState == GameStateEnum.BUILDING) {
 
 
@@ -116,12 +117,40 @@ public class Scheduler {
                 }
             }
 
-            if (buildingCount <= 0) {
+            if (buildingTime <= 0) {
                 Game.startAnswer();
                 return;
             }
 
-            buildingCount--;
+            buildingTime--;
+        }
+    }
+
+    private void answerTime() {
+        if (GameInfo.nowState == GameStateEnum.BUILDING) {
+
+
+            for (Player player : Bukkit.getOnlinePlayers()) {
+
+                PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+
+                    String answer = data.getAnswerManager().getAnswer() != null ? data.getAnswerManager().getAnswer() : "回答無し";
+
+                    try {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(answer));
+                    } catch (NoSuchMethodError ignored) {
+                    }
+                }
+            }
+
+            if (answerTime <= 0) {
+                Game.startAnswer();
+                return;
+            }
+
+            answerTime--;
         }
     }
 

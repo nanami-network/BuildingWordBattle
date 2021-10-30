@@ -1,11 +1,13 @@
 package me.koutachan.buildingwordbattle.Game;
 
+import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -147,5 +149,7 @@ public class Game {
         startShuffle();
 
         Bukkit.broadcastMessage("回答タイム！");
+
+        Scheduler.answerTime = BuildingWordBattle.INSTANCE.getConfig().getInt("answerTime");
     }
 }

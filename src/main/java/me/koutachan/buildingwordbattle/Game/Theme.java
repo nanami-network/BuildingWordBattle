@@ -17,7 +17,6 @@ import java.util.List;
 
 public class Theme {
     public static void startShuffle() {
-
         CreateBox.start();
 
         Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
@@ -56,12 +55,11 @@ public class Theme {
 
             //GameInfo.maxRound = count;
             GameInfo.mapListSize = GameInfo.mapList.size();
-            GameInfo.round = 1;
             GameInfo.buildRound = 1;
 
             Game.startShuffle();
 
-            Scheduler.buildingCount = BuildingWordBattle.INSTANCE.getConfig().getInt("buldingTime");
+            Scheduler.buildingTime = BuildingWordBattle.INSTANCE.getConfig().getInt("buldingTime");
         }, Bukkit.getOnlinePlayers().size() * 3L);
     }
 }
