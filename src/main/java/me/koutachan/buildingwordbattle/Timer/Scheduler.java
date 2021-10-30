@@ -36,6 +36,8 @@ public class Scheduler {
 
             this.systemTime = System.currentTimeMillis();
 
+            GameInfo.maxRound = Game.getMaxRound();
+
             playerDataUpdate();
             themeActionBar();
             buildingCount();

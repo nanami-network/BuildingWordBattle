@@ -34,7 +34,7 @@ public class CreateBox {
 
             World world = Bukkit.getWorld("world");
 
-            int round = GameInfo.round != 0 ? GameInfo.round : 1;
+            int round = GameInfo.buildRound != 0 ? GameInfo.buildRound : 1;
 
             int newX = x + (i * 31);
             int newZ = z + ((round - 1) * 31);

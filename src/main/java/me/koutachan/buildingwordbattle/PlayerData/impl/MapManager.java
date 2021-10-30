@@ -31,7 +31,7 @@ public class MapManager {
         breakable = false;
 
         for (int map : MapList) {
-            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(map + "-" + GameInfo.round);
+            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(map + "-" + GameInfo.buildRound);
 
             if(areaCreator.isArea(location)) {
                 MapName = areaCreator.getMapName();

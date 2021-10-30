@@ -29,7 +29,7 @@ public class Game {
 
                     data.getMapManager().addMap(mapID);
 
-                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.round);
+                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
 
                     switch (GameInfo.nowState) {
                         case BUILDING: {
@@ -118,6 +118,22 @@ public class Game {
                 return hashmap;
             }
         }
+    }
+
+    //ここでのMaxRoundは 回答 又は 建築で１ラウンドとする
+    public static int getMaxRound() {
+        int onlinePlayers = PlayerDataUtil.getOnlinePlayers();
+
+        // onlinePlayers
+        // - 1
+        // 奇数 - 1
+
+        int maxRound = onlinePlayers - 1;
+        boolean i = maxRound % 2 != 0;
+
+        if (i) maxRound -= 1;
+
+        return maxRound;
     }
 
     public static void startAnswer() {
