@@ -2,6 +2,7 @@ package me.koutachan.buildingwordbattle.Game;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
@@ -35,7 +36,6 @@ public class Game {
 
                     switch (GameInfo.nowState) {
                         case BUILDING: {
-                            GameInfo.round++;
 
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
@@ -44,10 +44,11 @@ public class Game {
                             break;
                         }
                         case ANSWER: {
-                            GameInfo.round++;
 
                             areaCreator.setAnswerPlayer(player.getName());
                             areaCreator.setAnswerUUID(player.getUniqueId());
+
+                            areaCreator = Utilities(mapID);
                         }
                     }
 
@@ -126,6 +127,31 @@ public class Game {
         }
     }
 
+    private static AreaCreator Utilities(int mapID) {
+
+        int count = GameInfo.buildRound;
+
+        while (true) {
+
+            if (count < 1) {
+                //invalid
+                return null;
+            }
+
+            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + count);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (areaCreator.getAuthorUUID() == player.getUniqueId()) {
+                    PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                    if (data != null && data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                        return areaCreator;
+                    }
+                }
+            }
+            count--;
+        }
+    }
+
     //ここでの1ラウンドは 回答 又は 建築で１ラウンドとする
     public static int getMaxRound() {
         int onlinePlayers = PlayerDataUtil.getOnlinePlayers();
@@ -136,9 +162,9 @@ public class Game {
         // 奇数の場合、建築の後回答できないため減らす。
 
         int maxRound = onlinePlayers - 1;
-        boolean i = maxRound % 2 != 0;
+        boolean modulo = maxRound % 2 != 0;
 
-        if (i) maxRound -= 1;
+        if (modulo) maxRound -= 1;
 
         return maxRound;
     }
@@ -150,6 +176,32 @@ public class Game {
 
         Bukkit.broadcastMessage("回答タイム！");
 
+        GameInfo.round++;
+
         Scheduler.answerTime = BuildingWordBattle.INSTANCE.getConfig().getInt("answerTime");
+    }
+
+    public static void resetGame() {
+        GameInfo.nowState = GameStateEnum.NULL;
+        GameInfo.gameState = GameEnum.LOBBY;
+        GameInfo.mapList.clear();
+        GameInfo.round = 0;
+        GameInfo.buildRound = 0;
+        GameInfo.maxRound = 0;
+
+        CreateBox.areaCreatorMap.clear();
+
+        Scheduler.answerTime = 0;
+        Scheduler.themeTime = 0;
+        Scheduler.buildingTime = 0;
+        Scheduler.themeCount = 0;
+
+        Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&7プレイヤーデータの再生成中・・・"));
+
+        PlayerDataUtil.playerDataHashMap.clear();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerDataUtil.createPlayerData(player);
+        }
     }
 }

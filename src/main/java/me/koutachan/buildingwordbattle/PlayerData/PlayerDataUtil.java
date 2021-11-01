@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 @UtilityClass
 public class PlayerDataUtil {
-    private final Map<UUID, PlayerData> playerDataHashMap = new HashMap<>();
+    public static final Map<UUID, PlayerData> playerDataHashMap = new HashMap<>();
 
     public PlayerData getPlayerData(Player player) {
         return playerDataHashMap.get(player.getUniqueId());

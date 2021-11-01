@@ -21,7 +21,7 @@ public class CreateBox {
         int y = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosY");
         int z = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosZ");
 
-        int temp = GameInfo.mapListSize != 0 ? GameInfo.mapListSize : PlayerDataUtil.getOnlinePlayers();
+        int temp = GameInfo.mapList.size() != 0 ? GameInfo.mapList.size() : PlayerDataUtil.getOnlinePlayers();
 
         for (int i = 1; i <= temp; i++) {
             run(i, x, y, z);

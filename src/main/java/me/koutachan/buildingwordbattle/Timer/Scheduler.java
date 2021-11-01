@@ -2,6 +2,7 @@ package me.koutachan.buildingwordbattle.Timer;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Game.Build;
 import me.koutachan.buildingwordbattle.Game.Game;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
@@ -39,7 +40,7 @@ public class Scheduler {
             GameInfo.maxRound = Game.getMaxRound();
 
             playerDataUpdate();
-            themeActionBar();
+            themeTime();
             buildingTime();
             answerTime();
             updateBoard();
@@ -56,7 +57,7 @@ public class Scheduler {
         }
     }
 
-    private void themeActionBar() {
+    private void themeTime() {
         if (GameInfo.nowState == GameStateEnum.THEME) {
 
             themeCount = 0;
@@ -127,7 +128,7 @@ public class Scheduler {
     }
 
     private void answerTime() {
-        if (GameInfo.nowState == GameStateEnum.BUILDING) {
+        if (GameInfo.nowState == GameStateEnum.ANSWER) {
 
 
             for (Player player : Bukkit.getOnlinePlayers()) {
@@ -146,7 +147,8 @@ public class Scheduler {
             }
 
             if (answerTime <= 0) {
-                Game.startAnswer();
+                Build.startShuffle();
+                //Theme.startShuffle();
                 return;
             }
 

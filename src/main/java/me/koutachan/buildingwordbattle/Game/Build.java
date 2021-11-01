@@ -15,9 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Theme {
+public class Build {
     public static void startShuffle() {
+
         GameInfo.buildRound++;
+        GameInfo.round++;
+
         CreateBox.start();
 
         Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
@@ -28,11 +31,9 @@ public class Theme {
             List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
             Collections.shuffle(onlinePlayers);
 
-            Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ ゲームを開始します"));
+            Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ 次のラウンドを開始します！"));
 
             GameInfo.nowState = GameStateEnum.BUILDING;
-
-            int count = 0;
 
             for (Player player : onlinePlayers) {
 
@@ -40,27 +41,53 @@ public class Theme {
 
                 if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
-                    count++;
+                    int id = data.getThemeManager().getThemeMap();
 
-                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(count + "-" + 1);
-                    areaCreator.setTheme(data.getThemeManager().getTheme());
-                    areaCreator.setThemePlayer(player.getName());
-                    areaCreator.setThemeUUID(player.getUniqueId());
+                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(id + "-" + GameInfo.buildRound);
 
+                    PlayerData themeData = Utilities(id);
 
-                    GameInfo.mapList.add(count);
-                    data.getMapManager().addMap(count);
-                    data.getThemeManager().setThemeMap(count);
+                    if (themeData != null) {
+                        areaCreator.setTheme(themeData.getAnswerManager().getAnswer());
+                        areaCreator.setThemePlayer(themeData.getPlayer().getName());
+                        areaCreator.setThemeUUID(themeData.getPlayer().getUniqueId());
+                    } else {
+                        areaCreator.setTheme(null);
+                        areaCreator.setThemePlayer(null);
+                        areaCreator.setThemeUUID(null);
+                    }
                 }
             }
 
-            //GameInfo.maxRound = count;
-            //GameInfo.buildRound = 1;
-
-            GameInfo.round = 1;
             Game.startShuffle();
 
             Scheduler.buildingTime = BuildingWordBattle.INSTANCE.getConfig().getInt("buldingTime");
         }, Bukkit.getOnlinePlayers().size() * 3L);
+    }
+
+    private static PlayerData Utilities(int mapID) {
+
+        int count = GameInfo.buildRound;
+
+        while (true) {
+
+            count--;
+
+            if (count < 1) {
+                //invalid
+                return null;
+            }
+
+            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + count);
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (areaCreator.getAnswerUUID() == player.getUniqueId()) {
+                    PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                    if (data != null && data.getAnswerManager().getAnswer() != null) {
+                        return data;
+                    }
+                }
+            }
+        }
     }
 }
