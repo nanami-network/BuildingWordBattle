@@ -4,5 +4,6 @@ public enum GameStateEnum {
     BUILDING,
     ANSWER,
     THEME,
+    SPEC,
     NULL
 }

@@ -1,8 +1,8 @@
-package me.koutachan.buildingwordbattle;
+package me.koutachan.buildingwordbattle.Utilities;
 
 import org.bukkit.ChatColor;
 
-public class ChatColorUtil {
+public class ChatColorUtility {
 
     public static String translateAlternateColorCodes(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);

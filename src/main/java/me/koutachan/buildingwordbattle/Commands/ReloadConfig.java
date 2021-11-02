@@ -1,8 +1,8 @@
 package me.koutachan.buildingwordbattle.Commands;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.ChatColorUtil;
-import me.koutachan.buildingwordbattle.MessageManager;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +13,7 @@ public class ReloadConfig implements CommandExecutor {
         BuildingWordBattle.INSTANCE.reloadConfig();
         MessageManager.reload();
 
-        sender.sendMessage(ChatColorUtil.translateAlternateColorCodes("&bConfig / Message ファイルを再読み込みしました"));
+        sender.sendMessage(ChatColorUtility.translateAlternateColorCodes("&bConfig / Message ファイルを再読み込みしました"));
 
         return true;
     }

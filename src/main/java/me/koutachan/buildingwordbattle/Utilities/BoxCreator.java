@@ -1,4 +1,4 @@
-package me.koutachan.buildingwordbattle;
+package me.koutachan.buildingwordbattle.Utilities;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

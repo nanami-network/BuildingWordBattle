@@ -7,9 +7,11 @@ import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +19,9 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.util.Vector;
 
 public class BukkitEvent implements Listener {
 
@@ -57,7 +61,7 @@ public class BukkitEvent implements Listener {
                     return;
                 }
 
-                e.getPlayer().sendMessage(ChatColorUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
+                e.getPlayer().sendMessage(ChatColorUtility.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
 
                 try {
                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
@@ -86,7 +90,7 @@ public class BukkitEvent implements Listener {
                         return;
                     }
 
-                    e.getPlayer().sendMessage(ChatColorUtil.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
+                    e.getPlayer().sendMessage(ChatColorUtility.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
 
                     try {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
@@ -142,6 +146,24 @@ public class BukkitEvent implements Listener {
                         break;
                     }
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void moveEvent(PlayerMoveEvent e) {
+        PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+
+        if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+            int mapID = data.getMapManager().getLastMapID();
+
+            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+
+            if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation())) {
+                Vector middle = areaCreator.getMiddle();
+
+                e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
+                e.getPlayer().sendMessage("マップ外に移動しないでください！");
             }
         }
     }

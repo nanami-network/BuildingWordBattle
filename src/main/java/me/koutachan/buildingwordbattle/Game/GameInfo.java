@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameInfo {
-    public static int buildRound, round, maxRound;
+    public static int buildRound, round, maxRound, cacheMapSize;
 
     public static GameEnum gameState = GameEnum.LOBBY;
 

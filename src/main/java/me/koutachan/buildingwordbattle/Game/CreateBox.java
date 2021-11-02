@@ -1,6 +1,6 @@
 package me.koutachan.buildingwordbattle.Game;
 
-import me.koutachan.buildingwordbattle.BoxCreator;
+import me.koutachan.buildingwordbattle.Utilities.BoxCreator;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
@@ -21,7 +21,7 @@ public class CreateBox {
         int y = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosY");
         int z = BuildingWordBattle.INSTANCE.getConfig().getInt("startPosZ");
 
-        int temp = GameInfo.mapList.size() != 0 ? GameInfo.mapList.size() : PlayerDataUtil.getOnlinePlayers();
+        int temp = GameInfo.cacheMapSize != 0 ? GameInfo.cacheMapSize : PlayerDataUtil.getOnlinePlayers();
 
         for (int i = 1; i <= temp; i++) {
             run(i, x, y, z);

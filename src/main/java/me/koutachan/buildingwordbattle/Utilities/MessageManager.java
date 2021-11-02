@@ -1,5 +1,6 @@
-package me.koutachan.buildingwordbattle;
+package me.koutachan.buildingwordbattle.Utilities;
 
+import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -14,7 +15,7 @@ public class MessageManager {
     }
 
     public static String getStringColor(String key) {
-        return ChatColorUtil.translateAlternateColorCodes(messageConfig.getString(key).replaceAll("%prefix%", prefix));
+        return ChatColorUtility.translateAlternateColorCodes(messageConfig.getString(key).replaceAll("%prefix%", prefix));
     }
 
     public static void reload() {

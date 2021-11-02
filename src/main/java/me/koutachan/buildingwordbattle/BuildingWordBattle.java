@@ -5,6 +5,7 @@ import me.koutachan.buildingwordbattle.Commands.ReloadConfig;
 import me.koutachan.buildingwordbattle.Commands.Start;
 import me.koutachan.buildingwordbattle.Commands.debug;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
+import me.koutachan.buildingwordbattle.Utilities.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.plugin.java.JavaPlugin;

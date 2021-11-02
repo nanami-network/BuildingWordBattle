@@ -1,6 +1,6 @@
 package me.koutachan.buildingwordbattle.Commands;
 
-import me.koutachan.buildingwordbattle.BoxCreator;
+import me.koutachan.buildingwordbattle.Utilities.BoxCreator;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import org.bukkit.Chunk;
 import org.bukkit.Location;

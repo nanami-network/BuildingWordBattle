@@ -2,7 +2,7 @@ package me.koutachan.buildingwordbattle.PlayerData;
 
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,7 +1,7 @@
 package me.koutachan.buildingwordbattle.Timer;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import me.koutachan.buildingwordbattle.Game.Build;
 import me.koutachan.buildingwordbattle.Game.Game;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
@@ -9,7 +9,7 @@ import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.Game.Theme;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -80,7 +80,7 @@ public class Scheduler {
                         themeCount++;
                     }
 
-                    theme = ChatColorUtil.translateAlternateColorCodes(" &6[お題] " + theme);
+                    theme = ChatColorUtility.translateAlternateColorCodes(" &6[お題] " + theme);
 
                     try {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));

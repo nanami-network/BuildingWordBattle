@@ -18,6 +18,7 @@ public class MapManager {
     private String MapName, theme;
     private boolean breakable;
     private List<Integer> MapList = new ArrayList<>();
+    private int lastMapID;
 
     public MapManager(PlayerData playerData) {
         this.data = playerData;
@@ -48,5 +49,6 @@ public class MapManager {
 
     public void addMap(int mapID) {
         MapList.add(mapID);
+        lastMapID = mapID;
     }
 }

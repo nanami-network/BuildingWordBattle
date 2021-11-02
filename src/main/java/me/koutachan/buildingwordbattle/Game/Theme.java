@@ -1,12 +1,12 @@
 package me.koutachan.buildingwordbattle.Game;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -20,7 +20,7 @@ public class Theme {
         GameInfo.buildRound++;
         CreateBox.start();
 
-        Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
+        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
 
 
         Bukkit.getScheduler().runTaskLater(BuildingWordBattle.INSTANCE, () -> {
@@ -28,7 +28,7 @@ public class Theme {
             List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
             Collections.shuffle(onlinePlayers);
 
-            Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ ゲームを開始します"));
+            Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aマップ生成が終了しました！ ゲームを開始します"));
 
             GameInfo.nowState = GameStateEnum.BUILDING;
 
@@ -58,6 +58,7 @@ public class Theme {
             //GameInfo.buildRound = 1;
 
             GameInfo.round = 1;
+            GameInfo.cacheMapSize = count;
             Game.startShuffle();
 
             Scheduler.buildingTime = BuildingWordBattle.INSTANCE.getConfig().getInt("buldingTime");

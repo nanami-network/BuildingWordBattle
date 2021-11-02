@@ -3,6 +3,7 @@ package me.koutachan.buildingwordbattle.Map;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
+import org.bukkit.util.Vector;
 
 import java.util.UUID;
 
@@ -69,5 +70,9 @@ public class AreaCreator {
 
     public boolean isArea(Location location) {
         return (location.getBlockX() <= xMax && location.getBlockX() >= xMin) && (location.getBlockY() <= yMax && location.getBlockY() >= yMin) && (location.getBlockZ() <= zMax && location.getBlockZ() >= zMin);
+    }
+
+    public Vector getMiddle() {
+        return new Vector(xMax, yMax, zMax).getMidpoint(new Vector(xMin, yMin, zMin));
     }
 }

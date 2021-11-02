@@ -1,13 +1,14 @@
 package me.koutachan.buildingwordbattle.Game;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Utilities.BuildingWordUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -40,7 +41,7 @@ public class Game {
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
 
-                            player.sendMessage(ChatColorUtil.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
+                            player.sendMessage(ChatColorUtility.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
                             break;
                         }
                         case ANSWER: {
@@ -48,16 +49,20 @@ public class Game {
                             areaCreator.setAnswerPlayer(player.getName());
                             areaCreator.setAnswerUUID(player.getUniqueId());
 
-                            areaCreator = Utilities(mapID);
+                            AreaCreator tempAreaCreator = BuildingWordUtility.getMap(mapID);
+
+                            if(tempAreaCreator != null) {
+                                areaCreator = tempAreaCreator;
+                            }
                         }
                     }
 
                     World world = Bukkit.getWorld("world");
 
 
-                    Vector vector = new Vector(areaCreator.getXMax(), areaCreator.getYMax(), areaCreator.getZMax()).getMidpoint(new Vector(areaCreator.getXMin(), areaCreator.getYMin(), areaCreator.getZMin()));
+                    Vector middle = areaCreator.getMiddle();
 
-                    player.teleport(new Location(world, vector.getX(), vector.getY(), vector.getZ()));
+                    player.teleport(new Location(world, middle.getX(), middle.getY(), middle.getZ()));
                 }
             }
 
@@ -127,31 +132,6 @@ public class Game {
         }
     }
 
-    private static AreaCreator Utilities(int mapID) {
-
-        int count = GameInfo.buildRound;
-
-        while (true) {
-
-            if (count < 1) {
-                //invalid
-                return null;
-            }
-
-            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + count);
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (areaCreator.getAuthorUUID() == player.getUniqueId()) {
-                    PlayerData data = PlayerDataUtil.getPlayerData(player);
-
-                    if (data != null && data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-                        return areaCreator;
-                    }
-                }
-            }
-            count--;
-        }
-    }
-
     //ここでの1ラウンドは 回答 又は 建築で１ラウンドとする
     public static int getMaxRound() {
         int onlinePlayers = PlayerDataUtil.getOnlinePlayers();
@@ -196,7 +176,7 @@ public class Game {
         Scheduler.buildingTime = 0;
         Scheduler.themeCount = 0;
 
-        Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&7プレイヤーデータの再生成中・・・"));
+        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&7プレイヤーデータの再生成中・・・"));
 
         PlayerDataUtil.playerDataHashMap.clear();
 

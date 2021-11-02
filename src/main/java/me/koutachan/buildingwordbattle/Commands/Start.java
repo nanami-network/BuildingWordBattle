@@ -1,13 +1,13 @@
 package me.koutachan.buildingwordbattle.Commands;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.ChatColorUtil;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.TeamEnum.TeamEnum;
+import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -53,7 +53,7 @@ public class Start implements CommandExecutor {
                 GameInfo.nowState = GameStateEnum.THEME;
 
                 Scheduler.themeTime = BuildingWordBattle.INSTANCE.getConfig().getInt("themeTime");
-                Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes("&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！"));
+                Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！"));
 
                 return;
             }
@@ -81,7 +81,7 @@ public class Start implements CommandExecutor {
         if (sec <= a) colorCode = "&c";
         else if (sec <= b) colorCode = "&e";
 
-        Bukkit.broadcastMessage(ChatColorUtil.translateAlternateColorCodes(String.format("%sゲームは %s 秒後に開始されます", colorCode, sec)));
+        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes(String.format("%sゲームは %s 秒後に開始されます", colorCode, sec)));
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1f, 1f);
