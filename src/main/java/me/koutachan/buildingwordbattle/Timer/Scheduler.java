@@ -1,7 +1,6 @@
 package me.koutachan.buildingwordbattle.Timer;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import me.koutachan.buildingwordbattle.Game.Build;
 import me.koutachan.buildingwordbattle.Game.Game;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
@@ -10,6 +9,8 @@ import me.koutachan.buildingwordbattle.Game.Theme;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -140,7 +141,7 @@ public class Scheduler {
                     String answer = data.getAnswerManager().getAnswer() != null ? data.getAnswerManager().getAnswer() : "回答無し";
 
                     try {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(answer));
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GOLD + "回答: " + answer));
                     } catch (NoSuchMethodError ignored) {
                     }
                 }

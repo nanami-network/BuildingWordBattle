@@ -70,6 +70,7 @@ public class Game {
 
         } else {
             //ゲーム終了
+            Spec.startSpec();
         }
     }
 
@@ -101,9 +102,7 @@ public class Game {
 
                 if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
-
                     int foundNumber = 0;
-
 
                     List<Integer> playedMap = data.getMapManager().getMapList();
 
@@ -151,14 +150,22 @@ public class Game {
 
     public static void startAnswer() {
         GameInfo.nowState = GameStateEnum.ANSWER;
+        GameInfo.round++;
+        if(gameEndCheck()) return;
 
         startShuffle();
 
         Bukkit.broadcastMessage("回答タイム！");
 
-        GameInfo.round++;
-
         Scheduler.answerTime = BuildingWordBattle.INSTANCE.getConfig().getInt("answerTime");
+    }
+
+    public static boolean gameEndCheck() {
+        if (GameInfo.round > GameInfo.maxRound) {
+            Spec.startSpec();
+            return true;
+        }
+        return false;
     }
 
     public static void resetGame() {

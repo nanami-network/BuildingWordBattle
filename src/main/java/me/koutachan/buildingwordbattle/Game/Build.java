@@ -18,9 +18,30 @@ import java.util.List;
 
 public class Build {
     public static void startShuffle() {
+        GameInfo.round++;
+
+        if (Game.gameEndCheck()) return;
 
         GameInfo.buildRound++;
-        GameInfo.round++;
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                int id = data.getThemeManager().getThemeMap();
+
+                int temp = GameInfo.buildRound - 1;
+                AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
+
+                PlayerData themeData = BuildingWordUtility.getAnswerArea(id);
+
+                if (themeData != null) {
+                    tempAreaCreator.setAnswer(themeData.getAnswerManager().getAnswer());
+                } else {
+                    tempAreaCreator.setAnswer(null);
+                }
+            }
+        }
 
         CreateBox.start();
 

@@ -4,6 +4,7 @@ import me.koutachan.buildingwordbattle.Game.CreateBox;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
+import me.koutachan.buildingwordbattle.Game.Spec;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
@@ -152,18 +153,32 @@ public class BukkitEvent implements Listener {
 
     @EventHandler
     public void moveEvent(PlayerMoveEvent e) {
-        PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+        if (GameInfo.gameState == GameEnum.GAME) {
+            if (GameInfo.nowState != GameStateEnum.SPEC) {
+                PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
 
-        if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-            int mapID = data.getMapManager().getLastMapID();
+                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
-            AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+                    int mapID = data.getMapManager().getLastMapID();
 
-            if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation())) {
-                Vector middle = areaCreator.getMiddle();
+                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
 
-                e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
-                e.getPlayer().sendMessage("マップ外に移動しないでください！");
+                    if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation())) {
+                        Vector middle = areaCreator.getMiddle();
+
+                        e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
+                        e.getPlayer().sendMessage("マップ外に移動しないでください！");
+                    }
+                }
+            } else {
+                AreaCreator areaCreator = Spec.areaCreator;
+
+                if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation())) {
+                    Vector middle = areaCreator.getMiddle();
+
+                    e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
+                    e.getPlayer().sendMessage("マップ外に移動しないでください！");
+                }
             }
         }
     }

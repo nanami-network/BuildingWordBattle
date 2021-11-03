@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Theme {
     public static void startShuffle() {
-        GameInfo.buildRound++;
+        GameInfo.buildRound = 1;
         CreateBox.start();
 
         Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));

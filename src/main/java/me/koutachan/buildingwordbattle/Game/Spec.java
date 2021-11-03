@@ -3,6 +3,9 @@ package me.koutachan.buildingwordbattle.Game;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -14,6 +17,8 @@ public class Spec {
 
     public static int currentRound, currentMap, time, count;
 
+    private static String theme = null, answer = null;
+
     public static AreaCreator areaCreator;
 
     private static BukkitTask task;
@@ -21,14 +26,25 @@ public class Spec {
 
     //汚すぎる！！！
     public static void startSpec() {
+
+        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aゲーム終了！ 観戦モードに移行します"));
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            try {
+                player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1f, 1f);
+            } catch (NoSuchFieldError e) {
+                player.playSound(player.getLocation(), Sound.valueOf("EXPLODE"), 1f, 1f);
+            }
+        }
+
+        GameInfo.nowState = GameStateEnum.SPEC;
         List<Integer> currentMapList = GameInfo.mapList;
 
         int maxRound = GameInfo.buildRound;
 
         count = 0;
 
-        //currentCount = 0;
-        currentRound = 0;
+        currentRound = 1;
         currentMap = 0;
 
         task = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
@@ -40,12 +56,14 @@ public class Spec {
             //AreaCreator areaCreator;
 
             time++;
-            String theme = null, answer = null;
+
 
             if (time == 10) {
                 int mapID = currentMapList.get(count);
 
-                areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + currentRound++);
+                areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + currentRound);
+
+                currentRound++;
 
                 theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "未回答";
                 answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "未回答";
@@ -61,30 +79,37 @@ public class Spec {
                 }
 
 
-
                 if (currentRound >= maxRound) {
                     count++;
-                    if (currentMapList.size() > count) {
+                    if (count > currentMapList.size()) {
                         task.cancel();
-                        //END!!!
+                        Bukkit.broadcastMessage("task end");
+                        Game.resetGame();
                         return;
                     }
                 }
             }
             if (time > 10) {
 
+                Bukkit.broadcastMessage("a");
                 if (time - 11 <= theme.length()) {
-                    theme = addChatColor(theme, time - 11);
-                    sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + ChatColor.MAGIC + answer, 0, 20, 20);
+                    String themeResult = addChatColor(theme, time - 11);
+                    sendTitle(ChatColor.AQUA + "お題: " + themeResult, ChatColor.AQUA + "回答: " + ChatColor.MAGIC + answer, 0, 20, 20, true);
                 } else if (time - theme.length() - 11 <= answer.length()) {
-                    answer = addChatColor(answer, time - theme.length() - 11);
-                    sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + answer, 0, 20, 20);
+                    String themeAnswer = addChatColor(answer, time - theme.length() - 11);
+                    sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + themeAnswer, 0, 20, 20, true);
                 } else {
                     if (time - theme.length() - answer.length() - 11 > 10) {
                         time = 0;
+                    } else {
+                        sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + answer, 0, 20, 20, false);
+                        try {
+
+                        } catch(Exception e) {
+
+                        }
                     }
                 }
-                //areaCreator.getTheme();
             }
         }, 0, 20);
     }
@@ -93,14 +118,26 @@ public class Spec {
         return str.substring(0, position) + ChatColor.MAGIC + str.substring(position);
     }
 
-    private static void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+    private static void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut, boolean sound) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendTitle(title, subtitle, fadeIn, stay, fadeOut);
-            try {
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1f, 1f);
-            } catch (NoSuchFieldError e) {
-                player.playSound(player.getLocation(), Sound.valueOf("NOTE_PLING"), 1f, 1f);
+            if (sound) {
+                try {
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1f, 1f);
+                } catch (NoSuchFieldError e) {
+                    player.playSound(player.getLocation(), Sound.valueOf("NOTE_PLING"), 1f, 1f);
+                }
             }
+        }
+    }
+
+    private static void sendActionBar(String title) {
+        try {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(title));
+            }
+        }catch (NoSuchMethodError ignored) {
+
         }
     }
 }

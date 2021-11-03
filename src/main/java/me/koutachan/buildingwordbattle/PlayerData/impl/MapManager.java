@@ -34,14 +34,13 @@ public class MapManager {
         for (int map : MapList) {
             AreaCreator areaCreator = CreateBox.areaCreatorMap.get(map + "-" + GameInfo.buildRound);
 
-            if(areaCreator.isArea(location)) {
+            if (areaCreator != null && areaCreator.isArea(location)) {
                 MapName = areaCreator.getMapName();
 
-                if(areaCreator.getAuthorUUID() == data.getPlayer().getUniqueId()) {
+                if (areaCreator.getAuthorUUID() == data.getPlayer().getUniqueId()) {
                     breakable = true;
                     theme = areaCreator.getTheme();
                 }
-
                 break;
             }
         }
