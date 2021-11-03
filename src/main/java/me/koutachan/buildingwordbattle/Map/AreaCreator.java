@@ -13,7 +13,7 @@ public class AreaCreator {
 
     private final int xMin, yMin, zMin, xMax, yMax, zMax;
 
-    private String author, mapName, theme, themePlayer, answerPlayer;
+    private String author, mapName, theme, themePlayer, answer, answerPlayer;
 
     private UUID authorUUID, themeUUID, answerUUID;
 

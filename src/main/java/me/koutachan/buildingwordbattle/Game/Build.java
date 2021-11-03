@@ -52,10 +52,19 @@ public class Build {
                         areaCreator.setTheme(themeData.getAnswerManager().getAnswer());
                         areaCreator.setThemePlayer(themeData.getPlayer().getName());
                         areaCreator.setThemeUUID(themeData.getPlayer().getUniqueId());
+
+                        int temp = GameInfo.buildRound - 1;
+                        AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
+
+                        tempAreaCreator.setAnswer(themeData.getAnswerManager().getAnswer());
                     } else {
                         areaCreator.setTheme(null);
                         areaCreator.setThemePlayer(null);
                         areaCreator.setThemeUUID(null);
+
+                        int temp = GameInfo.buildRound - 1;
+                        AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
+                        tempAreaCreator.setAnswer(null);
                     }
                 }
             }
