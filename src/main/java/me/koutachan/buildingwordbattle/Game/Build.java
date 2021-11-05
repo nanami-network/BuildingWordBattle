@@ -80,23 +80,23 @@ public class Build {
     }
 
     public static void run() {
-        if (GameInfo.nowState != GameStateEnum.ANSWER) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                PlayerData data = PlayerDataUtil.getPlayerData(player);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-                    int id = data.getThemeManager().getThemeMap();
+            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                int id = data.getThemeManager().getThemeMap();
 
-                    int temp = GameInfo.buildRound - 1;
-                    AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
+                int temp = GameInfo.buildRound - 1;
+                AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
 
-                    PlayerData themeData = BuildingWordUtility.getAnswerArea(id);
+                if (tempAreaCreator.getAnswer() == null) break;
 
-                    if (themeData != null) {
-                        tempAreaCreator.setAnswer(themeData.getAnswerManager().getAnswer());
-                    } else {
-                        tempAreaCreator.setAnswer(null);
-                    }
+                PlayerData themeData = BuildingWordUtility.getAnswerArea(id);
+
+                if (themeData != null) {
+                    tempAreaCreator.setAnswer(themeData.getAnswerManager().getAnswer());
+                } else {
+                    tempAreaCreator.setAnswer(null);
                 }
             }
         }
