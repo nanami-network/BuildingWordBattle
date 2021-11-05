@@ -44,7 +44,9 @@ public class Start implements CommandExecutor {
 
                     PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-                    data.getTeamManager().setCurrentTeam(TeamEnum.PLAYER);
+                    if (data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
+                        data.getTeamManager().setCurrentTeam(TeamEnum.PLAYER);
+                    }
                 }
 
                 //CreateBox.start();
@@ -67,7 +69,7 @@ public class Start implements CommandExecutor {
     private int parseInt(String parse) {
         try {
             return Integer.parseInt(parse);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return 10;
         }
     }

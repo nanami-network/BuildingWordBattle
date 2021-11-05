@@ -3,6 +3,8 @@ package me.koutachan.buildingwordbattle.Game;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
+import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
+import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -27,6 +29,8 @@ public class Spec {
     //汚すぎる！！！
     public static void startSpec() {
 
+        Build.run();
+
         Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aゲーム終了！ 観戦モードに移行します"));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -44,7 +48,7 @@ public class Spec {
 
         count = 0;
 
-        currentRound = 1;
+        currentRound = 0;
         currentMap = 0;
 
         task = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
@@ -57,13 +61,17 @@ public class Spec {
 
             time++;
 
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                sendActionBar(player,ChatColorUtility.translateAlternateColorCodes("現在のマップ: " + data.getMapManager().getMapName()));
+            }
 
             if (time == 10) {
                 int mapID = currentMapList.get(count);
+                currentRound++;
 
                 areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + currentRound);
-
-                currentRound++;
 
                 theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "未回答";
                 answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "未回答";
@@ -81,6 +89,7 @@ public class Spec {
 
                 if (currentRound >= maxRound) {
                     count++;
+                    currentRound = 0;
                     if (count > currentMapList.size()) {
                         task.cancel();
                         Bukkit.broadcastMessage("task end");
@@ -90,28 +99,20 @@ public class Spec {
                 }
             }
             if (time > 10) {
-
-                Bukkit.broadcastMessage("a");
+                //Bukkit.broadcastMessage("a");
                 if (time - 11 <= theme.length()) {
                     String themeResult = addChatColor(theme, time - 11);
-                    sendTitle(ChatColor.AQUA + "お題: " + themeResult, ChatColor.AQUA + "回答: " + ChatColor.MAGIC + answer, 0, 20, 20, true);
+                    sendTitle(ChatColor.AQUA + "お題: " + themeResult, ChatColor.AQUA + "回答: " + ChatColor.MAGIC + "" + answer, 0, 20, 20, true);
                 } else if (time - theme.length() - 11 <= answer.length()) {
                     String themeAnswer = addChatColor(answer, time - theme.length() - 11);
                     sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + themeAnswer, 0, 20, 20, true);
+                } else if (time - theme.length() - answer.length() - 11 > 20) {
+                    time = 0;
                 } else {
-                    if (time - theme.length() - answer.length() - 11 > 10) {
-                        time = 0;
-                    } else {
-                        sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + answer, 0, 20, 20, false);
-                        try {
-
-                        } catch(Exception e) {
-
-                        }
-                    }
+                    sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + answer, 0, 20, 20, false);
                 }
             }
-        }, 0, 20);
+        }, 0, 5);
     }
 
     private static String addChatColor(String str, int position) {
@@ -136,8 +137,14 @@ public class Spec {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(title));
             }
-        }catch (NoSuchMethodError ignored) {
+        } catch (NoSuchMethodError ignored) {
+        }
+    }
 
+    private static void sendActionBar(Player player, String title) {
+        try {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(title));
+        } catch (NoSuchMethodError ignored) {
         }
     }
 }

@@ -17,7 +17,9 @@ import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -39,7 +41,9 @@ public class BukkitEvent implements Listener {
     public void onQuitEvent(PlayerQuitEvent e) {
         PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
 
-        GameInfo.mapList.remove((Integer) data.getThemeManager().getThemeMap());
+        if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+            GameInfo.mapList.remove((Integer) data.getThemeManager().getThemeMap());
+        }
     }
 
     @EventHandler
@@ -149,6 +153,16 @@ public class BukkitEvent implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onExplodeEvent1(EntityExplodeEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onExplodeEvent2(BlockExplodeEvent e) {
+        e.setCancelled(true);
     }
 
     @EventHandler

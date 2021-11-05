@@ -1,14 +1,14 @@
 package me.koutachan.buildingwordbattle.Game;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.Utilities.BuildingWordUtility;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import me.koutachan.buildingwordbattle.Timer.Scheduler;
+import me.koutachan.buildingwordbattle.Utilities.BuildingWordUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -20,28 +20,11 @@ public class Build {
     public static void startShuffle() {
         GameInfo.round++;
 
-        if (Game.gameEndCheck()) return;
+        if (Game.gameEndCheck()) {
+            return;
+        }
 
         GameInfo.buildRound++;
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerData data = PlayerDataUtil.getPlayerData(player);
-
-            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-                int id = data.getThemeManager().getThemeMap();
-
-                int temp = GameInfo.buildRound - 1;
-                AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
-
-                PlayerData themeData = BuildingWordUtility.getAnswerArea(id);
-
-                if (themeData != null) {
-                    tempAreaCreator.setAnswer(themeData.getAnswerManager().getAnswer());
-                } else {
-                    tempAreaCreator.setAnswer(null);
-                }
-            }
-        }
 
         CreateBox.start();
 
@@ -53,9 +36,9 @@ public class Build {
             List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
             Collections.shuffle(onlinePlayers);
 
-            Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aマップ生成が終了しました！ 次のラウンドを開始します！"));
-
             GameInfo.nowState = GameStateEnum.BUILDING;
+
+            Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aマップ生成が終了しました！ 次のラウンドを開始します！"));
 
             for (Player player : onlinePlayers) {
 
@@ -94,5 +77,28 @@ public class Build {
 
             Scheduler.buildingTime = BuildingWordBattle.INSTANCE.getConfig().getInt("buldingTime");
         }, Bukkit.getOnlinePlayers().size() * 3L);
+    }
+
+    public static void run() {
+        if (GameInfo.nowState != GameStateEnum.ANSWER) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                    int id = data.getThemeManager().getThemeMap();
+
+                    int temp = GameInfo.buildRound - 1;
+                    AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
+
+                    PlayerData themeData = BuildingWordUtility.getAnswerArea(id);
+
+                    if (themeData != null) {
+                        tempAreaCreator.setAnswer(themeData.getAnswerManager().getAnswer());
+                    } else {
+                        tempAreaCreator.setAnswer(null);
+                    }
+                }
+            }
+        }
     }
 }
