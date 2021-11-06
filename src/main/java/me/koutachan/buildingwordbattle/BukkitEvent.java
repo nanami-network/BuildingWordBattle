@@ -181,6 +181,7 @@ public class BukkitEvent implements Listener {
                         Vector middle = areaCreator.getMiddle();
 
                         e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
+                        //e.getPlayer().teleport(e.getFrom());
                         e.getPlayer().sendMessage("マップ外に移動しないでください！");
                     }
                 }

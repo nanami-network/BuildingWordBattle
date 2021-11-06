@@ -14,7 +14,7 @@ public final class BuildingWordBattle extends JavaPlugin {
 
     public static BuildingWordBattle INSTANCE;
 
-    public Scheduler scheduler;
+    public Scheduler scheduler = new Scheduler();
 
     @Override
     public void onEnable() {
@@ -35,7 +35,6 @@ public final class BuildingWordBattle extends JavaPlugin {
 
         Bukkit.getWorld("world").setDifficulty(Difficulty.PEACEFUL);
 
-        this.scheduler = new Scheduler();
         scheduler.start();
         // Plugin startup logic
 

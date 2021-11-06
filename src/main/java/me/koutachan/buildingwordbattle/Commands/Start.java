@@ -29,8 +29,8 @@ public class Start implements CommandExecutor {
         if (args.length == 0) time = 10;
         else time = parseInt(args[0]);
 
-        a = (int) Math.round((double) time / 3);
-        b = (int) Math.round((double) time / 1.5);
+        int a = (int) Math.round((double) time / 3);
+        int b = (int) Math.round((double) time / 1.5);
 
         GameInfo.gameState = GameEnum.STARTING;
 
@@ -60,7 +60,7 @@ public class Start implements CommandExecutor {
                 return;
             }
 
-            message(time);
+            message(time, a, b);
             time--;
         }, 0, 20);
         return false;
@@ -74,9 +74,7 @@ public class Start implements CommandExecutor {
         }
     }
 
-    private int a, b;
-
-    private void message(int sec) {
+    private void message(int sec, int a, int b) {
 
         String colorCode = "&a";
 
