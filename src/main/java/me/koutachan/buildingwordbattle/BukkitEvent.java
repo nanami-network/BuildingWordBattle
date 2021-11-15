@@ -9,7 +9,7 @@ import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -66,7 +66,7 @@ public class BukkitEvent implements Listener {
                     return;
                 }
 
-                e.getPlayer().sendMessage(ChatColorUtility.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
+                e.getPlayer().sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
 
                 try {
                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
@@ -95,7 +95,7 @@ public class BukkitEvent implements Listener {
                         return;
                     }
 
-                    e.getPlayer().sendMessage(ChatColorUtility.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
+                    e.getPlayer().sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
 
                     try {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);

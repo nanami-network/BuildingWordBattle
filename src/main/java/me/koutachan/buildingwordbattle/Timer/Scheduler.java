@@ -9,7 +9,7 @@ import me.koutachan.buildingwordbattle.Game.Theme;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -81,7 +81,7 @@ public class Scheduler {
                         themeCount++;
                     }
 
-                    theme = ChatColorUtility.translateAlternateColorCodes(" &6[お題] " + theme);
+                    theme = ChatUtil.translateAlternateColorCodes(" &6[お題] " + theme);
 
                     try {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));

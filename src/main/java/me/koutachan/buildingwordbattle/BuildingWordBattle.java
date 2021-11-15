@@ -27,6 +27,10 @@ public final class BuildingWordBattle extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(MessageManager.getStringColor("firstMessage"));
 
+        MessageManager.configCache.values().forEach(i -> Bukkit.getConsoleSender().sendMessage(i));
+
+        MessageManager.configCache.forEach((key, value) -> Bukkit.getConsoleSender().sendMessage(key));
+
         Bukkit.getServer().getPluginManager().registerEvents(new BukkitEvent(), this);
         getCommand("debug").setExecutor(new debug());
         getCommand("start").setExecutor(new Start());

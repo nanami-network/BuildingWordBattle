@@ -5,7 +5,7 @@ import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -31,7 +31,7 @@ public class Spec {
 
         Build.run();
 
-        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aゲーム終了！ 観戦モードに移行します"));
+        Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&aゲーム終了！ 観戦モードに移行します"));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {
@@ -64,7 +64,7 @@ public class Spec {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-                sendActionBar(player,ChatColorUtility.translateAlternateColorCodes("現在のマップ: " + data.getMapManager().getMapName()));
+                sendActionBar(player, ChatUtil.translateAlternateColorCodes("現在のマップ: " + data.getMapManager().getMapName()));
             }
 
             if (time == 10) {

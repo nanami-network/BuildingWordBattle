@@ -1,6 +1,6 @@
 package me.koutachan.buildingwordbattle.Timer;
 
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
@@ -31,16 +31,16 @@ public class ScoreBoard {
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
             data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatColorUtility.translateAlternateColorCodes("&1"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtility.translateAlternateColorCodes("&2"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameState))),
-                    ChatColorUtility.translateAlternateColorCodes("&3"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatColorUtility.translateAlternateColorCodes("&4"),
-                    ChatColorUtility.translateAlternateColorCodes("&6 一言お知らせ: 何もないよ"),
-                    ChatColorUtility.translateAlternateColorCodes("&b @credit 7mi_chan")
+                    ChatUtil.translateAlternateColorCodes("&1"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
+                    ChatUtil.translateAlternateColorCodes("&2"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameState))),
+                    ChatUtil.translateAlternateColorCodes("&3"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
+                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
+                    ChatUtil.translateAlternateColorCodes("&4"),
+                    ChatUtil.translateAlternateColorCodes("&6 一言お知らせ: 何もないよ"),
+                    ChatUtil.translateAlternateColorCodes("&b @credit 7mi_chan")
             );
         }
     }
@@ -51,16 +51,16 @@ public class ScoreBoard {
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
             data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatColorUtility.translateAlternateColorCodes("&1"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&c > 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&e > 残り時間: %s", Scheduler.themeTime)),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&e > 残り人数: %s", Scheduler.themeCount)),
-                    ChatColorUtility.translateAlternateColorCodes("&3"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatColorUtility.translateAlternateColorCodes("&4"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
-                    ChatColorUtility.translateAlternateColorCodes("&5")
+                    ChatUtil.translateAlternateColorCodes("&1"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&c > 現在のラグ: %sms", Scheduler.serverLagSpike)),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e > 残り時間: %s", Scheduler.themeTime)),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e > 残り人数: %s", Scheduler.themeCount)),
+                    ChatUtil.translateAlternateColorCodes("&3"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
+                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
+                    ChatUtil.translateAlternateColorCodes("&4"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
+                    ChatUtil.translateAlternateColorCodes("&5")
             );
         }
     }
@@ -71,16 +71,16 @@ public class ScoreBoard {
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
             data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatColorUtility.translateAlternateColorCodes("&1"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.buildingTime)),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.round, GameInfo.maxRound))),
-                    ChatColorUtility.translateAlternateColorCodes("&2"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatColorUtility.translateAlternateColorCodes("&3"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&e お題: %s", data.getMapManager().getTheme())),
-                    ChatColorUtility.translateAlternateColorCodes("&4")
+                    ChatUtil.translateAlternateColorCodes("&1"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
+                    ChatUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.buildingTime)),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.round, GameInfo.maxRound))),
+                    ChatUtil.translateAlternateColorCodes("&2"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
+                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
+                    ChatUtil.translateAlternateColorCodes("&3"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e お題: %s", data.getMapManager().getTheme())),
+                    ChatUtil.translateAlternateColorCodes("&4")
             );
         }
     }
@@ -91,16 +91,16 @@ public class ScoreBoard {
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
             data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatColorUtility.translateAlternateColorCodes("&1"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.answerTime)),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.buildRound, GameInfo.maxRound))),
-                    ChatColorUtility.translateAlternateColorCodes("&3"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatColorUtility.translateAlternateColorCodes("&4"),
-                    ChatColorUtility.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
-                    ChatColorUtility.translateAlternateColorCodes("&5")
+                    ChatUtil.translateAlternateColorCodes("&1"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
+                    ChatUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.answerTime)),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.buildRound, GameInfo.maxRound))),
+                    ChatUtil.translateAlternateColorCodes("&3"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
+                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
+                    ChatUtil.translateAlternateColorCodes("&4"),
+                    ChatUtil.translateAlternateColorCodes(String.format("&eDEBUG: breakable? %s", data.getMapManager().isBreakable())),
+                    ChatUtil.translateAlternateColorCodes("&5")
             );
         }
     }

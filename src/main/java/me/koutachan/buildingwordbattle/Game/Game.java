@@ -2,7 +2,7 @@ package me.koutachan.buildingwordbattle.Game;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.Utilities.BuildingWordUtility;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
@@ -41,7 +41,7 @@ public class Game {
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
 
-                            player.sendMessage(ChatColorUtility.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
+                            player.sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
                             break;
                         }
                         case ANSWER: {
@@ -183,7 +183,7 @@ public class Game {
         Scheduler.buildingTime = 0;
         Scheduler.themeCount = 0;
 
-        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&7プレイヤーデータの再生成中・・・"));
+        Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&7プレイヤーデータの再生成中・・・"));
 
         PlayerDataUtil.playerDataHashMap.clear();
 

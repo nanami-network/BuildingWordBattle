@@ -1,7 +1,7 @@
 package me.koutachan.buildingwordbattle.Game;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.Utilities.ChatColorUtility;
+import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
@@ -20,7 +20,7 @@ public class Theme {
         GameInfo.buildRound = 1;
         CreateBox.start();
 
-        Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
+        Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
 
 
         Bukkit.getScheduler().runTaskLater(BuildingWordBattle.INSTANCE, () -> {
@@ -28,7 +28,7 @@ public class Theme {
             List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
             Collections.shuffle(onlinePlayers);
 
-            Bukkit.broadcastMessage(ChatColorUtility.translateAlternateColorCodes("&aマップ生成が終了しました！ ゲームを開始します"));
+            Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ ゲームを開始します"));
 
             GameInfo.nowState = GameStateEnum.BUILDING;
 
