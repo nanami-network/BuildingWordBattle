@@ -28,7 +28,8 @@ public class Build {
 
         CreateBox.start();
 
-        Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
+        ChatUtil.sendMessageBroadCast("GAME.MAP_CREATE_STARTED", "%tick%|" + Bukkit.getOnlinePlayers().size() * 3);
+        //Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: " + Bukkit.getOnlinePlayers().size() * 3 + "tick"));
 
 
         Bukkit.getScheduler().runTaskLater(BuildingWordBattle.INSTANCE, () -> {
@@ -38,7 +39,8 @@ public class Build {
 
             GameInfo.nowState = GameStateEnum.BUILDING;
 
-            Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ 次のラウンドを開始します！"));
+            ChatUtil.sendMessageBroadCast("GAME.MAP_CREATE_ENDED");
+            //Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&aマップ生成が終了しました！ 次のラウンドを開始します！"));
 
             for (Player player : onlinePlayers) {
 

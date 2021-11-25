@@ -38,7 +38,8 @@ public class Start implements CommandExecutor {
         bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
 
             if (time <= 0) {
-                Bukkit.broadcastMessage(MessageManager.getString("startCommand.startMessage"));
+                ChatUtil.sendMessageBroadCast("STARTCOMMAND.START_MESSAGE");
+                //Bukkit.broadcastMessage(MessageManager.getString("startCommand.startMessage"));
                 bukkitTask.cancel();
 
                 for (Player player : Bukkit.getOnlinePlayers()) {
@@ -56,7 +57,9 @@ public class Start implements CommandExecutor {
                 GameInfo.nowState = GameStateEnum.THEME;
 
                 Scheduler.themeTime = BuildingWordBattle.INSTANCE.getConfig().getInt("themeTime");
-                Bukkit.broadcastMessage(MessageManager.getString("startCommand.tipMessage"));
+
+                ChatUtil.sendMessageBroadCast("STARTCOMMAND.TIP_MESSAGE");
+                //Bukkit.broadcastMessage(MessageManager.getString("startCommand.tipMessage"));
 
                 return;
             }
@@ -77,13 +80,14 @@ public class Start implements CommandExecutor {
 
     private void message(int sec, int a, int b) {
 
-        String colorCode = MessageManager.getString("startCommand.colorCodeA");
+        String colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_A");
 
-        if (sec <= a) colorCode = MessageManager.getString("startCommand.colorCodeB");
-        else if (sec <= b) colorCode = MessageManager.getString("startCommand.colorCodeC");
+        if (sec <= a) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_B");
+        else if (sec <= b) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_C");
 
 
-        Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes(MessageManager.getString("startCommand.countMessage").replaceAll("%colorcode%", colorCode).replaceAll("%time%", String.valueOf(sec))));
+        ChatUtil.sendMessageBroadCast("STARTCOMMAND.COUNT_MESSAGE", "%colorcode%|" + colorCode, "%time%" + time);
+        //Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes(MessageManager.getString("startCommand.countMessage").replaceAll("%colorcode%", colorCode).replaceAll("%time%", String.valueOf(sec))));
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1f, 1f);

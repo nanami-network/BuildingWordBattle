@@ -32,7 +32,7 @@ public class ChatUtil {
 
     public void sendMessageBroadCast(String messageID, String... replace) {
 
-        String message = replace(MessageManager.getString(messageID));
+        String message = replace(MessageManager.getString(messageID), replace);
 
         Bukkit.broadcastMessage(message);
     }
@@ -51,9 +51,9 @@ public class ChatUtil {
 
     public String replace(String messageID, String... replace) {
 
-        String message = MessageManager.getString(messageID);
+        String message = MessageManager.getString(messageID).replaceAll("\n", "\n");
 
-        if(replace == null) return message;
+        if (replace == null) return message;
 
         for (String str : replace) {
             String[] split = str.split("\\|");

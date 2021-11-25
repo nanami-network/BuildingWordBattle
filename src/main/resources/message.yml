@@ -1,10 +1,13 @@
 prefix: '[BuildingWorldBattle]'
 firstMessage: '&b%prefix% セットアップまでしばらくお待ちください。'
 
-startCommand:
-  colorCodeA: '&a'
-  colorCodeB: '&e'
-  colorCodeC: '&c'
-  countMessage: '%colorcode% ゲームは %time% 秒後に開始されます'
-  startMessage: '&aゲーム開始！'
-  tipMessage: '&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！'
+STARTCOMMAND:
+  COLORCODE_A: '&a'
+  COLORCODE_B: '&e'
+  COLORCODE_C: '&c'
+  COUNT_MESSAGE: '%colorcode% ゲームは %time% 秒後に開始されます'
+  START_MESSAGE: '&aゲーム開始！'
+  TIP_MESSAGE: '&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！'
+GAME:
+  MAP_CREATE_STARTED: '&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: %tick%'
+  MAP_CREATE_ENDED: '&aマップ生成が終了しました！ 次のラウンドを開始します！'
