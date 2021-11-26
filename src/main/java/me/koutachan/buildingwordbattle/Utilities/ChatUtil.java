@@ -16,7 +16,7 @@ public class ChatUtil {
     }
 
     public void sendChat(Player player, String messageID, String... replace) {
-        String message = replace(MessageManager.getString(messageID).replaceAll("%player%", player.getName()), replace);
+        String message = replace(messageID, replace).replaceAll("%player%", player.getName());
 
         player.sendMessage(message);
     }
@@ -24,15 +24,19 @@ public class ChatUtil {
     public void sendChat(String messageID, String... replace) {
         for (Player player : Bukkit.getOnlinePlayers()) {
 
-            String message = replace(MessageManager.getString(messageID).replaceAll("%player%", player.getName()), replace);
+            String message = replace(messageID, replace).replaceAll("%player%", player.getName());
 
             player.sendMessage(message);
         }
     }
 
+    public String message(String messageID, String... replace) {
+        return replace(MessageManager.getString(messageID), replace);
+    }
+
     public void sendMessageBroadCast(String messageID, String... replace) {
 
-        String message = replace(MessageManager.getString(messageID), replace);
+        String message = replace(messageID, replace);
 
         Bukkit.broadcastMessage(message);
     }
@@ -42,7 +46,8 @@ public class ChatUtil {
             PlayerData data = PlayerDataUtil.getPlayerData(player);
             if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
-                String message = replace(MessageManager.getString(messageID).replaceAll("%player%", player.getName()), replace);
+                String message = replace(messageID, replace).replaceAll("%player%", player.getName());
+                ;
 
                 player.sendMessage(message);
             }

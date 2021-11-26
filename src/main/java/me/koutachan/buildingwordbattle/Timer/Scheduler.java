@@ -112,6 +112,8 @@ public class Scheduler {
 
                     String theme = data.getMapManager().getTheme();
 
+                    if (theme == null) theme = "お題未設定";
+
                     try {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));
                     } catch (NoSuchMethodError ignored) {

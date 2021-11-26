@@ -64,7 +64,8 @@ public class Spec {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-                sendActionBar(player, ChatUtil.translateAlternateColorCodes("現在のマップ: " + data.getMapManager().getMapName()));
+                String chat = ChatUtil.message("SPEC.SPEC_ACTIONBAR", "%map%|" + data.getMapManager().getMapName());
+                sendActionBar(player, chat);
             }
 
             if (time == 10) {

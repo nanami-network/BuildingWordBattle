@@ -23,7 +23,7 @@ public class MessageManager {
     }
 
     public static String getString(String key) {
-        return messageConfig.getString(key);
+        return ChatUtil.translateAlternateColorCodes(messageConfig.getString(key));
     }
 
     @Deprecated

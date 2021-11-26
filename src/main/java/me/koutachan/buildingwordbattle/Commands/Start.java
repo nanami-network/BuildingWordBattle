@@ -82,11 +82,11 @@ public class Start implements CommandExecutor {
 
         String colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_A");
 
-        if (sec <= a) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_B");
-        else if (sec <= b) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_C");
+        if (sec <= a) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_C");
+        else if (sec <= b) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_B");
 
 
-        ChatUtil.sendMessageBroadCast("STARTCOMMAND.COUNT_MESSAGE", "%colorcode%|" + colorCode, "%time%" + time);
+        ChatUtil.sendMessageBroadCast("STARTCOMMAND.COUNT_MESSAGE", "%colorcode%|" + colorCode, "%time%|" + time);
         //Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes(MessageManager.getString("startCommand.countMessage").replaceAll("%colorcode%", colorCode).replaceAll("%time%", String.valueOf(sec))));
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {

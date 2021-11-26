@@ -41,7 +41,8 @@ public class Game {
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
 
-                            player.sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
+                            ChatUtil.sendChat(player, "GAME.GAME_ACTIONBAR", "%odai%|" + areaCreator.getTheme());
+                            //player.sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&6お題: %s", areaCreator.getTheme())));
                             break;
                         }
                         case ANSWER: {
@@ -161,7 +162,7 @@ public class Game {
     }
 
     public static boolean gameEndCheck() {
-        if (GameInfo.round > GameInfo.maxRound) {
+        if (GameInfo.buildRound > GameInfo.maxRound) {
             Spec.startSpec();
             return true;
         }
@@ -183,7 +184,7 @@ public class Game {
         Scheduler.buildingTime = 0;
         Scheduler.themeCount = 0;
 
-        Bukkit.broadcastMessage(ChatUtil.translateAlternateColorCodes("&7プレイヤーデータの再生成中・・・"));
+        ChatUtil.sendMessageBroadCast("GAME.PLAYERDATA_RECREATE");
 
         PlayerDataUtil.playerDataHashMap.clear();
 

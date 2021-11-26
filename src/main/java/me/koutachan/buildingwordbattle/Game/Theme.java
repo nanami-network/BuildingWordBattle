@@ -43,7 +43,12 @@ public class Theme {
                     count++;
 
                     AreaCreator areaCreator = CreateBox.areaCreatorMap.get(count + "-" + 1);
-                    areaCreator.setTheme(data.getThemeManager().getTheme());
+
+                    String theme = data.getThemeManager().getTheme();
+
+                    if (theme == null) theme = "つばよう";
+
+                    areaCreator.setTheme(theme);
                     areaCreator.setThemePlayer(player.getName());
                     areaCreator.setThemeUUID(player.getUniqueId());
 
