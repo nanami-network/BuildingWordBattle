@@ -9,7 +9,7 @@ STARTCOMMAND:
   START_MESSAGE: '&aゲーム開始！'
   TIP_MESSAGE: '&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！'
 GAME:
-  MAP_CREATE_STARTED: '&7マップを生成中です・・・これはしばらくかかる場合があります \n予想時間: %tick%'
+  MAP_CREATE_STARTED: '&7マップを生成中です・・・これはしばらくかかる場合があります &n予想時間: %tick%'
   MAP_CREATE_ENDED: '&aマップ生成が終了しました！ 次のラウンドを開始します！'
   GAME_ACTIONBAR: '&6お題: %odai%'
   PLAYERDATA_RECREATE: '&7プレイヤーデータの再生成中・・・'

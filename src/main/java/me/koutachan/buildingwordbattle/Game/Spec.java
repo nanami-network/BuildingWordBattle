@@ -21,6 +21,8 @@ public class Spec {
 
     private static String theme = null, answer = null;
 
+    private static boolean isEnd;
+
     public static AreaCreator areaCreator;
 
     private static BukkitTask task;
@@ -51,6 +53,8 @@ public class Spec {
         currentRound = 0;
         currentMap = 0;
 
+        isEnd = false;
+
         task = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
             if (GameInfo.nowState != GameStateEnum.SPEC) {
                 task.cancel();
@@ -69,8 +73,17 @@ public class Spec {
             }
 
             if (time == 10) {
-                int mapID = currentMapList.get(count);
+
+                if (isEnd) {
+                    task.cancel();
+                    Bukkit.broadcastMessage("task end");
+                    Game.resetGame();
+                    return;
+                }
+
                 currentRound++;
+
+                int mapID = currentMapList.get(count);
 
                 areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + currentRound);
 
@@ -87,15 +100,13 @@ public class Spec {
                     player.teleport(location);
                 }
 
-
-                if (currentRound >= maxRound) {
+                if (currentRound > maxRound) {
                     count++;
                     currentRound = 0;
-                    if (count > currentMapList.size()) {
-                        task.cancel();
-                        Bukkit.broadcastMessage("task end");
-                        Game.resetGame();
-                        return;
+                    //Bukkit.broadcastMessage(String.format("now=%s two=%s", count, currentMapList.size()));
+
+                    if (count >= currentMapList.size()) {
+                        isEnd = true;
                     }
                 }
             }

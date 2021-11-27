@@ -10,12 +10,16 @@ import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
 import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.util.Vector;
@@ -147,6 +151,11 @@ public class BukkitEvent implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onCreatureSpawnEvent(CreatureSpawnEvent e) {
+        e.setCancelled(true);
     }
 
     @EventHandler

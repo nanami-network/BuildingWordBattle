@@ -94,7 +94,7 @@ public class ScoreBoard {
                     ChatUtil.translateAlternateColorCodes("&1"),
                     ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
                     ChatUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Scheduler.answerTime)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.buildRound, GameInfo.maxRound))),
+                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.round, GameInfo.maxRound))),
                     ChatUtil.translateAlternateColorCodes("&3"),
                     ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
                     ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
