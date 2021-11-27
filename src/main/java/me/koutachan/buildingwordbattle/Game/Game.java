@@ -162,7 +162,8 @@ public class Game {
     }
 
     public static boolean gameEndCheck() {
-        if (GameInfo.buildRound > GameInfo.maxRound) {
+
+        if (GameInfo.round > GameInfo.maxRound) {
             Spec.startSpec();
             return true;
         }

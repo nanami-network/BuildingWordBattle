@@ -31,7 +31,7 @@ public class ChatUtil {
     }
 
     public String message(String messageID, String... replace) {
-        return replace(MessageManager.getString(messageID), replace);
+        return replace(messageID, replace);
     }
 
     public void sendMessageBroadCast(String messageID, String... replace) {
@@ -47,7 +47,6 @@ public class ChatUtil {
             if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
                 String message = replace(messageID, replace).replaceAll("%player%", player.getName());
-                ;
 
                 player.sendMessage(message);
             }
@@ -56,7 +55,7 @@ public class ChatUtil {
 
     public String replace(String messageID, String... replace) {
 
-        String message = MessageManager.getString(messageID).replaceAll("\n", "\n");
+        String message = MessageManager.getString(messageID).replaceAll("\n", "\r\n");
 
         if (replace == null) return message;
 
