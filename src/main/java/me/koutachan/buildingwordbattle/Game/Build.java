@@ -89,9 +89,10 @@ public class Build {
                 int id = data.getThemeManager().getThemeMap();
 
                 int temp = GameInfo.buildRound - 1;
+                if (temp == 0) temp = 1;
                 AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
 
-                //invalid
+                //何かがおかしい
                 if (temp < 1 || tempAreaCreator == null || tempAreaCreator.getAnswer() != null) break;
 
                 PlayerData themeData = BuildingWordUtility.getAnswerArea(id);

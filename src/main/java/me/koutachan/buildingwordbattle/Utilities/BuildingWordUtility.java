@@ -15,6 +15,7 @@ public class BuildingWordUtility {
     public PlayerData getAnswerArea(int mapID) {
 
         int count = GameInfo.buildRound;
+        if (count == 1) count = 2;
 
         while (true) {
 

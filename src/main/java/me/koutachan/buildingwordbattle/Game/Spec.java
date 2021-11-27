@@ -100,7 +100,7 @@ public class Spec {
                     player.teleport(location);
                 }
 
-                if (currentRound > maxRound) {
+                if (currentRound >= maxRound) {
                     count++;
                     currentRound = 0;
                     //Bukkit.broadcastMessage(String.format("now=%s two=%s", count, currentMapList.size()));
