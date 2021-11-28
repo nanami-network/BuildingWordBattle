@@ -3,7 +3,9 @@ package me.koutachan.buildingwordbattle.PlayerData.impl;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.Game.CreateBox;
+import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.Game.GameInfo;
+import me.koutachan.buildingwordbattle.Game.Spec;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import org.bukkit.Location;
@@ -31,7 +33,9 @@ public class MapManager {
         theme = "無し";
         breakable = false;
 
-        for (int map : MapList) {
+        List<Integer> mapList = GameInfo.nowState == GameStateEnum.SPEC ? Spec.clonedMapList : GameInfo.mapList;
+
+        for (int map : mapList) {
             AreaCreator areaCreator = CreateBox.areaCreatorMap.get(map + "-" + GameInfo.buildRound);
 
             if (areaCreator != null && areaCreator.isArea(location)) {

@@ -19,8 +19,13 @@ public class AdminCommand implements CommandExecutor {
 
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-            data.getTeamManager().setCurrentTeam(TeamEnum.ADMIN);
-            player.sendMessage(ChatUtil.translateAlternateColorCodes("&eチームを Admin に変更しました"));
+            if (data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
+                data.getTeamManager().setCurrentTeam(TeamEnum.ADMIN);
+                player.sendMessage(ChatUtil.translateAlternateColorCodes("&eチームを Admin に変更しました"));
+            } else {
+                data.getTeamManager().setCurrentTeam(TeamEnum.SPEC);
+                player.sendMessage(ChatUtil.translateAlternateColorCodes("&eチームを Spec に変更しました"));
+            }
         }
         return true;
     }

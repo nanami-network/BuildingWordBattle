@@ -29,6 +29,8 @@ public class BukkitEvent implements Listener {
 
         if (GameInfo.gameState != GameEnum.LOBBY) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
+        } else {
+            e.getPlayer().setGameMode(GameMode.CREATIVE);
         }
     }
 

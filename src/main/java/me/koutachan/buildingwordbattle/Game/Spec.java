@@ -23,6 +23,8 @@ public class Spec {
 
     private static boolean isEnd;
 
+    public static List<Integer> clonedMapList;
+
     public static AreaCreator areaCreator;
 
     private static BukkitTask task;
@@ -45,6 +47,7 @@ public class Spec {
 
         GameInfo.nowState = GameStateEnum.SPEC;
         List<Integer> currentMapList = GameInfo.mapList;
+        clonedMapList = currentMapList;
 
         int maxRound = GameInfo.buildRound;
 

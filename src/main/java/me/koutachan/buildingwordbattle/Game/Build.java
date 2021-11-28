@@ -93,7 +93,7 @@ public class Build {
                 AreaCreator tempAreaCreator = CreateBox.areaCreatorMap.get(id + "-" + temp);
 
                 //何かがおかしい
-                if (temp < 1 || tempAreaCreator == null || tempAreaCreator.getAnswer() != null) break;
+                if (tempAreaCreator.getAnswerUUID() == null || temp < 1 || tempAreaCreator.getAnswer() != null) break;
 
                 PlayerData themeData = BuildingWordUtility.getAnswerArea(id);
 

@@ -185,6 +185,8 @@ public class Game {
         Scheduler.buildingTime = 0;
         Scheduler.themeCount = 0;
 
+
+
         ChatUtil.sendMessageBroadCast("GAME.PLAYERDATA_RECREATE");
 
         PlayerDataUtil.playerDataHashMap.clear();
