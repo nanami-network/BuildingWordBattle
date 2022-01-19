@@ -72,6 +72,12 @@ public class AreaCreator {
         return (location.getBlockX() <= xMax && location.getBlockX() >= xMin) && (location.getBlockY() <= yMax && location.getBlockY() >= yMin) && (location.getBlockZ() <= zMax && location.getBlockZ() >= zMin);
     }
 
+    /**
+     * @return Vector
+     * @param - (x1 + x2) / 2
+     * @param - (y1 + y2) / 2
+     * @param - (z1 + z2) / 2
+     */
     public Vector getMiddle() {
         return new Vector(xMax, yMax, zMax).getMidpoint(new Vector(xMin, yMin, zMin));
     }

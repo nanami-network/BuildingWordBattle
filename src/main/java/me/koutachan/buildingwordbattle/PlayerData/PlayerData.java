@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 @Getter
 public class PlayerData {
 
-
     public PlayerData(Player player) {
         this.player = player;
         this.scoreBoardManager = new ScoreBoardManager(this);

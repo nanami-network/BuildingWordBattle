@@ -59,9 +59,6 @@ public class Theme {
                 }
             }
 
-            //GameInfo.maxRound = count;
-            //GameInfo.buildRound = 1;
-
             GameInfo.round = 1;
             GameInfo.cacheMapSize = count;
             Game.startShuffle();

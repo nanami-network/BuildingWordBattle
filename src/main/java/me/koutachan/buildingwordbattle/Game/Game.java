@@ -52,7 +52,7 @@ public class Game {
 
                             AreaCreator tempAreaCreator = BuildingWordUtility.getMap(mapID);
 
-                            if(tempAreaCreator != null) {
+                            if (tempAreaCreator != null) {
                                 areaCreator = tempAreaCreator;
                             }
                         }
@@ -152,7 +152,7 @@ public class Game {
     public static void startAnswer() {
         GameInfo.nowState = GameStateEnum.ANSWER;
         GameInfo.round++;
-        if(gameEndCheck()) return;
+        if (gameEndCheck()) return;
 
         startShuffle();
 
@@ -177,6 +177,7 @@ public class Game {
         GameInfo.round = 0;
         GameInfo.buildRound = 0;
         GameInfo.maxRound = 0;
+        GameInfo.cacheMapSize = 0;
 
         CreateBox.areaCreatorMap.clear();
 
@@ -184,7 +185,6 @@ public class Game {
         Scheduler.themeTime = 0;
         Scheduler.buildingTime = 0;
         Scheduler.themeCount = 0;
-
 
 
         ChatUtil.sendMessageBroadCast("GAME.PLAYERDATA_RECREATE");
