@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Spec {
 
-    public static int currentRound, currentMap, time, count;
+    public static int currentRound, currentMap, time, count, MAX_TITLE = 95, lastMapId, lastMapRound;
 
     private static String theme = null, answer = null;
 
@@ -46,15 +46,18 @@ public class Spec {
         }
 
         GameInfo.nowState = GameStateEnum.SPEC;
-        List<Integer> currentMapList = GameInfo.mapList;
-        clonedMapList = currentMapList;
+        clonedMapList = GameInfo.mapList;
 
         int maxRound = GameInfo.buildRound;
+        areaCreator = null;
 
         count = 0;
-
+        time = 0;
         currentRound = 0;
         currentMap = 0;
+
+        lastMapId = 0;
+        lastMapRound = 0;
 
         isEnd = false;
 
@@ -63,8 +66,6 @@ public class Spec {
                 task.cancel();
                 return;
             }
-
-            //AreaCreator areaCreator;
 
             time++;
 
@@ -79,16 +80,18 @@ public class Spec {
 
                 if (isEnd) {
                     task.cancel();
-                    Bukkit.broadcastMessage("task end");
                     Game.resetGame();
                     return;
                 }
 
                 currentRound++;
 
-                int mapID = currentMapList.get(count);
+                int mapID = clonedMapList.get(count);
 
                 areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + currentRound);
+
+                lastMapId = mapID;
+                lastMapRound = currentRound;
 
                 theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "未回答";
                 answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "未回答";
@@ -106,25 +109,35 @@ public class Spec {
                 if (currentRound >= maxRound) {
                     count++;
                     currentRound = 0;
-                    //Bukkit.broadcastMessage(String.format("now=%s two=%s", count, currentMapList.size()));
 
-                    if (count >= currentMapList.size()) {
+                    if (count >= clonedMapList.size()) {
                         isEnd = true;
                     }
                 }
             }
+
             if (time > 10) {
-                //Bukkit.broadcastMessage("a");
-                if (time - 11 <= theme.length()) {
-                    String themeResult = addChatColor(theme, time - 11);
-                    sendTitle(ChatColor.AQUA + "お題: " + themeResult, ChatColor.AQUA + "回答: " + ChatColor.MAGIC + "" + answer, 0, 20, 20, true);
-                } else if (time - theme.length() - 11 <= answer.length()) {
-                    String themeAnswer = addChatColor(answer, time - theme.length() - 11);
-                    sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + themeAnswer, 0, 20, 20, true);
-                } else if (time - theme.length() - answer.length() - 11 > 20) {
-                    time = 0;
-                } else {
-                    sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + answer, 0, 20, 20, false);
+
+                if (time < 20) {
+                    sendTitle("――――ステージ――――", lastMapId + "-" + lastMapRound, 0, 20, 20, false);
+                } else if (time < 55 && time > 25) {
+                    sendTitle("~作成", areaCreator.getAuthor(), 0, 20, 20, false);
+                } else if (time < 85 && time > 60) {
+                    sendTitle("~回答", areaCreator.getAnswerPlayer(), 0, 20, 20, false);
+                }
+
+                if (time >= MAX_TITLE) {
+                    if (time - MAX_TITLE <= theme.length()) {
+                        String themeResult = addChatColor(theme, time - MAX_TITLE);
+                        sendTitle(ChatColor.AQUA + "お題: " + themeResult, ChatColor.AQUA + "回答: " + ChatColor.MAGIC + "" + answer, 0, 20, 20, true);
+                    } else if (time - theme.length() - MAX_TITLE <= answer.length()) {
+                        String themeAnswer = addChatColor(answer, time - theme.length() - MAX_TITLE);
+                        sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + themeAnswer, 0, 20, 20, true);
+                    } else if (time - theme.length() - answer.length() - MAX_TITLE > 20) {
+                        time = 0;
+                    } else {
+                        sendTitle(ChatColor.AQUA + "お題: " + theme, ChatColor.AQUA + "回答: " + answer, 0, 20, 20, false);
+                    }
                 }
             }
         }, 0, 5);

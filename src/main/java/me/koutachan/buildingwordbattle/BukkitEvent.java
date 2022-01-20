@@ -19,6 +19,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.util.Vector;
 
 public class BukkitEvent implements Listener {
@@ -154,6 +155,11 @@ public class BukkitEvent implements Listener {
 
     @EventHandler
     public void onCreatureSpawnEvent(CreatureSpawnEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onVehicleCreateEvent(VehicleCreateEvent e) {
         e.setCancelled(true);
     }
 

@@ -10,3 +10,5 @@ commands:
     permission: minecraft.op
   reloadConfig:
     permission: minecraft.op
+  forcestop:
+    permission: minecraft.op

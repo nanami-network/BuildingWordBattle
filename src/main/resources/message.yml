@@ -14,4 +14,4 @@ GAME:
   GAME_ACTIONBAR: '&6お題: %odai%'
   PLAYERDATA_RECREATE: '&7プレイヤーデータの再生成中・・・'
 SPEC:
-  SPEC_ACTIONBAR: "現在のマップ: %map%"
+  SPEC_ACTIONBAR: "&6現在のマップ: %map%"

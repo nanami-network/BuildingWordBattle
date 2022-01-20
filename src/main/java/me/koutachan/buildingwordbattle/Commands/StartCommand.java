@@ -18,7 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
-public class Start implements CommandExecutor {
+public class StartCommand implements CommandExecutor {
 
     private int time = 0;
 
@@ -27,47 +27,53 @@ public class Start implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length == 0) time = 10;
-        else time = parseInt(args[0]);
+        if (GameInfo.gameState == GameEnum.LOBBY) {
 
-        int a = (int) Math.round((double) time / 3);
-        int b = (int) Math.round((double) time / 1.5);
+            if (args.length == 0) time = 10;
+            else time = parseInt(args[0]);
 
-        GameInfo.gameState = GameEnum.STARTING;
+            int a = (int) Math.round((double) time / 3);
+            int b = (int) Math.round((double) time / 1.5);
 
-        bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
+            GameInfo.gameState = GameEnum.STARTING;
 
-            if (time <= 0) {
-                ChatUtil.sendMessageBroadCast("STARTCOMMAND.START_MESSAGE");
-                //Bukkit.broadcastMessage(MessageManager.getString("startCommand.startMessage"));
-                bukkitTask.cancel();
+            bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
 
-                for (Player player : Bukkit.getOnlinePlayers()) {
+                if (time <= 0) {
+                    ChatUtil.sendMessageBroadCast("STARTCOMMAND.START_MESSAGE");
+                    //Bukkit.broadcastMessage(MessageManager.getString("startCommand.startMessage"));
+                    bukkitTask.cancel();
 
-                    PlayerData data = PlayerDataUtil.getPlayerData(player);
+                    for (Player player : Bukkit.getOnlinePlayers()) {
 
-                    if (data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
-                        data.getTeamManager().setCurrentTeam(TeamEnum.PLAYER);
+                        PlayerData data = PlayerDataUtil.getPlayerData(player);
+
+                        if (data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
+                            data.getTeamManager().setCurrentTeam(TeamEnum.PLAYER);
+                        }
                     }
+
+                    //CreateBox.start();
+
+                    GameInfo.gameState = GameEnum.GAME;
+                    GameInfo.nowState = GameStateEnum.THEME;
+
+                    Scheduler.themeTime = BuildingWordBattle.INSTANCE.getConfig().getInt("themeTime");
+
+                    ChatUtil.sendMessageBroadCast("STARTCOMMAND.TIP_MESSAGE");
+                    //Bukkit.broadcastMessage(MessageManager.getString("startCommand.tipMessage"));
+
+                    return;
                 }
 
-                //CreateBox.start();
+                message(time, a, b);
+                time--;
+            }, 0, 20);
+        } else {
+            sender.sendMessage("現在使えません。");
+        }
 
-                GameInfo.gameState = GameEnum.GAME;
-                GameInfo.nowState = GameStateEnum.THEME;
-
-                Scheduler.themeTime = BuildingWordBattle.INSTANCE.getConfig().getInt("themeTime");
-
-                ChatUtil.sendMessageBroadCast("STARTCOMMAND.TIP_MESSAGE");
-                //Bukkit.broadcastMessage(MessageManager.getString("startCommand.tipMessage"));
-
-                return;
-            }
-
-            message(time, a, b);
-            time--;
-        }, 0, 20);
-        return false;
+        return true;
     }
 
     private int parseInt(String parse) {
