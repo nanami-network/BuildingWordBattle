@@ -1,8 +1,6 @@
 package me.koutachan.buildingwordbattle.Commands;
 
-import me.koutachan.buildingwordbattle.Game.Game;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
-import me.koutachan.buildingwordbattle.Game.GameInfo;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

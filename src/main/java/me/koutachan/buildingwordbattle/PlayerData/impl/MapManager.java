@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.Game.CreateBox;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
-import me.koutachan.buildingwordbattle.Game.GameInfo;
-import me.koutachan.buildingwordbattle.Game.Spec;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import org.bukkit.Location;

@@ -2,7 +2,6 @@ package me.koutachan.buildingwordbattle.Utilities;
 
 import lombok.experimental.UtilityClass;
 import me.koutachan.buildingwordbattle.Game.CreateBox;
-import me.koutachan.buildingwordbattle.Game.GameInfo;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;

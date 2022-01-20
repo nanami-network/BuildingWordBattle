@@ -3,8 +3,6 @@ package me.koutachan.buildingwordbattle;
 import me.koutachan.buildingwordbattle.Game.CreateBox;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
-import me.koutachan.buildingwordbattle.Game.GameInfo;
-import me.koutachan.buildingwordbattle.Game.Spec;
 import me.koutachan.buildingwordbattle.Map.AreaCreator;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;

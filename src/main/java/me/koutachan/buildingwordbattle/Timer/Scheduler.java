@@ -1,11 +1,7 @@
 package me.koutachan.buildingwordbattle.Timer;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.Game.Build;
-import me.koutachan.buildingwordbattle.Game.Game;
 import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
-import me.koutachan.buildingwordbattle.Game.GameInfo;
-import me.koutachan.buildingwordbattle.Game.Theme;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
 import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
@@ -25,8 +21,6 @@ public class Scheduler {
 
     public static int themeTime, themeCount, buildingTime, answerTime;
 
-    public boolean endedBuild, endedAnswer;
-
     private BukkitTask bukkitTask;
 
     public void start() {
@@ -43,9 +37,6 @@ public class Scheduler {
             GameInfo.maxRound = Game.getMaxRound();
 
             playerDataUpdate();
-            themeTime();
-            buildingTime();
-            answerTime();
             updateBoard();
         }, 0, 20);
     }
@@ -60,119 +51,6 @@ public class Scheduler {
         }
     }
 
-    private void themeTime() {
-        if (GameInfo.nowState == GameStateEnum.THEME) {
-
-            themeCount = 0;
-
-            if (themeTime <= 0) {
-                Theme.startShuffle();
-                return;
-            }
-
-            for (Player player : Bukkit.getOnlinePlayers()) {
-
-                PlayerData data = PlayerDataUtil.getPlayerData(player);
-
-                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-
-                    String theme = data.getThemeManager().getTheme();
-
-                    if (theme == null) {
-                        theme = "お題を設定してください";
-                        themeCount++;
-                    }
-
-                    theme = ChatUtil.translateAlternateColorCodes(" &6[お題] " + theme);
-
-                    try {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));
-                    } catch (NoSuchMethodError e) {
-                        data.getScoreBoardManager().getScoreboard().set(theme, 7);
-                    }
-                }
-            }
-
-            if (themeCount == 0) {
-                Theme.startShuffle();
-                return;
-            }
-
-            themeTime--;
-        }
-    }
-
-    private void buildingTime() {
-        if (GameInfo.nowState == GameStateEnum.BUILDING) {
-
-
-            for (Player player : Bukkit.getOnlinePlayers()) {
-
-                PlayerData data = PlayerDataUtil.getPlayerData(player);
-
-                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-
-                    String theme = data.getMapManager().getTheme();
-
-                    if (theme == null) theme = "お題未設定";
-
-                    try {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(theme));
-                    } catch (NoSuchMethodError ignored) {
-                    }
-                }
-            }
-
-            if (buildingTime <= 0) {
-                if (endedBuild) {
-                    Game.startAnswer();
-
-                    endedBuild = false;
-
-                    return;
-                }
-            } else {
-                endedBuild = true;
-            }
-
-            buildingTime--;
-        }
-    }
-
-    private void answerTime() {
-        if (GameInfo.nowState == GameStateEnum.ANSWER) {
-
-
-            for (Player player : Bukkit.getOnlinePlayers()) {
-
-                PlayerData data = PlayerDataUtil.getPlayerData(player);
-
-                if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-
-                    String answer = data.getAnswerManager().getAnswer() != null ? data.getAnswerManager().getAnswer() : "回答無し";
-
-                    try {
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GOLD + "回答: " + answer));
-                    } catch (NoSuchMethodError ignored) {
-                    }
-                }
-            }
-
-            if (answerTime <= 0) {
-                if (endedAnswer) {
-                    Build.startShuffle();
-
-                    endedAnswer = false;
-
-                    return;
-                }
-            } else {
-                endedAnswer = true;
-            }
-
-            answerTime--;
-        }
-    }
 
     private void updateBoard() {
         ScoreBoard.handle();
