@@ -25,6 +25,8 @@ public class Scheduler {
 
     public static int themeTime, themeCount, buildingTime, answerTime;
 
+    public boolean endedBuild, endedAnswer;
+
     private BukkitTask bukkitTask;
 
     public void start() {
@@ -122,8 +124,15 @@ public class Scheduler {
             }
 
             if (buildingTime <= 0) {
-                Game.startAnswer();
-                return;
+                if (endedBuild) {
+                    Game.startAnswer();
+
+                    endedBuild = false;
+
+                    return;
+                }
+            } else {
+                endedBuild = true;
             }
 
             buildingTime--;
@@ -150,9 +159,15 @@ public class Scheduler {
             }
 
             if (answerTime <= 0) {
-                Build.startShuffle();
-                //Theme.startShuffle();
-                return;
+                if (endedAnswer) {
+                    Build.startShuffle();
+
+                    endedAnswer = false;
+
+                    return;
+                }
+            } else {
+                endedAnswer = true;
             }
 
             answerTime--;
