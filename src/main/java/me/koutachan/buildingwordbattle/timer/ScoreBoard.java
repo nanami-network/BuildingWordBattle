@@ -111,7 +111,6 @@ public class ScoreBoard {
                 "%max-round|" + GameInfo.CALCULATE_MAX_ROUND_SHOW);
 
         for (int i = stringList.size(); i > 0; i--) {
-            System.out.print(stringList.size() - i);
             data.getScoreBoardManager().getScoreboard().set(stringList.get(stringList.size() - i), i);
         }
     }

@@ -35,7 +35,7 @@ GAME-STATE:
 SCOREBOARD:
   DEFAULT:
     - '&1'
-    - '&c 現在のラグ: %lag%'
+    - '&c 現在のラグ: %lag%ms'
     - '&2'
     - '&e ≫ &l%game-state%'
     - '&3'
@@ -46,7 +46,7 @@ SCOREBOARD:
     - '&b @credit 7mi_chan'
   THEME:
     - '&1'
-    - '&c > 現在のラグ: %lag%'
+    - '&c > 現在のラグ: %lag%ms'
     - '&e > 残り時間: %theme-time%'
     - '&e > 残り人数: %count%'
     - '&2'
@@ -57,7 +57,7 @@ SCOREBOARD:
     - '&4'
   BUILD:
     - '&1'
-    - '&c 現在のラグ: %lag%'
+    - '&c 現在のラグ: %lag%ms'
     - '&e 残り時間: %build-time%'
     - '&e ≫ &l%round%/%max-round%'
     - '&2'
@@ -68,7 +68,7 @@ SCOREBOARD:
     - '&4'
   ANSWER:
     - '&1'
-    - '&c 現在のラグ: %lag%'
+    - '&c 現在のラグ: %lag%ms'
     - '&e 残り時間: %answer-time%'
     - '&e ≫ &l%round%/%max-round%'
     - '&2'
