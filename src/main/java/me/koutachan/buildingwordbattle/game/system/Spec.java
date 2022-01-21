@@ -7,7 +7,8 @@ import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
+import me.koutachan.buildingwordbattle.util.MessageManager;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -36,7 +37,7 @@ public class Spec {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-                String chat = ChatUtil.message("SPEC.SPEC_ACTIONBAR", "%map%|" + data.getMapManager().getMapName());
+                String chat = ConfigUtil.message("SPEC.SPEC-ACTIONBAR", "%map%|" + data.getMapManager().getMapName());
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(chat));
             }
 
@@ -87,14 +88,15 @@ public class Spec {
                         } else if (time - theme.length() - answer.length() - MAX_TITLE > 20) {
                             for (Player player : Bukkit.getOnlinePlayers()) {
                                 try {
-                                    String hover_message = ChatUtil.translateAlternateColorCodes("&aお題を設定した人: %s\n"
-                                            + "&b建築した人: %s\n"
-                                            + "&6回答した人: %s\n"
-                                            + "&eお題: %s\n"
-                                            + "&e回答: %s");
+                                    String hoverMessage = ConfigUtil.messageList("SPEC.SPEC-CHAT-HOVER",
+                                            "%theme-player%|" + (areaCreator.getThemePlayer() != null ? areaCreator.getThemePlayer() : MessageManager.getString("GAME.NOT-SET")),
+                                            "%build-player%|" + (areaCreator.getAuthor() != null ? areaCreator.getAuthor() : MessageManager.getString("GAME.NOT-SET")),
+                                            "%answer-player%|" + (areaCreator.getAnswerPlayer() != null ? areaCreator.getAnswerPlayer() : MessageManager.getString("GAME.NOT-SET")),
+                                            "%theme%|" + theme,
+                                            "%answer%|" + answer);
 
-                                    TextComponent message = new TextComponent(ChatUtil.message("GAME.SPEC_CHAT_MESSAGE", "%map_name%|" + areaCreator.getMapName()));
-                                    message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(String.format(hover_message, areaCreator.getThemePlayer(), areaCreator.getAuthor(), areaCreator.getAnswerPlayer(), theme, answer)).create()));
+                                    TextComponent message = new TextComponent(ConfigUtil.message("SPEC.SPEC-CHAT-MESSAGE", "%map_name%|" + areaCreator.getMapName()));
+                                    message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hoverMessage).create()));
 
                                     player.spigot().sendMessage(message);
                                 } catch (Exception e) {

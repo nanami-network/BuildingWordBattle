@@ -1,7 +1,7 @@
 package me.koutachan.buildingwordbattle.commands;
 
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
@@ -27,10 +27,10 @@ public class AdminCommand implements CommandExecutor {
 
             if (data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
                 data.getTeamManager().setCurrentTeam(TeamEnum.ADMIN);
-                player.sendMessage(ChatUtil.translateAlternateColorCodes("&eチームを 管理者 に変更しました"));
+                player.sendMessage(ConfigUtil.translateAlternateColorCodes("&eチームを 管理者 に変更しました"));
             } else {
                 data.getTeamManager().setCurrentTeam(TeamEnum.SPEC);
-                player.sendMessage(ChatUtil.translateAlternateColorCodes("&eチームを 観戦 に変更しました"));
+                player.sendMessage(ConfigUtil.translateAlternateColorCodes("&eチームを 観戦 に変更しました"));
             }
         }
         return true;

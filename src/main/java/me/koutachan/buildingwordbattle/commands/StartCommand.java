@@ -7,7 +7,7 @@ import me.koutachan.buildingwordbattle.game.system.Theme;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import me.koutachan.buildingwordbattle.util.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -40,7 +40,7 @@ public class StartCommand implements CommandExecutor {
             bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
                 if (time <= 0) {
                     bukkitTask.cancel();
-                    ChatUtil.sendMessageBroadCast("STARTCOMMAND.START_MESSAGE");
+                    ConfigUtil.sendMessageBroadCast("START-COMMAND.START-MESSAGE");
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
 
@@ -55,7 +55,7 @@ public class StartCommand implements CommandExecutor {
                     //お題設定開始
                     Theme.start();
 
-                    ChatUtil.sendMessageBroadCast("STARTCOMMAND.TIP_MESSAGE");
+                    ConfigUtil.sendMessageBroadCast("START-COMMAND.TIP-MESSAGE");
 
                     GameInfo.BOX_MAX_VALUE = PlayerDataUtil.getOnlinePlayers();
                 } else {
@@ -80,13 +80,13 @@ public class StartCommand implements CommandExecutor {
 
     private void message(int sec, int a, int b) {
 
-        String colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_A");
+        String colorCode = MessageManager.getString("START-COMMAND.COLORCODE-A");
 
-        if (sec <= a) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_C");
-        else if (sec <= b) colorCode = MessageManager.getString("STARTCOMMAND.COLORCODE_B");
+        if (sec <= a) colorCode = MessageManager.getString("START-COMMAND.COLORCODE-C");
+        else if (sec <= b) colorCode = MessageManager.getString("START-COMMAND.COLORCODE-B");
 
 
-        ChatUtil.sendMessageBroadCast("STARTCOMMAND.COUNT_MESSAGE", "%colorcode%|" + colorCode, "%time%|" + time);
+        ConfigUtil.sendMessageBroadCast("START-COMMAND.COUNT-MESSAGE", "%colorcode%|" + colorCode, "%time%|" + time);
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             try {

@@ -9,7 +9,7 @@ import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -36,10 +36,10 @@ public class GameSystem {
 
         final int calculateTime = PlayerDataUtil.getOnlinePlayers() * 3;
 
-        ChatUtil.sendMessageBroadCast("GAME.MAP_CREATE_STARTED", "%tick%|" + calculateTime);
+        ConfigUtil.sendMessageBroadCast("GAME.MAP-CREATE-STARTED", "%tick%|" + calculateTime);
 
         Bukkit.getScheduler().runTaskLater(BuildingWordBattle.INSTANCE, () -> {
-            ChatUtil.sendMessageBroadCast("GAME.MAP_CREATE_ENDED");
+            ConfigUtil.sendMessageBroadCast("GAME.MAP-CREATE-ENDED");
 
             switch (state) {
                 case THEME:
@@ -75,7 +75,7 @@ public class GameSystem {
                             areaCreator.setAuthor(player.getName());
                             areaCreator.setAuthorUUID(player.getUniqueId());
 
-                            ChatUtil.sendChat(player, "GAME.GAME_ACTIONBAR", "%theme%|" + areaCreator.getTheme());
+                            ConfigUtil.sendChat(player, "GAME.GAME-ACTIONBAR", "%theme%|" + areaCreator.getTheme());
                             break;
                         }
                         case ANSWER: {

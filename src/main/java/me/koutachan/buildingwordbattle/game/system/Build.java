@@ -8,7 +8,7 @@ import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -30,7 +30,7 @@ public class Build {
                 if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
                     try {
 
-                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatUtil.message("GAME.GAME_ACTIONBAR", "%theme%|" + data.getMapManager().getTheme())));
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ConfigUtil.message("GAME.GAME-ACTIONBAR", "%theme%|" + data.getMapManager().getTheme())));
                     } catch (NoSuchMethodError ignore) {
                     }
                 } else {

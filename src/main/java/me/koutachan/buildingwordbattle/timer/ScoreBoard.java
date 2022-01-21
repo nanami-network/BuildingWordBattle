@@ -8,9 +8,12 @@ import me.koutachan.buildingwordbattle.game.system.Theme;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
+import me.koutachan.buildingwordbattle.util.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class ScoreBoard {
     public static void handle() {
@@ -44,18 +47,7 @@ public class ScoreBoard {
 
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-            data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatUtil.translateAlternateColorCodes("&1"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatUtil.translateAlternateColorCodes("&2"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", translate(GameInfo.gameInfo))),
-                    ChatUtil.translateAlternateColorCodes("&3"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatUtil.translateAlternateColorCodes("&4"),
-                    ChatUtil.translateAlternateColorCodes("&6 一言お知らせ: 何もないよ"),
-                    ChatUtil.translateAlternateColorCodes("&b @credit 7mi_chan")
-            );
+            translate(data, "SCOREBOARD.DEFAULT");
         }
     }
 
@@ -64,18 +56,7 @@ public class ScoreBoard {
 
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-            data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatUtil.translateAlternateColorCodes("&1"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&c > 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e > 残り時間: %s", Theme.time)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e > 残り人数: %s", Theme.playerCount)),
-                    ChatUtil.translateAlternateColorCodes("&3"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatUtil.translateAlternateColorCodes("&4"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&6 お題: %s", data.getThemeManager().getTheme() != null ? data.getThemeManager().getTheme() : "未設定")),
-                    ChatUtil.translateAlternateColorCodes("&5")
-            );
+            translate(data, "SCOREBOARD.THEME");
         }
     }
 
@@ -84,18 +65,7 @@ public class ScoreBoard {
 
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-            data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatUtil.translateAlternateColorCodes("&1"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Build.time)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.CURRENT_ROUND, GameInfo.CALCULATE_MAX_ROUND_SHOW))),
-                    ChatUtil.translateAlternateColorCodes("&2"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatUtil.translateAlternateColorCodes("&3"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e お題: %s", data.getMapManager().getTheme() != null ? data.getMapManager().getTheme() : "未設定")),
-                    ChatUtil.translateAlternateColorCodes("&4")
-            );
+            translate(data, "SCOREBOARD.BUILD");
         }
     }
 
@@ -104,36 +74,45 @@ public class ScoreBoard {
 
             PlayerData data = PlayerDataUtil.getPlayerData(player);
 
-            AreaCreator areaCreator = GameInfo.areaCreator.get(data.getMapManager().getAnswerMapName());
-
-            String answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "回答無し";
-
-            data.getScoreBoardManager().getScoreboard().setAll(
-                    ChatUtil.translateAlternateColorCodes("&1"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&c 現在のラグ: %sms", Scheduler.serverLagSpike)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&6 残り時間: %s", Answer.time)),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e ≫ &l%s", String.format("ラウンド: %s/%s", GameInfo.CURRENT_ROUND, GameInfo.CALCULATE_MAX_ROUND_SHOW))),
-                    ChatUtil.translateAlternateColorCodes("&3"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&a チーム: &l%s", data.getTeamManager().getCurrentTeam())),
-                    ChatUtil.translateAlternateColorCodes(String.format("&b オンライン数: &l%s", Bukkit.getOnlinePlayers().size())),
-                    ChatUtil.translateAlternateColorCodes("&4"),
-                    ChatUtil.translateAlternateColorCodes(String.format("&e 回答: %s", answer)),
-                    ChatUtil.translateAlternateColorCodes("&5")
-            );
+            translate(data, "SCOREBOARD.ANSWER");
         }
     }
 
     private static String translate(GameEnum gameEnum) {
         switch (gameEnum) {
             case LOBBY:
-                return "ゲーム開始待機中";
+                return MessageManager.getString("GAME-STATE.LOBBY");
             case STARTING:
-                return "ゲーム開始中";
-            case END:
-                return "ゲーム終了！";
+                return MessageManager.getString("GAME-STATE.STARTING");
             case GAME:
-                return "ゲーム中！";
+                return MessageManager.getString("GAME-STATE.GAME");
+            case END:
+                return MessageManager.getString("GAME-STATE.END");
         }
         return null;
+    }
+
+    private static void translate(PlayerData data, String messageID) {
+        AreaCreator areaCreator = GameInfo.areaCreator.get(data.getMapManager().getAnswerMapName());
+
+        List<String> stringList = ConfigUtil.replaceList(messageID,
+                "%lag%|" + Scheduler.serverLagSpike,
+                "%game-state%|" + translate(GameInfo.gameInfo),
+                "%team%|" + data.getTeamManager().getCurrentTeam().toString(),
+                "%online-player%|" + Bukkit.getOnlinePlayers().size(),
+                "%theme-time%|" + Theme.time,
+                "%build-time%|" + Build.time,
+                "%answer-time%|" + Answer.time,
+                "%count%|" + Theme.playerCount,
+                "%theme%|" + (data.getThemeManager().getTheme() != null ? data.getThemeManager().getTheme() : MessageManager.getString("GAME.NOT-SET")),
+                "%theme-build%|" + (data.getMapManager().getTheme() != null ? data.getMapManager().getTheme() : MessageManager.getString("GAME.NOT-SET")),
+                "%answer%|" + (areaCreator != null && areaCreator.getAnswer() != null ? areaCreator.getAnswer() : MessageManager.getString("GAME.ANSWER-NOT-SET")),
+                "%round%|" + GameInfo.CURRENT_ROUND,
+                "%max-round|" + GameInfo.CALCULATE_MAX_ROUND_SHOW);
+
+        for (int i = stringList.size(); i > 0; i--) {
+            System.out.print(stringList.size() - i);
+            data.getScoreBoardManager().getScoreboard().set(stringList.get(stringList.size() - i), i);
+        }
     }
 }

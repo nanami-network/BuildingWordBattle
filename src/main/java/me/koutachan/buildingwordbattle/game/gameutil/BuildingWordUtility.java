@@ -10,7 +10,7 @@ import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -93,7 +93,7 @@ public class BuildingWordUtility {
         Spec.count = 0;
         Spec.round = 0;
 
-        ChatUtil.sendMessageBroadCast("GAME.PLAYERDATA_RECREATE");
+        ConfigUtil.sendMessageBroadCast("GAME.PLAYER-DATA-RECREATE");
 
         PlayerDataUtil.playerDataHashMap.clear();
 

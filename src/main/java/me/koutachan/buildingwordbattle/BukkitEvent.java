@@ -8,7 +8,7 @@ import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.util.ChatUtil;
+import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -73,7 +73,7 @@ public class BukkitEvent implements Listener {
                     return;
                 }
 
-                e.getPlayer().sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
+                e.getPlayer().sendMessage(ConfigUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
 
                 try {
                     e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
@@ -102,7 +102,7 @@ public class BukkitEvent implements Listener {
                         return;
                     }
 
-                    e.getPlayer().sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
+                    e.getPlayer().sendMessage(ConfigUtil.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
                     GameInfo.areaCreator.get(data.getMapManager().getAnswerMapName()).setAnswer(e.getMessage());
 
                     try {
