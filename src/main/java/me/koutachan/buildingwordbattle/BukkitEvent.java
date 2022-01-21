@@ -1,13 +1,14 @@
 package me.koutachan.buildingwordbattle;
 
-import me.koutachan.buildingwordbattle.Game.CreateBox;
-import me.koutachan.buildingwordbattle.Game.GameEnum.GameEnum;
-import me.koutachan.buildingwordbattle.Game.GameEnum.GameStateEnum;
-import me.koutachan.buildingwordbattle.Map.AreaCreator;
-import me.koutachan.buildingwordbattle.PlayerData.PlayerData;
-import me.koutachan.buildingwordbattle.PlayerData.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.PlayerData.impl.Enum.TeamEnum;
-import me.koutachan.buildingwordbattle.Utilities.ChatUtil;
+import me.koutachan.buildingwordbattle.game.GameInfo;
+import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
+import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.system.Spec;
+import me.koutachan.buildingwordbattle.map.AreaCreator;
+import me.koutachan.buildingwordbattle.playerdata.PlayerData;
+import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
+import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.util.ChatUtil;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,7 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.util.Vector;
@@ -26,10 +28,18 @@ public class BukkitEvent implements Listener {
     public void onJoinEvent(PlayerJoinEvent e) {
         PlayerDataUtil.createPlayerData(e.getPlayer());
 
-        if (GameInfo.gameState != GameEnum.LOBBY && GameInfo.gameState != GameEnum.STARTING) {
+        if (GameInfo.gameInfo != GameEnum.LOBBY && GameInfo.gameInfo != GameEnum.STARTING) {
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
+
+            World world = Bukkit.getWorld("world");
+
+            e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("startPosX"),BuildingWordBattle.INSTANCE.getConfig().getInt("startPosY"),BuildingWordBattle.INSTANCE.getConfig().getInt("startPosZ")));
         } else {
             e.getPlayer().setGameMode(GameMode.CREATIVE);
+
+            World world = Bukkit.getWorld("world");
+
+            e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosX"),BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosY"),BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosZ")));
         }
     }
 
@@ -38,13 +48,14 @@ public class BukkitEvent implements Listener {
         PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
 
         if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-            GameInfo.mapList.remove((Integer) data.getThemeManager().getThemeMap());
+            //回すマップリストから消す
+            GameInfo.CURRENT_MAP_LIST.remove((Integer) data.getThemeManager().getThemeMap());
         }
     }
 
     @EventHandler
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent e) {
-        if (GameInfo.nowState == GameStateEnum.THEME) {
+        if (GameInfo.gameState == GameStateEnum.THEME) {
 
             PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
 
@@ -73,7 +84,7 @@ public class BukkitEvent implements Listener {
                 data.getThemeManager().setTheme(e.getMessage());
             }
         } else {
-            if (GameInfo.nowState == GameStateEnum.ANSWER) {
+            if (GameInfo.gameState == GameStateEnum.ANSWER) {
 
                 PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
 
@@ -92,14 +103,13 @@ public class BukkitEvent implements Listener {
                     }
 
                     e.getPlayer().sendMessage(ChatUtil.translateAlternateColorCodes(String.format("&b[CHAT] > 回答を %s に変更しました", e.getMessage())));
+                    GameInfo.areaCreator.get(data.getMapManager().getAnswerMapName()).setAnswer(e.getMessage());
 
                     try {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
                     } catch (NoSuchFieldError ignored) {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("LEVEL_UP"), 1f, 1f);
                     }
-
-                    data.getAnswerManager().setAnswer(e.getMessage());
                 }
             }
         }
@@ -114,10 +124,10 @@ public class BukkitEvent implements Listener {
 
             e.setCancelled(true);
 
-            if (GameInfo.nowState == GameStateEnum.BUILDING) {
+            if (GameInfo.gameState == GameStateEnum.BUILDING) {
                 for (int mapID : data.getMapManager().getMapList()) {
 
-                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+                    AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
                     if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
                         e.setCancelled(false);
@@ -137,10 +147,10 @@ public class BukkitEvent implements Listener {
 
             e.setCancelled(true);
 
-            if (GameInfo.nowState == GameStateEnum.BUILDING) {
+            if (GameInfo.gameState == GameStateEnum.BUILDING) {
                 for (int mapID : data.getMapManager().getMapList()) {
 
-                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+                    AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
                     if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
                         e.setCancelled(false);
@@ -170,10 +180,10 @@ public class BukkitEvent implements Listener {
 
             e.setCancelled(true);
 
-            if (GameInfo.nowState == GameStateEnum.BUILDING) {
+            if (GameInfo.gameState == GameStateEnum.BUILDING) {
                 for (int mapID : data.getMapManager().getMapList()) {
 
-                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+                    AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
                     if (areaCreator.isArea(e.getBlockClicked().getRelative(e.getBlockFace()).getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
                         e.setCancelled(false);
@@ -185,26 +195,32 @@ public class BukkitEvent implements Listener {
     }
 
     @EventHandler
-    public void onExplodeEvent1(EntityExplodeEvent e) {
+    public void onSplashPotionEvent(ProjectileLaunchEvent e) {
         e.setCancelled(true);
     }
 
     @EventHandler
-    public void onExplodeEvent2(BlockExplodeEvent e) {
+    public void onEntityExplodeEvent(EntityExplodeEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockExplodeEvent(BlockExplodeEvent e) {
         e.setCancelled(true);
     }
 
     @EventHandler
     public void moveEvent(PlayerMoveEvent e) {
-        if (GameInfo.gameState == GameEnum.GAME) {
-            if (GameInfo.nowState != GameStateEnum.SPEC) {
-                PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+        if (GameInfo.gameInfo == GameEnum.GAME) {
+            PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+
+            if (GameInfo.gameState != GameStateEnum.SPEC) {
 
                 if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
 
                     int mapID = data.getMapManager().getLastMapID();
 
-                    AreaCreator areaCreator = CreateBox.areaCreatorMap.get(mapID + "-" + GameInfo.buildRound);
+                    AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
                     if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation())) {
                         Vector middle = areaCreator.getMiddle();
@@ -217,7 +233,7 @@ public class BukkitEvent implements Listener {
             } else {
                 AreaCreator areaCreator = Spec.areaCreator;
 
-                if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation())) {
+                if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation()) && data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
                     Vector middle = areaCreator.getMiddle();
 
                     e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));

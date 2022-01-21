@@ -2,7 +2,10 @@ startPosX: 1000
 startPosY: 15
 startPosZ: 1000
 
+lobbyPosX: 0
+lobbyPosY: 10
+lobbyPosZ: 0
+
 themeTime: 60
-buldingTime: 180
+buildingTime: 180
 answerTime: 30
-specTime: 40

@@ -1,11 +1,11 @@
 package me.koutachan.buildingwordbattle;
 
-import me.koutachan.buildingwordbattle.Commands.AdminCommand;
-import me.koutachan.buildingwordbattle.Commands.ForceStopCommand;
-import me.koutachan.buildingwordbattle.Commands.ReloadConfigCommand;
-import me.koutachan.buildingwordbattle.Commands.StartCommand;
-import me.koutachan.buildingwordbattle.Timer.Scheduler;
-import me.koutachan.buildingwordbattle.Utilities.MessageManager;
+import me.koutachan.buildingwordbattle.commands.AdminCommand;
+import me.koutachan.buildingwordbattle.commands.ForceStopCommand;
+import me.koutachan.buildingwordbattle.commands.ReloadConfigCommand;
+import me.koutachan.buildingwordbattle.commands.StartCommand;
+import me.koutachan.buildingwordbattle.timer.Scheduler;
+import me.koutachan.buildingwordbattle.util.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
@@ -28,10 +28,6 @@ public final class BuildingWordBattle extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(MessageManager.getStringColor("firstMessage"));
 
-        MessageManager.configCache.values().forEach(i -> Bukkit.getConsoleSender().sendMessage(i));
-
-        MessageManager.configCache.forEach((key, value) -> Bukkit.getConsoleSender().sendMessage(key));
-
         Bukkit.getServer().getPluginManager().registerEvents(new BukkitEvent(), this);
         getCommand("start").setExecutor(new StartCommand());
         getCommand("admin").setExecutor(new AdminCommand());
@@ -44,7 +40,6 @@ public final class BuildingWordBattle extends JavaPlugin {
         world.setStorm(false);
         scheduler.start();
         // Plugin startup logic
-
     }
 
     @Override

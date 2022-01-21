@@ -11,7 +11,11 @@ STARTCOMMAND:
 GAME:
   MAP_CREATE_STARTED: '&7マップを生成中です・・・これはしばらくかかる場合があります &n予想時間: %tick%'
   MAP_CREATE_ENDED: '&aマップ生成が終了しました！ 次のラウンドを開始します！'
-  GAME_ACTIONBAR: '&6お題: %odai%'
+  GAME_ACTIONBAR: '&6お題: %theme%'
+  ANSWER_ACTIONBAR: "&6回答: %answer%"
+  ANSWER_STARTED: '&a回答タイム！'
+  THEME_TIME_ENDED: '&aお題の設定が終わりました！ マップを生成します'
+  SPEC_CHAT_MESSAGE: '&e%map_name% の詳細を見る！ [ここをクリック]'
   PLAYERDATA_RECREATE: '&7プレイヤーデータの再生成中・・・'
 SPEC:
   SPEC_ACTIONBAR: "&6現在のマップ: %map%"
