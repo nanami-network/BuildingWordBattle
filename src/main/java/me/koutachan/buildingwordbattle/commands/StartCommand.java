@@ -21,7 +21,7 @@ public class StartCommand implements CommandExecutor {
 
     private int time = 0;
 
-    public static BukkitTask bukkitTask;
+    private static BukkitTask bukkitTask;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -94,6 +94,13 @@ public class StartCommand implements CommandExecutor {
             } catch (NoSuchFieldError e) {
                 player.playSound(player.getLocation(), Sound.valueOf("NOTE_PLING"), 1f, 1f);
             }
+        }
+    }
+
+    public static void stop() {
+        if (bukkitTask != null) {
+            bukkitTask.cancel();
+            bukkitTask = null;
         }
     }
 }
