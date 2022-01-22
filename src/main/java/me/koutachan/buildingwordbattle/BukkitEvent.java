@@ -18,6 +18,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.util.Vector;
@@ -129,7 +130,11 @@ public class BukkitEvent implements Listener {
 
                     AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
-                    if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
+                    if (e.getBlock().getType() != Material.WALL_SIGN
+                            && e.getBlock().getType() != Material.SIGN
+                            && e.getBlock().getType() != Material.SIGN_POST
+                            && areaCreator.isArea(e.getBlock().getLocation())
+                            && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
                         e.setCancelled(false);
                         break;
                     }
@@ -164,6 +169,13 @@ public class BukkitEvent implements Listener {
     @EventHandler
     public void onCreatureSpawnEvent(CreatureSpawnEvent e) {
         e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onHangingPlaceEvent(HangingPlaceEvent e) {
+        if (PlayerDataUtil.getPlayerData(e.getPlayer()).getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler

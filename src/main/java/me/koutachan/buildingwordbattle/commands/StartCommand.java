@@ -39,7 +39,7 @@ public class StartCommand implements CommandExecutor {
 
             bukkitTask = Bukkit.getScheduler().runTaskTimer(BuildingWordBattle.INSTANCE, () -> {
                 if (time <= 0) {
-                    bukkitTask.cancel();
+                    stop();
                     ConfigUtil.sendMessageBroadCast("START-COMMAND.START-MESSAGE");
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
