@@ -108,7 +108,7 @@ public class ScoreBoard {
                 "%theme-build%|" + (data.getMapManager().getTheme() != null ? data.getMapManager().getTheme() : MessageManager.getString("GAME.NOT-SET")),
                 "%answer%|" + (areaCreator != null && areaCreator.getAnswer() != null ? areaCreator.getAnswer() : MessageManager.getString("GAME.ANSWER-NOT-SET")),
                 "%round%|" + GameInfo.CURRENT_ROUND,
-                "%max-round|" + GameInfo.CALCULATE_MAX_ROUND_SHOW);
+                "%max-round%|" + GameInfo.CALCULATE_MAX_ROUND_SHOW);
 
         for (int i = stringList.size(); i > 0; i--) {
             data.getScoreBoardManager().getScoreboard().set(stringList.get(stringList.size() - i), i);

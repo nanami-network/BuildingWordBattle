@@ -65,7 +65,7 @@ public class Spec {
 
                 Location location = new Location(world, vector.getX(), vector.getY(), vector.getZ());
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.teleport(location);
+                    BuildingWordUtility.mainThreadTeleport(player, location);
                 }
 
             } else {

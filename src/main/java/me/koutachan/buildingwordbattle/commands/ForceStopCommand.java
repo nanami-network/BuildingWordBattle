@@ -18,6 +18,7 @@ public class ForceStopCommand implements CommandExecutor {
 
             sender.sendMessage("Game > 自動観戦を終了しました");
         } else {
+
             BuildingWordUtility.resetGame(true);
         }
         return true;

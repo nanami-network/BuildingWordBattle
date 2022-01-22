@@ -21,7 +21,7 @@ public class StartCommand implements CommandExecutor {
 
     private int time = 0;
 
-    private BukkitTask bukkitTask;
+    public static BukkitTask bukkitTask;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

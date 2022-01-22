@@ -99,7 +99,7 @@ public class GameSystem {
 
                     Vector middle = areaCreator.getMiddle();
 
-                    player.teleport(new Location(world, middle.getX(), middle.getY(), middle.getZ()));
+                    BuildingWordUtility.mainThreadTeleport(player, new Location(world, middle.getX(), middle.getY(), middle.getZ()));
                 }
             }
 
