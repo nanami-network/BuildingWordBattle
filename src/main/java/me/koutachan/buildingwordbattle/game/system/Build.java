@@ -29,7 +29,6 @@ public class Build {
 
                 if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
                     try {
-
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ConfigUtil.message("GAME.GAME-ACTIONBAR", "%theme%|" + data.getMapManager().getTheme())));
                     } catch (NoSuchMethodError ignore) {
                     }

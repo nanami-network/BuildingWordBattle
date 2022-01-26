@@ -18,7 +18,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * 余裕があったら再コード予定
+ * 唯一再コードされてないコード
+ */
 
 public class Spec {
 
@@ -26,10 +32,12 @@ public class Spec {
     public static AreaCreator areaCreator;
     private static String theme, answer;
     public static BukkitTask bukkitTask;
+    public static List<Integer> CLONED_MAP_LIST;
 
     public static void run() {
         final int MAX_ROUND = GameInfo.CURRENT_BUILD_ROUND;
-        final List<Integer> CLONED_MAP_LIST = GameInfo.CURRENT_MAP_LIST;
+
+        CLONED_MAP_LIST = new ArrayList<>(GameInfo.CURRENT_MAP_LIST);
 
         final World world = Bukkit.getWorld("world");
 

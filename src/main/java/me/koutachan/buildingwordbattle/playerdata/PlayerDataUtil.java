@@ -6,9 +6,7 @@ import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @UtilityClass
@@ -39,5 +37,18 @@ public class PlayerDataUtil {
             }
         }
         return result;
+    }
+
+    public List<PlayerData> getOnlinePlayersData() {
+        List<PlayerData> playerData = new ArrayList<>();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerData data = getPlayerData(player);
+
+            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                playerData.add(data);
+            }
+        }
+        return playerData;
     }
 }

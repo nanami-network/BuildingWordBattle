@@ -19,6 +19,7 @@ import org.bukkit.util.Vector;
 import java.util.*;
 
 public class GameSystem {
+
     public static void run() {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -96,7 +97,6 @@ public class GameSystem {
 
                     World world = Bukkit.getWorld("world");
 
-
                     Vector middle = areaCreator.getMiddle();
 
                     BuildingWordUtility.mainThreadTeleport(player, new Location(world, middle.getX(), middle.getY(), middle.getZ()));
@@ -112,6 +112,13 @@ public class GameSystem {
         }
     }
 
+    /**
+     * どこのマップをプレイしていないか調べる
+     * 1. このコードは効率化されていません
+     * 2. 運が悪いとnullが返される可能性があります
+     * <p>
+     * TODO: ~ プレイできないマップをまとめて効率化する
+     */
     private static Map<UUID, Integer> shuffleWhile() {
         int a = 0;
 
@@ -119,8 +126,8 @@ public class GameSystem {
             int temp = 0;
             a++;
 
-            //a > 100回行くことはあり得ない、 もし運が悪かったらあるかも。
-            if (a > 100) {
+            //a > 1000回行くことはあり得ない、 もし運が悪かったらあるかも。
+            if (a > 1000) {
                 return null;
             }
 
@@ -155,7 +162,6 @@ public class GameSystem {
                             return null;
                         }
                     }
-
                     if (temp == 0) {
                         hashmap.put(player.getUniqueId(), foundNumber);
                     }
