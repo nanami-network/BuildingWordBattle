@@ -222,6 +222,11 @@ public class BukkitEvent implements Listener {
     }
 
     @EventHandler
+    public void onPlayerDropItemEvent(PlayerDropItemEvent e) {
+        e.setCancelled(true);
+    }
+
+    @EventHandler
     public void moveEvent(PlayerMoveEvent e) {
         if (GameInfo.gameInfo == GameEnum.GAME) {
             PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
