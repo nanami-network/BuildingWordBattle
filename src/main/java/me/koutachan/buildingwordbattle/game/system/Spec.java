@@ -154,7 +154,7 @@ public class Spec {
     }
 
     private static String addChatColor(String str, int position) {
-        return str.substring(0, position) + ChatColor.MAGIC + str.substring(position);
+        return str.substring(0, position) + net.md_5.bungee.api.ChatColor.MAGIC + str.substring(position);
     }
 
     private static void sendTitle(String title, String subtitle, int fadeIn, int stay, int fadeOut, boolean sound) {

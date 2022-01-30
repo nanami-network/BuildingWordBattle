@@ -17,6 +17,10 @@ public class PlayerDataUtil {
         return playerDataHashMap.get(player.getUniqueId());
     }
 
+    public PlayerData getPlayerData(UUID UUID) {
+        return playerDataHashMap.get(UUID);
+    }
+
     public void createPlayerData(Player player) {
         playerDataHashMap.put(player.getUniqueId(), new PlayerData(player));
     }
