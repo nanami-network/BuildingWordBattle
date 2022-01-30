@@ -55,6 +55,13 @@ public class BukkitEvent implements Listener {
     }
 
     @EventHandler
+    public void onPlayerPortalEvent(PlayerPortalEvent e) {
+        if (PlayerDataUtil.getPlayerData(e.getPlayer()).getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent e) {
         if (GameInfo.gameState == GameStateEnum.THEME) {
 
