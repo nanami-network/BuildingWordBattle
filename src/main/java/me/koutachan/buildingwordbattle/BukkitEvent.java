@@ -30,7 +30,7 @@ import org.bukkit.util.Vector;
 public class BukkitEvent implements Listener {
 
     @EventHandler
-    public void onJoinEvent(PlayerJoinEvent e) {
+    public void onPlayerJoinEvent(PlayerJoinEvent e) {
         PlayerDataUtil.createPlayerData(e.getPlayer());
 
         if (GameInfo.gameInfo != GameEnum.LOBBY && GameInfo.gameInfo != GameEnum.STARTING) {
@@ -49,7 +49,7 @@ public class BukkitEvent implements Listener {
     }
 
     @EventHandler
-    public void onQuitEvent(PlayerQuitEvent e) {
+    public void onPlayerQuitEvent(PlayerQuitEvent e) {
         PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
 
         if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
@@ -160,7 +160,7 @@ public class BukkitEvent implements Listener {
                 && e.getInventory().getType() != InventoryType.PLAYER
                 && e.getInventory().getType() != InventoryType.CREATIVE) {
             e.setCancelled(true);
-        } else {
+
             e.getPlayer().sendMessage(ConfigUtil.message("GAME.CANNOT-OPEN-GUI"));
         }
     }
