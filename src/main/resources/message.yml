@@ -8,6 +8,18 @@ START-COMMAND:
   COUNT-MESSAGE: '%colorcode%ゲームは %time% 秒後に開始されます'
   START-MESSAGE: '&aゲーム開始！'
   TIP-MESSAGE: '&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！'
+CHANGE-MODE-COMMAND:
+  HELP-MESSAGE:
+    - '&a| fast - ちょっと進みを早くしてくれます 便利ですね？'
+    - '&e| super-fast - お題、回答の時間を短くしてくれます、不便ですね？'
+    - '&b| if-answer-null - 回答がﾇﾙﾎﾟだった場合スキップしてくれます！'
+  MODE-CHANGE-MESSAGE:
+    - '&a| fast - %fast-mode-value%'
+    - '&e| super-fast - %super-fast-mode-value%'
+    - '&b| if-answer-null - %if-answer-null-mode-value%'
+  MODE-UNKNOWN:  '&Cモードが不明です！'
+  MODE-ON: 'オン！'
+  MODE-OFF: 'オフ！'
 GAME:
   MAP-CREATE-STARTED: '&7マップを生成中です・・・これはしばらくかかる場合があります &n予想時間: %tick%'
   MAP-CREATE-ENDED: '&aマップ生成が終了しました！ 次のラウンドを開始します！'
@@ -22,6 +34,7 @@ GAME:
 SPEC:
   SPEC-ACTIONBAR: "&6現在のマップ: %map%"
   SPEC-CHAT-MESSAGE: '&e%map_name% の詳細を見る！ [ここをクリック]'
+  SPEC-SKIPPED-ANSWER-MESSAGE: '&e回答が未回答だったためスキップされました。'
   SPEC-CHAT-HOVER:
     - '&aお題を設定した人: %theme-player%'
     - '&b建築した人: %build-player%'

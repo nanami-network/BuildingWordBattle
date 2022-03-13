@@ -30,7 +30,7 @@ public class Spec {
 
     public static AreaCreator areaCreator;
 
-    public static boolean fastMode, superFastMode, skipIfThemeIsNull;
+    public static boolean fastMode, superFastMode, skipIfAnswerIsNull;
 
     public static BukkitTask bukkitTask;
     public static List<Integer> CLONED_MAP_LIST;
@@ -70,6 +70,20 @@ public class Spec {
         if (time < 95) onDefaultMode();
         else {
 
+            String theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "未回答";
+            String answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "未回答";
+
+            int time = Spec.time - 95;
+
+            String themeFormat = ConfigUtil.translateAlternateColorCodes(String.format("&bお題: %s", theme));
+            String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: &k%s", answer));
+
+
+            if (time <= 10) {
+                sendTitle(themeFormat, answerFormat, time == 0f);
+            } else {
+                Spec.time = 0;
+            }
         }
     }
 
@@ -98,18 +112,25 @@ public class Spec {
                 sendTitle(themeFormat, answerFormat, true);
             } else {
 
-                time = time - theme.length();
+                time -= theme.length();
 
                 if (time <= answer.length()) {
-                    String design = addChatColor(answer, time);
+                    if (skipIfAnswerIsNull && areaCreator.getAnswer() == null) {
+                        Spec.time += answer.length();
 
-                    String themeFormat = ConfigUtil.translateAlternateColorCodes(String.format("&bお題: %s", theme));
-                    String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: %s", design));
+                        ConfigUtil.sendMessageBroadCast("SPEC.SPEC-SKIPPED-ANSWER-MESSAGE");
+                    } else {
 
-                    sendTitle(themeFormat, answerFormat, true);
+                        String design = addChatColor(answer, time);
+
+                        String themeFormat = ConfigUtil.translateAlternateColorCodes(String.format("&bお題: %s", theme));
+                        String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: %s", design));
+
+                        sendTitle(themeFormat, answerFormat, true);
+                    }
                 } else {
 
-                    time = time - answer.length();
+                    time -= answer.length();
 
                     String themeFormat = ConfigUtil.translateAlternateColorCodes(String.format("&bお題: %s", theme));
                     String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: %s", answer));

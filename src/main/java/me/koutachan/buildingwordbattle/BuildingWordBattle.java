@@ -1,9 +1,6 @@
 package me.koutachan.buildingwordbattle;
 
-import me.koutachan.buildingwordbattle.commands.AdminCommand;
-import me.koutachan.buildingwordbattle.commands.ForceStopCommand;
-import me.koutachan.buildingwordbattle.commands.ReloadConfigCommand;
-import me.koutachan.buildingwordbattle.commands.StartCommand;
+import me.koutachan.buildingwordbattle.commands.*;
 import me.koutachan.buildingwordbattle.timer.Scheduler;
 import me.koutachan.buildingwordbattle.util.MessageManager;
 import org.bukkit.Bukkit;
@@ -32,6 +29,7 @@ public final class BuildingWordBattle extends JavaPlugin {
         getCommand("start").setExecutor(new StartCommand());
         getCommand("admin").setExecutor(new AdminCommand());
         getCommand("reloadConfig").setExecutor(new ReloadConfigCommand());
+        getCommand("change-mode").setExecutor(new ChangeModeCommand());
         getCommand("forcestop").setExecutor(new ForceStopCommand());
 
         World world = Bukkit.getWorld("world");

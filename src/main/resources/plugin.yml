@@ -7,6 +7,8 @@ commands:
     permission: minecraft.op
   admin:
     permission: minecraft.op
+  change-mode:
+    permission: minecraft.op
   reloadConfig:
     permission: minecraft.op
   forcestop:
