@@ -11,8 +11,8 @@ public class ChangeModeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length > 1) {
-            String mode = args[1].toLowerCase();
+        if (args.length > 0) {
+            String mode = args[0].toLowerCase();
 
             switch (mode) {
                 case "fast": {
@@ -43,7 +43,7 @@ public class ChangeModeCommand implements CommandExecutor {
         }
 
         String on = ConfigUtil.message("CHANGE-MODE-COMMAND.MODE-ON");
-        String off = ConfigUtil.message("CHANGE-MODE-COMMAND.MODE-ON");
+        String off = ConfigUtil.message("CHANGE-MODE-COMMAND.MODE-OFF");
 
         final String fast = Spec.fastMode ? on : off;
         final String superFast = Spec.superFastMode ? on : off;

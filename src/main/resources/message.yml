@@ -18,8 +18,8 @@ CHANGE-MODE-COMMAND:
     - '&e| super-fast - %super-fast-mode-value%'
     - '&b| if-answer-null - %if-answer-null-mode-value%'
   MODE-UNKNOWN:  '&Cモードが不明です！'
-  MODE-ON: 'オン！'
-  MODE-OFF: 'オフ！'
+  MODE-ON: '&aオン！'
+  MODE-OFF: '&cオフ！'
 GAME:
   MAP-CREATE-STARTED: '&7マップを生成中です・・・これはしばらくかかる場合があります &n予想時間: %tick%'
   MAP-CREATE-ENDED: '&aマップ生成が終了しました！ 次のラウンドを開始します！'

@@ -54,7 +54,7 @@ public class Spec {
                         BuildingWordUtility.mainThreadTeleport(player, new Location(world, middle.getX(), middle.getY(), middle.getZ()));
                     }
 
-                    if (fastMode) time += 95;
+                    if (fastMode) time = 95;
                 }
 
             } else if (time > 5) {
@@ -76,7 +76,7 @@ public class Spec {
             int time = Spec.time - 95;
 
             String themeFormat = ConfigUtil.translateAlternateColorCodes(String.format("&bお題: %s", theme));
-            String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: &k%s", answer));
+            String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: %s", answer));
 
 
             if (time <= 10) {
@@ -192,6 +192,8 @@ public class Spec {
     }
 
     public static boolean isEnded() {
+        round = 1;
+
         count++;
 
         return count >= CLONED_MAP_LIST.size();

@@ -84,17 +84,15 @@ public class ConfigUtil {
 
         List<String> list = MessageManager.getStringList(messageID);
 
-        if (replace == null) return ConfigUtil.translateAlternateColorCodes(String.valueOf(list));
-
         for (String message : list) {
             for (String str : replace) {
                 String[] split = str.split("\\|");
 
-                message = translateAlternateColorCodes(message.replaceAll(split[0], split[1]));
+                message = message.replaceAll(split[0], split[1]);
             }
 
-            if (stringBuilder.length() == 0) stringBuilder.append(message);
-            else stringBuilder.append("\n").append(message);
+            if (stringBuilder.length() == 0) stringBuilder.append(translateAlternateColorCodes(message));
+            else stringBuilder.append("\n").append(translateAlternateColorCodes(message));
         }
 
         return stringBuilder.toString();
@@ -111,7 +109,7 @@ public class ConfigUtil {
             for (String str : replace) {
                 String[] split = str.split("\\|");
 
-                message = ConfigUtil.translateAlternateColorCodes(message.replaceAll(split[0], split[1]));
+                message = translateAlternateColorCodes(message.replaceAll(split[0], split[1]));
             }
 
             temp.add(message);
