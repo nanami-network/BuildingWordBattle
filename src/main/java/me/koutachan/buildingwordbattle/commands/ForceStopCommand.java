@@ -24,7 +24,7 @@ public class ForceStopCommand implements CommandExecutor {
 
         BuildingWordUtility.resetGame(true);
 
-        sender.sendMessage("Game > ゲームをリッセットしました");
+        sender.sendMessage("Game > ゲームをリセットしました");
 
         return true;
     }
