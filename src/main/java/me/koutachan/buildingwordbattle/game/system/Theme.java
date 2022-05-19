@@ -62,12 +62,12 @@ public class Theme {
     }
 
     public static void next() {
+        ended = true;
         //終わったことを通知
         ConfigUtil.sendMessageBroadCast("GAME.THEME-TIME-ENDED");
 
+        PlayerDataUtil.clearQuitPlayers();
         GameSystem.preCreateBox(GameStateEnum.THEME);
-
-        ended = true;
     }
 
     public static void receive() {

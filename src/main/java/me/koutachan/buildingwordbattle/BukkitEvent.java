@@ -3,12 +3,15 @@ package me.koutachan.buildingwordbattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
 import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.game.system.Spec;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,31 +34,55 @@ public class BukkitEvent implements Listener {
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent e) {
-        PlayerDataUtil.createPlayerData(e.getPlayer());
+        PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
 
-        if (GameInfo.gameInfo != GameEnum.LOBBY && GameInfo.gameInfo != GameEnum.STARTING) {
-            e.getPlayer().setGameMode(GameMode.SPECTATOR);
+        if (data == null) {
+            PlayerDataUtil.createPlayerData(e.getPlayer());
 
-            World world = Bukkit.getWorld("world");
+            if (GameInfo.gameInfo != GameEnum.LOBBY && GameInfo.gameInfo != GameEnum.STARTING) {
+                for (PlayerData playerData : PlayerDataUtil.getQuitPlayers()) {
 
-            e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("startPosX"),BuildingWordBattle.INSTANCE.getConfig().getInt("startPosY"),BuildingWordBattle.INSTANCE.getConfig().getInt("startPosZ")));
+                    TextComponent message = new TextComponent(ConfigUtil.message("GAME.PARTWAY-THROUGH", "%time%|" + BuildingWordUtility.getTime()));
+                    message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/join %s", playerData.getPlayer().getUniqueId())));
+
+                    e.getPlayer().spigot().sendMessage(message);
+                }
+
+                e.getPlayer().setGameMode(GameMode.SPECTATOR);
+
+                World world = Bukkit.getWorld("world");
+
+                e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("startPosX"), BuildingWordBattle.INSTANCE.getConfig().getInt("startPosY"), BuildingWordBattle.INSTANCE.getConfig().getInt("startPosZ")));
+            } else {
+                e.getPlayer().setGameMode(GameMode.CREATIVE);
+
+                World world = Bukkit.getWorld("world");
+
+                e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosX"), BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosY"), BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosZ")));
+            }
         } else {
-            e.getPlayer().setGameMode(GameMode.CREATIVE);
-
-            World world = Bukkit.getWorld("world");
-
-            e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosX"),BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosY"),BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosZ")));
+            data.getQuitManager().stop();
         }
     }
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent e) {
-        PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
+        //PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
 
-        if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-            //回すマップリストから消す
-            GameInfo.CURRENT_MAP_LIST.remove((Integer) data.getThemeManager().getThemeMap());
+        PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
+
+        if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER
+                && GameInfo.gameInfo == GameEnum.GAME
+                && GameInfo.gameState != GameStateEnum.SPEC) {
+            data.getQuitManager().apply();
+        } else {
+            PlayerDataUtil.removePlayerData(data.getPlayer());
         }
+
+        //if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+        //    //回すマップリストから消す
+        //    GameInfo.CURRENT_MAP_LIST.remove((Integer) data.getThemeManager().getThemeMap());
+        //}
     }
 
     @EventHandler
@@ -79,21 +106,20 @@ public class BukkitEvent implements Listener {
                     e.getPlayer().sendMessage(ChatColor.RED + "お題は16文字までです！");
                     try {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.BLOCK_ANVIL_PLACE, 1f, 1f);
-                    } catch (NoSuchFieldError ignored) {
+                    } catch (NoSuchFieldError ex) {
                         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("ANVIL_LAND"), 1f, 1f);
                     }
-                    return;
+                } else {
+                    e.getPlayer().sendMessage(ConfigUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
+
+                    try {
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+                    } catch (NoSuchFieldError ignored) {
+                        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("LEVEL_UP"), 1f, 1f);
+                    }
+
+                    data.getThemeManager().setTheme(e.getMessage());
                 }
-
-                e.getPlayer().sendMessage(ConfigUtil.translateAlternateColorCodes(String.format("&b[CHAT] > お題を %s に変更しました", e.getMessage())));
-
-                try {
-                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
-                } catch (NoSuchFieldError ignored) {
-                    e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.valueOf("LEVEL_UP"), 1f, 1f);
-                }
-
-                data.getThemeManager().setTheme(e.getMessage());
             }
         } else {
             if (GameInfo.gameState == GameStateEnum.ANSWER) {

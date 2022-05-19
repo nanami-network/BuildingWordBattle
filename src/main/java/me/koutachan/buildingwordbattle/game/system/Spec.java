@@ -18,12 +18,6 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 余裕があったら再コード予定
- * 唯一再コードされてないコード
- */
-
-
 public class Spec {
 
     public static int time, count, round;

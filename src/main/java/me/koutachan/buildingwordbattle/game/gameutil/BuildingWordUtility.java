@@ -5,7 +5,10 @@ import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
 import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
 import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.system.Answer;
+import me.koutachan.buildingwordbattle.game.system.Build;
 import me.koutachan.buildingwordbattle.game.system.Spec;
+import me.koutachan.buildingwordbattle.game.system.Theme;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
@@ -95,7 +98,7 @@ public class BuildingWordUtility {
 
         ConfigUtil.sendMessageBroadCast("GAME.PLAYER-DATA-RECREATE");
 
-        PlayerDataUtil.playerDataHashMap.clear();
+        PlayerDataUtil.clear();
 
         World world = Bukkit.getWorld("world");
 
@@ -138,5 +141,28 @@ public class BuildingWordUtility {
 
     public void mainThreadTeleport(Player player, Location location) {
         Bukkit.getScheduler().runTask(BuildingWordBattle.INSTANCE, () -> player.teleport(location));
+    }
+
+    /**
+     * 新しいシステム用
+     * @since - 1.3
+     */
+    public int getTime() {
+        switch (GameInfo.gameState) {
+            case BUILDING: {
+                return Build.time;
+            }
+            case ANSWER: {
+                return Answer.time;
+            }
+            case THEME: {
+                return Theme.time;
+            }
+            default:
+            case SPEC:
+            case NULL: {
+                return 0;
+            }
+        }
     }
 }

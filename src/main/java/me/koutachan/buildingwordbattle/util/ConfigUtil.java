@@ -6,6 +6,7 @@ import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ public class ConfigUtil {
 
     public String translateAlternateColorCodes(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
+    }
+
+    public void sendChat(CommandSender sender, String messageID, String... replace) {
+        String message = replaceString(messageID, replace).replaceAll("%player%", sender.getName());
+
+        sender.sendMessage(message);
     }
 
     public void sendChat(Player player, String messageID, String... replace) {

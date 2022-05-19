@@ -56,6 +56,7 @@ public class Build {
     public static void next() {
         ended = true;
 
+        PlayerDataUtil.clearQuitPlayers();
         Answer.start();
     }
 

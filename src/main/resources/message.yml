@@ -8,6 +8,12 @@ START-COMMAND:
   COUNT-MESSAGE: '%colorcode%ゲームは %time% 秒後に開始されます'
   START-MESSAGE: '&aゲーム開始！'
   TIP-MESSAGE: '&e[豆知識] チャットにお題の内容を入力することでお題を設定できます！'
+JOIN-COMMAND:
+  FOUND: '&e見つかりました！ 途中参加します'
+  NOT-FOUND: '&c見つかりませんでした！ もう途中参加できないのかもしれません'
+  MISSING-USAGE: '&c使い方が間違っています！'
+  CANNOT-USABLE: '&cこのコマンドはプレイヤーしか使えません！'
+  CANNOT-USABLE-PLAYER: '&cプレイヤーはこのコマンドを使えません！'
 CHANGE-MODE-COMMAND:
   HELP-MESSAGE:
     - '&a| fast - ちょっと進みを早くしてくれます 便利ですね？'
@@ -30,10 +36,11 @@ GAME:
   PLAYER-DATA-RECREATE: '&7プレイヤーデータの再生成中・・・'
   NOT-SET: '未設定'
   ANSWER-NOT-SET: '回答未設定'
-  CANNOT-OPEN-GUI: '&c開けません！'
+  CANNOT-OPEN-GUI: '&c開けれません！'
+  PARTWAY-THROUGH: '&e[途中参加] 途中参加したい場合は%time%秒以内にこのチャットをクリックしてください'
 SPEC:
   SPEC-ACTIONBAR: "&6現在のマップ: %map%"
-  SPEC-CHAT-MESSAGE: '&e%map_name% の詳細を見る！ [ここをクリック]'
+  SPEC-CHAT-MESSAGE: '&e%map_name% の詳細を見る！ [クリック]'
   SPEC-SKIPPED-ANSWER-MESSAGE: '&e回答が未回答だったためスキップされました。'
   SPEC-CHAT-HOVER:
     - '&aお題を設定した人: %theme-player%'

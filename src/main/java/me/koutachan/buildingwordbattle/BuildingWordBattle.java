@@ -31,6 +31,7 @@ public final class BuildingWordBattle extends JavaPlugin {
         getCommand("reloadConfig").setExecutor(new ReloadConfigCommand());
         getCommand("change-mode").setExecutor(new ChangeModeCommand());
         getCommand("forcestop").setExecutor(new ForceStopCommand());
+        getCommand("join").setExecutor(new JoinCommand());
 
         World world = Bukkit.getWorld("world");
         world.setDifficulty(Difficulty.PEACEFUL);

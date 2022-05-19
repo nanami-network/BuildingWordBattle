@@ -5,6 +5,8 @@ author: [KoutaChan1212, 7mi_chan]
 commands:
   start:
     permission: minecraft.op
+  join:
+    aliases: [j]
   admin:
     permission: minecraft.op
   change-mode:
