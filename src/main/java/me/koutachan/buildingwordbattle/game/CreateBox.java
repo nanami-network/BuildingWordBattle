@@ -39,7 +39,7 @@ public class CreateBox {
 
             boxCreator.CreateCube(Material.QUARTZ_BLOCK, 0, 30, 0, 45, 0, 30, true);
 
-            GameInfo.areaCreator.put(i + "-" + round, new AreaCreator(null, null, i + "-" + round, location.clone().add(1, 1, 1), location.clone().add(29, 40, 29)));
+            GameInfo.areaCreator.put(i + "-" + round, new AreaCreator(null, i + "-" + round, location.clone().add(1, 1, 1), location.clone().add(29, 40, 29)));
         }, i * 2L);
     }
 }

@@ -29,7 +29,6 @@ public class JoinCommand implements CommandExecutor {
                         ConfigUtil.sendChat(sender, "JOIN-COMMAND.FOUND");
 
                         PlayerDataUtil.set(found.get(), data);
-                        PlayerDataUtil.getQuitPlayers().remove(found.get());
                     } else {
                         ConfigUtil.sendChat(sender, "JOIN-COMMAND.NOT-FOUND");
                     }

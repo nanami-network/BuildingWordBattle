@@ -27,7 +27,7 @@ public class QuitManager {
     public void apply() {
         int time = BuildingWordUtility.getTime();
 
-        if (time != 0) {
+        if (time > 0) {
             time = time / 2 * 20;
 
             task = Bukkit.getScheduler().runTaskLater(BuildingWordBattle.INSTANCE, () -> {

@@ -70,16 +70,14 @@ public class Build {
                 if (findAreaCreator != null) {
                     //v1 - 通常
                     areaCreator.setTheme(findAreaCreator.getAnswer());
-                    areaCreator.setThemePlayer(findAreaCreator.getAnswerPlayer());
-                    areaCreator.setThemeUUID(findAreaCreator.getAnswerUUID());
+                    areaCreator.setThemeName(findAreaCreator.getAnswerName());
                 } else {
                     //v2 - それでもダメな場合
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         PlayerData data = PlayerDataUtil.getPlayerData(player);
                         if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER && data.getThemeManager().getThemeMap() == id) {
                             areaCreator.setTheme(data.getThemeManager().getTheme());
-                            areaCreator.setThemePlayer(data.getPlayer().getName());
-                            areaCreator.setThemeUUID(data.getPlayer().getUniqueId());
+                            areaCreator.setThemeName(data.getPlayer().getName());
                         }
                     }
                 }

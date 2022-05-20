@@ -5,21 +5,16 @@ import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 public class AreaCreator {
 
     private final int xMin, yMin, zMin, xMax, yMax, zMax;
 
-    private String author, mapName, theme, themePlayer, answer, answerPlayer;
+    private String author, mapName, theme, themeName, answer, answerName;
 
-    private UUID authorUUID, themeUUID, answerUUID;
-
-    public AreaCreator(String author, UUID authorUUID, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
+    public AreaCreator(String author, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
         this.author = author;
-        this.authorUUID = authorUUID;
         this.mapName = mapName;
 
         this.xMin = xMin;
@@ -31,9 +26,8 @@ public class AreaCreator {
         this.zMax = zMax;
     }
 
-    public AreaCreator(String author, UUID authorUUID, String mapName, Location location1, Location location2) {
+    public AreaCreator(String author, String mapName, Location location1, Location location2) {
         this.author = author;
-        this.authorUUID = authorUUID;
         this.mapName = mapName;
 
         if (location1.getBlockX() >= location2.getBlockX()) {

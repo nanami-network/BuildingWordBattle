@@ -87,7 +87,7 @@ public class Spec {
         } else if (time < 55 && time > 25) {
             sendTitle("~作成", areaCreator.getAuthor(), false);
         } else if (time < 85 && time > 60) {
-            sendTitle("~回答", areaCreator.getAnswerPlayer(), false);
+            sendTitle("~回答", areaCreator.getAnswerName(), false);
         }
 
         if (time >= 95) {
@@ -145,9 +145,9 @@ public class Spec {
         String not_set_message = MessageManager.getString("GAME.NOT-SET");
 
         String hoverMessage = ConfigUtil.messageList("SPEC.SPEC-CHAT-HOVER",
-                "%theme-player%|" + (areaCreator.getThemePlayer() != null ? areaCreator.getThemePlayer() : not_set_message),
+                "%theme-player%|" + (areaCreator.getThemeName() != null ? areaCreator.getThemeName() : not_set_message),
                 "%build-player%|" + (areaCreator.getAuthor() != null ? areaCreator.getAuthor() : not_set_message),
-                "%answer-player%|" + (areaCreator.getAnswerPlayer() != null ? areaCreator.getAnswerPlayer() : not_set_message),
+                "%answer-player%|" + (areaCreator.getAnswerName() != null ? areaCreator.getAnswerName() : not_set_message),
                 "%theme%|" + theme,
                 "%answer%|" + answer);
 

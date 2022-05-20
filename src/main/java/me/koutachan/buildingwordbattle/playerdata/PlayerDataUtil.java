@@ -7,6 +7,7 @@ import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.ScoreBoardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -88,6 +89,11 @@ public class PlayerDataUtil {
         target.setThemeManager(data.getThemeManager());
         target.setTeamManager(data.getTeamManager());
 
+        if (data == target) {
+            target.setScoreBoardManager(new ScoreBoardManager(target));
+            target.getQuitManager().stop();
+        }
+
         if (GameInfo.gameState != GameStateEnum.SPEC) {
             BuildingWordUtility.mainThreadGameMode(target.getPlayer(), GameMode.CREATIVE);
 
@@ -98,14 +104,11 @@ public class PlayerDataUtil {
 
                 BuildingWordUtility.mainThreadTeleport(target.getPlayer(), new Location(target.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
 
-                if (GameInfo.gameState == GameStateEnum.BUILDING) {
-                    areaCreator.setAuthor(data.getPlayer().getName());
-                    areaCreator.setAuthorUUID(data.getPlayer().getUniqueId());
-                } else {
-                    areaCreator.setAnswerPlayer(data.getPlayer().getName());
-                    areaCreator.setAnswerUUID(data.getPlayer().getUniqueId());
-                }
+                if (GameInfo.gameState == GameStateEnum.BUILDING) areaCreator.setAuthor(data.getPlayer().getName());
+                else areaCreator.setAnswerName(data.getPlayer().getName());
             }
         }
+
+        PlayerDataUtil.getQuitPlayers().remove(data);
     }
 }

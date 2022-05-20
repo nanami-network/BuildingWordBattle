@@ -61,7 +61,7 @@ public class BukkitEvent implements Listener {
                 e.getPlayer().teleport(new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosX"), BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosY"), BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosZ")));
             }
         } else {
-            data.getQuitManager().stop();
+            PlayerDataUtil.set(data, data);
         }
     }
 

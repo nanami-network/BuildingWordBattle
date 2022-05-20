@@ -95,8 +95,7 @@ public class Theme {
                 }
 
                 areaCreator.setTheme(theme);
-                areaCreator.setThemePlayer(player.getName());
-                areaCreator.setThemeUUID(player.getUniqueId());
+                areaCreator.setThemeName(player.getName());
 
                 //回していいマップに入れる
                 GameInfo.CURRENT_MAP_LIST.add(count);

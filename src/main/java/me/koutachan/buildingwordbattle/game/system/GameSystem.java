@@ -74,15 +74,13 @@ public class GameSystem {
                         case BUILDING: {
 
                             areaCreator.setAuthor(player.getName());
-                            areaCreator.setAuthorUUID(player.getUniqueId());
 
                             ConfigUtil.sendChat(player, "GAME.GAME-ACTIONBAR", "%theme%|" + areaCreator.getTheme());
                             break;
                         }
                         case ANSWER: {
 
-                            areaCreator.setAnswerPlayer(player.getName());
-                            areaCreator.setAnswerUUID(player.getUniqueId());
+                            areaCreator.setAnswerName(player.getName());
 
                             AreaCreator tempAreaCreator = BuildingWordUtility.getMap(mapID);
 
