@@ -270,9 +270,9 @@ public class BuildingWordUtility {
         if (isKeyMatched) {
             final long key = (Long) doubleLists.keySet().toArray()[0];
 
-            List<Pair<PlayerData, List<Integer>>> integers = doubleLists.get(key);
+            List<Pair<PlayerData, List<Integer>>> sortLists = doubleLists.get(key);
 
-            integers.sort((t1, t2) -> {
+            sortLists.sort((t1, t2) -> {
                 final int total1 = (int) t1.getValue().stream().mapToDouble(r -> r).sum();
 
                 final int total2 = (int) t2.getValue().stream().mapToDouble(r -> r).sum();
@@ -281,7 +281,7 @@ public class BuildingWordUtility {
             });
 
             for (int i = 0; i < availableMap.size(); i++) {
-                final Pair<PlayerData, List<Integer>> finals = doubleLists.get(key).get(i);
+                final Pair<PlayerData, List<Integer>> finals = sortLists.get(i);
 
                 if (finals.getValue().isEmpty()) throw new IllegalStateException("empty List.");
                 else if (!put(finals.getKey(), finals.getValue(), finalResults)) throw new IllegalStateException("invalid List. finalResults=" + finalResults + " finals=" + finals.getValue());
