@@ -11,7 +11,7 @@ import org.bukkit.ChatColor;
 @Setter
 public class ScoreBoardManager {
 
-    private final PlayerData data;
+    private PlayerData data;
     private BPlayerBoard scoreboard;
 
     public ScoreBoardManager(PlayerData playerData) {

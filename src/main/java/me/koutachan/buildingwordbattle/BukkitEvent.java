@@ -42,7 +42,9 @@ public class BukkitEvent implements Listener {
             if (GameInfo.gameInfo != GameEnum.LOBBY && GameInfo.gameInfo != GameEnum.STARTING) {
                 for (PlayerData playerData : PlayerDataUtil.getQuitPlayers()) {
 
-                    TextComponent message = new TextComponent(ConfigUtil.message("GAME.PARTWAY-THROUGH", "%time%|" + BuildingWordUtility.getTime()));
+                    TextComponent message = new TextComponent(ConfigUtil.message("GAME.PARTWAY-THROUGH",
+                            "%time%|" + BuildingWordUtility.getTime()
+                            , "%player%|" + playerData.getPlayer().getName()));
                     message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/join %s", playerData.getPlayer().getUniqueId())));
 
                     e.getPlayer().spigot().sendMessage(message);
@@ -67,8 +69,6 @@ public class BukkitEvent implements Listener {
 
     @EventHandler
     public void onPlayerQuitEvent(PlayerQuitEvent e) {
-        //PlayerData data = PlayerDataUtil.removePlayerData(e.getPlayer());
-
         PlayerData data = PlayerDataUtil.getPlayerData(e.getPlayer());
 
         if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER
@@ -78,11 +78,6 @@ public class BukkitEvent implements Listener {
         } else {
             PlayerDataUtil.removePlayerData(data.getPlayer());
         }
-
-        //if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
-        //    //回すマップリストから消す
-        //    GameInfo.CURRENT_MAP_LIST.remove((Integer) data.getThemeManager().getThemeMap());
-        //}
     }
 
     @EventHandler

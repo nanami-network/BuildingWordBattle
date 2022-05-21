@@ -37,7 +37,7 @@ public class QuitManager {
 
                 TextComponent message = new TextComponent(ConfigUtil.message("GAME.PARTWAY-THROUGH"
                         , "%time%|" + BuildingWordUtility.getTime()
-                        , "%player%|", data.getPlayer().getName()));
+                        , "%player%|" + data.getPlayer().getName()));
                 message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/join %s", data.getPlayer().getUniqueId())));
 
                 for (Player player : Bukkit.getOnlinePlayers()) {

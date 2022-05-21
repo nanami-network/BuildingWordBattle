@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 public class MapManager {
-    private final PlayerData data;
+    private PlayerData data;
     //MapId = 現在のid // MapRound = 現在のラウンド
     private String answerMapName, theme, mapName;
     private boolean breakable;

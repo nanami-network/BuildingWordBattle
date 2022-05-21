@@ -7,7 +7,7 @@ import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 @Getter
 @Setter
 public class ThemeManager {
-    private final PlayerData data;
+    private PlayerData data;
     private String theme;
     private int themeMap;
 

@@ -198,12 +198,11 @@ public class BuildingWordUtility {
                             AreaCreator tempAreaCreator = BuildingWordUtility.getMap(mapID);
 
                             data.getMapManager().setAnswerMapName(areaCreator.getMapName());
+                            areaCreator.setAnswerData(data);
 
                             if (tempAreaCreator != null) {
                                 areaCreator = tempAreaCreator;
                             }
-
-                            areaCreator.setAnswerData(data);
 
                             break;
                         }
@@ -271,10 +270,21 @@ public class BuildingWordUtility {
         if (isKeyMatched) {
             final long key = (Long) doubleLists.keySet().toArray()[0];
 
+            List<Pair<PlayerData, List<Integer>>> integers = doubleLists.get(key);
+
+            integers.sort((t1, t2) -> {
+                final int total1 = (int) t1.getValue().stream().mapToDouble(r -> r).sum();
+
+                final int total2 = (int) t2.getValue().stream().mapToDouble(r -> r).sum();
+
+                return Integer.compare(total1, total2);
+            });
+
             for (int i = 0; i < availableMap.size(); i++) {
                 final Pair<PlayerData, List<Integer>> finals = doubleLists.get(key).get(i);
 
-                if (!put(finals.getKey(), finals.getValue(), finalResults)) throw new IllegalStateException("invalid List.");
+                if (finals.getValue().isEmpty()) throw new IllegalStateException("empty List.");
+                else if (!put(finals.getKey(), finals.getValue(), finalResults)) throw new IllegalStateException("invalid List. finalResults=" + finalResults + " finals=" + finals.getValue());
             }
         } else {
             List<Pair<PlayerData, List<Integer>>> temporary = new ArrayList<>();
@@ -301,7 +311,7 @@ public class BuildingWordUtility {
             temporary.sort(Comparator.comparingInt(o -> o.getValue().size()));
 
             for (Pair<PlayerData, List<Integer>> list : temporary) {
-                if (!put(list.getKey(), list.getValue(), finalResults)) throw new IllegalStateException("invalid List.");
+                if (!put(list.getKey(), list.getValue(), finalResults)) throw new IllegalStateException("invalid List." + list.getValue());
             }
         }
 

@@ -145,9 +145,9 @@ public class Spectator {
         String not_set_message = MessageManager.getString("GAME.NOT-SET");
 
         String hoverMessage = ConfigUtil.messageList("SPEC.SPEC-CHAT-HOVER",
-                "%theme-player%|" + format(areaCreator.getThemeData().getPlayer().getName(), not_set_message),
-                "%build-player%|" + format(areaCreator.getAuthorData().getPlayer().getName(), not_set_message),
-                "%answer-player%|" + format(areaCreator.getAnswerData().getPlayer().getName(), not_set_message),
+                "%theme-player%|" + (areaCreator.getThemeData() != null ? format(areaCreator.getThemeData().getPlayer().getName(), not_set_message) : not_set_message),
+                "%build-player%|" + (areaCreator.getAuthorData() != null ? format(areaCreator.getAuthorData().getPlayer().getName(), not_set_message) : not_set_message),
+                "%answer-player%|" + (areaCreator.getAnswerData() != null ? format(areaCreator.getAnswerData().getPlayer().getName(), not_set_message) : not_set_message),
                 "%theme%|" + theme,
                 "%answer%|" + answer);
 

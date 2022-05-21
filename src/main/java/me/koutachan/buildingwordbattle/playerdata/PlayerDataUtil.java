@@ -51,6 +51,13 @@ public class PlayerDataUtil {
     }
 
     public void clearQuitPlayers() {
+        for (PlayerData data : quitPlayers) {
+            if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER) {
+                //回すマップリストから消す
+                GameInfo.CURRENT_MAP_LIST.remove((Integer) data.getThemeManager().getThemeMap());
+            }
+        }
+
         quitPlayers.clear();
     }
 
@@ -102,6 +109,12 @@ public class PlayerDataUtil {
             target.setMapManager(data.getMapManager());
             target.setThemeManager(data.getThemeManager());
             target.setTeamManager(data.getTeamManager());
+
+            target.getScoreBoardManager().setData(target);
+            target.getQuitManager().setData(target);
+            target.getTeamManager().setData(target);
+            target.getMapManager().setData(target);
+            target.getThemeManager().setData(target);
 
             if (GameInfo.gameState != GameStateEnum.SPEC) {
                 BuildingWordUtility.mainThreadGameMode(target.getPlayer(), GameMode.CREATIVE);

@@ -9,7 +9,7 @@ import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 @Setter
 public class TeamManager {
 
-    private final PlayerData data;
+    private PlayerData data;
 
     public TeamManager(PlayerData playerData) {
         this.data = playerData;
