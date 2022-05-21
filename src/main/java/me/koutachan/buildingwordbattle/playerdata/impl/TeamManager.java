@@ -3,7 +3,7 @@ package me.koutachan.buildingwordbattle.playerdata.impl;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 
 @Getter
 @Setter
@@ -15,7 +15,7 @@ public class TeamManager {
         this.data = playerData;
     }
 
-    private TeamEnum currentTeam = TeamEnum.SPEC;
+    private TeamEnum currentTeam = TeamEnum.SPECTATOR;
     //ストリーマー用
     private boolean isStreamer = false;
 }

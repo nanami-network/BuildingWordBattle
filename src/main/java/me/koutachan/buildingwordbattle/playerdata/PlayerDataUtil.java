@@ -3,10 +3,10 @@ package me.koutachan.buildingwordbattle.playerdata;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import me.koutachan.buildingwordbattle.playerdata.impl.ScoreBoardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -83,32 +83,32 @@ public class PlayerDataUtil {
     }
 
     public void set(PlayerData data, PlayerData target) {
-        playerDataHashMap.remove(data.getPlayer().getUniqueId());
-
-        target.setMapManager(data.getMapManager());
-        target.setThemeManager(data.getThemeManager());
-        target.setTeamManager(data.getTeamManager());
-
         if (data == target) {
+            removePlayerData(data.getPlayer());
+
             target.setScoreBoardManager(new ScoreBoardManager(target));
             target.getQuitManager().stop();
-        }
+        } else {
+            target.setMapManager(data.getMapManager());
+            target.setThemeManager(data.getThemeManager());
+            target.setTeamManager(data.getTeamManager());
 
-        if (GameInfo.gameState != GameStateEnum.SPEC) {
-            BuildingWordUtility.mainThreadGameMode(target.getPlayer(), GameMode.CREATIVE);
+            if (GameInfo.gameState != GameStateEnum.SPEC) {
+                BuildingWordUtility.mainThreadGameMode(target.getPlayer(), GameMode.CREATIVE);
 
-            if (GameInfo.gameState != GameStateEnum.THEME) {
-                AreaCreator areaCreator = GameInfo.areaCreator.get(target.getMapManager().getLastMapID() + "-" + GameInfo.CURRENT_BUILD_ROUND);
+                if (GameInfo.gameState != GameStateEnum.THEME) {
+                    AreaCreator areaCreator = GameInfo.areaCreator.get(target.getMapManager().getLastMapID() + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
-                Vector middle = areaCreator.getMiddle();
+                    Vector middle = areaCreator.getMiddle();
 
-                BuildingWordUtility.mainThreadTeleport(target.getPlayer(), new Location(target.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
+                    BuildingWordUtility.mainThreadTeleport(target.getPlayer(), new Location(target.getPlayer().getWorld(), middle.getX(), middle.getY(), middle.getZ()));
 
-                if (GameInfo.gameState == GameStateEnum.BUILDING) areaCreator.setAuthor(data.getPlayer().getName());
-                else areaCreator.setAnswerName(data.getPlayer().getName());
+                    if (GameInfo.gameState == GameStateEnum.BUILDING) areaCreator.setAuthorData(target);
+                    else areaCreator.setAnswerData(target);
+                }
             }
-        }
 
-        PlayerDataUtil.getQuitPlayers().remove(data);
+            PlayerDataUtil.getQuitPlayers().remove(data);
+        }
     }
 }

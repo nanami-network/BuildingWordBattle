@@ -1,13 +1,13 @@
-package me.koutachan.buildingwordbattle.game.system;
+package me.koutachan.buildingwordbattle.game.main;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -56,9 +56,9 @@ public class Answer {
 
             GameInfo.gameState = GameStateEnum.ANSWER;
 
-            GameSystem.startShuffle(GameStateEnum.ANSWER);
+            BuildingWordUtility.startShuffle(GameStateEnum.ANSWER);
         } else {
-            Spec.start();
+            Spectator.start();
         }
     }
 

@@ -4,7 +4,7 @@ import me.koutachan.buildingwordbattle.game.GameInfo;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,7 +29,7 @@ public class AdminCommand implements CommandExecutor {
                 data.getTeamManager().setCurrentTeam(TeamEnum.ADMIN);
                 player.sendMessage(ConfigUtil.translateAlternateColorCodes("&eチームを 管理者 に変更しました"));
             } else {
-                data.getTeamManager().setCurrentTeam(TeamEnum.SPEC);
+                data.getTeamManager().setCurrentTeam(TeamEnum.SPECTATOR);
                 player.sendMessage(ConfigUtil.translateAlternateColorCodes("&eチームを 観戦 に変更しました"));
             }
         }

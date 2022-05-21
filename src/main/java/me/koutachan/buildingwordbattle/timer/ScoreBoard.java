@@ -1,10 +1,10 @@
 package me.koutachan.buildingwordbattle.timer;
 
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
-import me.koutachan.buildingwordbattle.game.system.Answer;
-import me.koutachan.buildingwordbattle.game.system.Build;
-import me.koutachan.buildingwordbattle.game.system.Theme;
+import me.koutachan.buildingwordbattle.game.enums.GameEnum;
+import me.koutachan.buildingwordbattle.game.main.Answer;
+import me.koutachan.buildingwordbattle.game.main.Build;
+import me.koutachan.buildingwordbattle.game.main.Theme;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;

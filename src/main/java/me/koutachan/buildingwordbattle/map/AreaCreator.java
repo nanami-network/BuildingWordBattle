@@ -2,6 +2,7 @@ package me.koutachan.buildingwordbattle.map;
 
 import lombok.Getter;
 import lombok.Setter;
+import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
@@ -11,10 +12,12 @@ public class AreaCreator {
 
     private final int xMin, yMin, zMin, xMax, yMax, zMax;
 
-    private String author, mapName, theme, themeName, answer, answerName;
+    private String mapName, theme, answer;
 
-    public AreaCreator(String author, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
-        this.author = author;
+    private PlayerData authorData, themeData, answerData;
+
+    public AreaCreator(PlayerData author, String mapName, int xMin, int xMax, int yMin, int yMax, int zMin, int zMax) {
+        this.authorData = author;
         this.mapName = mapName;
 
         this.xMin = xMin;
@@ -26,8 +29,8 @@ public class AreaCreator {
         this.zMax = zMax;
     }
 
-    public AreaCreator(String author, String mapName, Location location1, Location location2) {
-        this.author = author;
+    public AreaCreator(PlayerData author, String mapName, Location location1, Location location2) {
+        this.authorData = author;
         this.mapName = mapName;
 
         if (location1.getBlockX() >= location2.getBlockX()) {

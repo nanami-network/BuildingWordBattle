@@ -1,4 +1,4 @@
-package me.koutachan.buildingwordbattle.game.gameEnum;
+package me.koutachan.buildingwordbattle.game.enums;
 
 public enum GameStateEnum {
     BUILDING,

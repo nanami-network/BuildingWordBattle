@@ -1,14 +1,14 @@
 package me.koutachan.buildingwordbattle;
 
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
-import me.koutachan.buildingwordbattle.game.system.Spec;
+import me.koutachan.buildingwordbattle.game.main.Spectator;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -171,7 +171,7 @@ public class BukkitEvent implements Listener {
                             && e.getBlock().getType() != Material.SIGN
                             && e.getBlock().getType() != Material.SIGN_POST
                             && areaCreator.isArea(e.getBlock().getLocation())
-                            && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
+                            && areaCreator.getAuthorData() == data) {
                         e.setCancelled(false);
                         break;
                     }
@@ -212,7 +212,8 @@ public class BukkitEvent implements Listener {
 
                     AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
-                    if (areaCreator.isArea(e.getBlock().getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
+                    if (areaCreator.isArea(e.getBlock().getLocation())
+                            && areaCreator.getAuthorData() == data) {
                         e.setCancelled(false);
                         break;
                     }
@@ -252,7 +253,8 @@ public class BukkitEvent implements Listener {
 
                     AreaCreator areaCreator = GameInfo.areaCreator.get(mapID + "-" + GameInfo.CURRENT_BUILD_ROUND);
 
-                    if (areaCreator.isArea(e.getBlockClicked().getRelative(e.getBlockFace()).getLocation()) && areaCreator.getAuthorUUID() == e.getPlayer().getUniqueId()) {
+                    if (areaCreator.isArea(e.getBlockClicked().getRelative(e.getBlockFace()).getLocation())
+                            && areaCreator.getAuthorData() == data) {
                         e.setCancelled(false);
                         break;
                     }
@@ -303,7 +305,7 @@ public class BukkitEvent implements Listener {
                     }
                 }
             } else {
-                AreaCreator areaCreator = Spec.areaCreator;
+                AreaCreator areaCreator = Spectator.areaCreator;
 
                 if (areaCreator != null && !areaCreator.isArea(e.getPlayer().getLocation()) && data.getTeamManager().getCurrentTeam() != TeamEnum.ADMIN) {
                     Vector middle = areaCreator.getMiddle();

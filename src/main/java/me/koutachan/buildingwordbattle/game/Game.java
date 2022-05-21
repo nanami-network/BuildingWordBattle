@@ -1,13 +1,22 @@
 package me.koutachan.buildingwordbattle.game;
 
-import me.koutachan.buildingwordbattle.game.system.*;
+import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
+import me.koutachan.buildingwordbattle.game.main.*;
+import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class Game {
     public static void run() {
         //1秒に1回実行される
 
         //ゲームシステム
-        GameSystem.run();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerDataUtil.getPlayerData(player).getMapManager().handle();
+        }
+
+        GameInfo.CALCULATE_MAX_ROUND = BuildingWordUtility.calculateMaxRound();
+        GameInfo.CALCULATE_MAX_ROUND_SHOW = Math.max(GameInfo.CURRENT_ROUND, GameInfo.CALCULATE_MAX_ROUND);
 
         switch (GameInfo.gameState) {
             case THEME:

@@ -1,8 +1,8 @@
-package me.koutachan.buildingwordbattle.game.system;
+package me.koutachan.buildingwordbattle.game.main;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
@@ -18,7 +18,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Spec {
+public class Spectator {
 
     public static int time, count, round;
 
@@ -67,7 +67,7 @@ public class Spec {
             String theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "未回答";
             String answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "未回答";
 
-            int time = Spec.time - 95;
+            int time = Spectator.time - 95;
 
             String themeFormat = ConfigUtil.translateAlternateColorCodes(String.format("&bお題: %s", theme));
             String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: %s", answer));
@@ -76,7 +76,7 @@ public class Spec {
             if (time <= 10) {
                 sendTitle(themeFormat, answerFormat, time == 0f);
             } else {
-                Spec.time = 0;
+                Spectator.time = 0;
             }
         }
     }
@@ -85,9 +85,9 @@ public class Spec {
         if (time < 20) {
             sendTitle("――――ステージ――――", areaCreator.getMapName(), false);
         } else if (time < 55 && time > 25) {
-            sendTitle("~作成", areaCreator.getAuthor(), false);
+            sendTitle("~作成", areaCreator.getAuthorData().getPlayer().getName(), false);
         } else if (time < 85 && time > 60) {
-            sendTitle("~回答", areaCreator.getAnswerName(), false);
+            sendTitle("~回答", areaCreator.getAnswerData().getPlayer().getName(), false);
         }
 
         if (time >= 95) {
@@ -95,7 +95,7 @@ public class Spec {
             String theme = areaCreator.getTheme() != null ? areaCreator.getTheme() : "未回答";
             String answer = areaCreator.getAnswer() != null ? areaCreator.getAnswer() : "未回答";
 
-            int time = Spec.time - 95;
+            int time = Spectator.time - 95;
 
             if (time <= theme.length()) {
                 String design = addChatColor(theme, time);
@@ -110,7 +110,7 @@ public class Spec {
 
                 if (time <= answer.length()) {
                     if (skipIfAnswerIsNull && areaCreator.getAnswer() == null) {
-                        Spec.time += answer.length();
+                        Spectator.time += answer.length();
 
                         ConfigUtil.sendMessageBroadCast("SPEC.SPEC-SKIPPED-ANSWER-MESSAGE");
                     } else {
@@ -130,9 +130,9 @@ public class Spec {
                     String answerFormat = ConfigUtil.translateAlternateColorCodes(String.format("&b回答: %s", answer));
 
                     if (time > 20) {
-                        sendMessage(themeFormat, answerFormat);
+                        sendMessage(theme, answer);
 
-                        Spec.time = 0;
+                        Spectator.time = 0;
                     } else {
                         sendTitle(themeFormat, answerFormat, false);
                     }
@@ -145,9 +145,9 @@ public class Spec {
         String not_set_message = MessageManager.getString("GAME.NOT-SET");
 
         String hoverMessage = ConfigUtil.messageList("SPEC.SPEC-CHAT-HOVER",
-                "%theme-player%|" + (areaCreator.getThemeName() != null ? areaCreator.getThemeName() : not_set_message),
-                "%build-player%|" + (areaCreator.getAuthor() != null ? areaCreator.getAuthor() : not_set_message),
-                "%answer-player%|" + (areaCreator.getAnswerName() != null ? areaCreator.getAnswerName() : not_set_message),
+                "%theme-player%|" + format(areaCreator.getThemeData().getPlayer().getName(), not_set_message),
+                "%build-player%|" + format(areaCreator.getAuthorData().getPlayer().getName(), not_set_message),
+                "%answer-player%|" + format(areaCreator.getAnswerData().getPlayer().getName(), not_set_message),
                 "%theme%|" + theme,
                 "%answer%|" + answer);
 
@@ -161,6 +161,15 @@ public class Spec {
                 break;
             }
         }
+    }
+
+    public static String format(String theme, String nullMessage) {
+        if (theme != null) {
+            return theme;
+        } else {
+            return nullMessage;
+        }
+
     }
 
 

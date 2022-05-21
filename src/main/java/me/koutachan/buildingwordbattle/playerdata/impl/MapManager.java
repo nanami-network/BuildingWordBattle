@@ -3,8 +3,8 @@ package me.koutachan.buildingwordbattle.playerdata.impl;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
-import me.koutachan.buildingwordbattle.game.system.Spec;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.main.Spectator;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import org.bukkit.Location;
@@ -35,7 +35,7 @@ public class MapManager {
         breakable = false;
 
         //spec の実装待ち
-        List<Integer> mapList = GameInfo.gameState == GameStateEnum.SPEC ? Spec.CLONED_MAP_LIST : GameInfo.CURRENT_MAP_LIST;
+        List<Integer> mapList = GameInfo.gameState == GameStateEnum.SPEC ? Spectator.CLONED_MAP_LIST : GameInfo.CURRENT_MAP_LIST;
 
         for (int map : mapList) {
             for (int i = GameInfo.CURRENT_BUILD_ROUND; i > 0; i--) {

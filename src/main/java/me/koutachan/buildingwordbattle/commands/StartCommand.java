@@ -2,11 +2,11 @@ package me.koutachan.buildingwordbattle.commands;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
-import me.koutachan.buildingwordbattle.game.system.Theme;
+import me.koutachan.buildingwordbattle.game.enums.GameEnum;
+import me.koutachan.buildingwordbattle.game.main.Theme;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import me.koutachan.buildingwordbattle.util.MessageManager;
 import org.bukkit.Bukkit;

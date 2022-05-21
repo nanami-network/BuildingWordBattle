@@ -1,7 +1,7 @@
 package me.koutachan.buildingwordbattle.game;
 
-import me.koutachan.buildingwordbattle.game.gameEnum.GameEnum;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 
 import java.util.ArrayList;

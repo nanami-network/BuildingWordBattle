@@ -1,13 +1,13 @@
-package me.koutachan.buildingwordbattle.game.system;
+package me.koutachan.buildingwordbattle.game.main;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -44,9 +44,9 @@ public class Build {
         if (createBox) {
             GameInfo.CURRENT_ROUND++;
             if (!BuildingWordUtility.checkEnd()) {
-                GameSystem.preCreateBox(GameStateEnum.BUILDING);
+                BuildingWordUtility.preCreateBox(GameStateEnum.BUILDING);
             } else {
-                Spec.start();
+                Spectator.start();
             }
         } else {
             receive(false);
@@ -70,14 +70,15 @@ public class Build {
                 if (findAreaCreator != null) {
                     //v1 - 通常
                     areaCreator.setTheme(findAreaCreator.getAnswer());
-                    areaCreator.setThemeName(findAreaCreator.getAnswerName());
+
+                    areaCreator.setThemeData(findAreaCreator.getAnswerData());
                 } else {
                     //v2 - それでもダメな場合
                     for (Player player : Bukkit.getOnlinePlayers()) {
                         PlayerData data = PlayerDataUtil.getPlayerData(player);
                         if (data.getTeamManager().getCurrentTeam() == TeamEnum.PLAYER && data.getThemeManager().getThemeMap() == id) {
                             areaCreator.setTheme(data.getThemeManager().getTheme());
-                            areaCreator.setThemeName(data.getPlayer().getName());
+                            areaCreator.setThemeData(data);
                         }
                     }
                 }
@@ -89,6 +90,6 @@ public class Build {
         ended = false;
 
         //終わり
-        GameSystem.startShuffle(GameStateEnum.BUILDING);
+        BuildingWordUtility.startShuffle(GameStateEnum.BUILDING);
     }
 }

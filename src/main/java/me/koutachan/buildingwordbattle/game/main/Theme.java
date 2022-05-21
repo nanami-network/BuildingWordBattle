@@ -1,12 +1,13 @@
-package me.koutachan.buildingwordbattle.game.system;
+package me.koutachan.buildingwordbattle.game.main;
 
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
 import me.koutachan.buildingwordbattle.game.GameInfo;
-import me.koutachan.buildingwordbattle.game.gameEnum.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
+import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
-import me.koutachan.buildingwordbattle.playerdata.impl.Enum.TeamEnum;
+import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -67,7 +68,7 @@ public class Theme {
         ConfigUtil.sendMessageBroadCast("GAME.THEME-TIME-ENDED");
 
         PlayerDataUtil.clearQuitPlayers();
-        GameSystem.preCreateBox(GameStateEnum.THEME);
+        BuildingWordUtility.preCreateBox(GameStateEnum.THEME);
     }
 
     public static void receive() {
@@ -95,7 +96,7 @@ public class Theme {
                 }
 
                 areaCreator.setTheme(theme);
-                areaCreator.setThemeName(player.getName());
+                areaCreator.setThemeData(data);
 
                 //回していいマップに入れる
                 GameInfo.CURRENT_MAP_LIST.add(count);
