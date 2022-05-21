@@ -66,6 +66,8 @@ public class Answer {
         ended = true;
 
         PlayerDataUtil.clearQuitPlayers();
+        PlayerDataUtil.deleteOfflinePlayerData();
+
         Build.start(true);
     }
 }

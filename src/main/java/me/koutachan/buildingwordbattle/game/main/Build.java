@@ -57,6 +57,8 @@ public class Build {
         ended = true;
 
         PlayerDataUtil.clearQuitPlayers();
+        PlayerDataUtil.deleteOfflinePlayerData();
+
         Answer.start();
     }
 

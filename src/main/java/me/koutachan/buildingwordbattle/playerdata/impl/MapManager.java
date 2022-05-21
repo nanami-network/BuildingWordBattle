@@ -44,7 +44,9 @@ public class MapManager {
                 if (areaCreator != null && areaCreator.isArea(location)) {
                     mapName = areaCreator.getMapName();
 
-                    theme = areaCreator.getTheme();
+                    if (areaCreator.getAuthorData() == data) {
+                        theme = areaCreator.getTheme();
+                    }
 
                     break;
                 }

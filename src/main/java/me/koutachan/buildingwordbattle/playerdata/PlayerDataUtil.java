@@ -7,7 +7,6 @@ import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
 import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
-import me.koutachan.buildingwordbattle.playerdata.impl.ScoreBoardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -55,6 +54,11 @@ public class PlayerDataUtil {
         quitPlayers.clear();
     }
 
+    public void deleteOfflinePlayerData() {
+        playerDataHashMap.values().removeIf(data -> !data.getPlayer().isOnline());
+    }
+
+
     public int getOnlinePlayers() {
 
         int result = 0;
@@ -84,9 +88,6 @@ public class PlayerDataUtil {
 
     public void set(PlayerData data, PlayerData target) {
         if (data == target) {
-            removePlayerData(data.getPlayer());
-
-            target.setScoreBoardManager(new ScoreBoardManager(target));
             target.getQuitManager().stop();
         } else {
             target.setMapManager(data.getMapManager());

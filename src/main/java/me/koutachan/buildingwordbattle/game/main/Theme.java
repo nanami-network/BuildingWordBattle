@@ -68,6 +68,8 @@ public class Theme {
         ConfigUtil.sendMessageBroadCast("GAME.THEME-TIME-ENDED");
 
         PlayerDataUtil.clearQuitPlayers();
+        PlayerDataUtil.deleteOfflinePlayerData();
+
         BuildingWordUtility.preCreateBox(GameStateEnum.THEME);
     }
 
