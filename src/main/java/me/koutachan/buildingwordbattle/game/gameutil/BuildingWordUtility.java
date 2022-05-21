@@ -203,6 +203,8 @@ public class BuildingWordUtility {
                                 areaCreator = tempAreaCreator;
                             }
 
+                            areaCreator.setAnswerData(data);
+
                             break;
                         }
                     }

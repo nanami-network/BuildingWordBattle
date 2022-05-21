@@ -37,7 +37,7 @@ GAME:
   NOT-SET: '未設定'
   ANSWER-NOT-SET: '回答未設定'
   CANNOT-OPEN-GUI: '&c開けれません！'
-  PARTWAY-THROUGH: '&e[途中参加] 途中参加したい場合は%time%秒以内にこのチャットをクリックしてください'
+  PARTWAY-THROUGH: '&e[途中参加] %player%のデータで途中参加可能です 参加したい場合は%time%秒以内にこのチャットをクリックしてください'
 SPEC:
   SPEC-ACTIONBAR: "&6現在のマップ: %map%"
   SPEC-CHAT-MESSAGE: '&e%map_name% の詳細を見る！ [クリック]'

@@ -55,7 +55,16 @@ public class PlayerDataUtil {
     }
 
     public void deleteOfflinePlayerData() {
-        playerDataHashMap.values().removeIf(data -> !data.getPlayer().isOnline());
+        for (Iterator<PlayerData> it = playerDataHashMap.values().iterator(); it.hasNext();) {
+
+            PlayerData data = it.next();
+
+            if (!data.getPlayer().isOnline()) {
+                data.getQuitManager().stop();
+
+                it.remove();
+            }
+        }
     }
 
 
