@@ -3,7 +3,7 @@ package me.koutachan.buildingwordbattle.playerdata.impl;
 import lombok.Getter;
 import lombok.Setter;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
-import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
+import me.koutachan.buildingwordbattle.util.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.util.ConfigUtil;

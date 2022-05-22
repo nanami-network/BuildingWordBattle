@@ -1,4 +1,4 @@
-package me.koutachan.buildingwordbattle.game.gameutil;
+package me.koutachan.buildingwordbattle.util.pair;
 
 import java.io.Serializable;
 import java.util.Objects;

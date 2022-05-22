@@ -3,7 +3,7 @@ package me.koutachan.buildingwordbattle.commands;
 import me.koutachan.buildingwordbattle.game.GameInfo;
 import me.koutachan.buildingwordbattle.game.enums.GameEnum;
 import me.koutachan.buildingwordbattle.game.enums.GameStateEnum;
-import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
+import me.koutachan.buildingwordbattle.util.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.game.main.Spectator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

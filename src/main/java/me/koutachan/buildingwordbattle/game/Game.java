@@ -1,6 +1,6 @@
 package me.koutachan.buildingwordbattle.game;
 
-import me.koutachan.buildingwordbattle.game.gameutil.BuildingWordUtility;
+import me.koutachan.buildingwordbattle.util.BuildingWordUtility;
 import me.koutachan.buildingwordbattle.game.main.*;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import org.bukkit.Bukkit;

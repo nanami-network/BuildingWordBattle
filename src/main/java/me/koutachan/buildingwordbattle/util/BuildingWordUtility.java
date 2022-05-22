@@ -1,4 +1,4 @@
-package me.koutachan.buildingwordbattle.game.gameutil;
+package me.koutachan.buildingwordbattle.util;
 
 import lombok.experimental.UtilityClass;
 import me.koutachan.buildingwordbattle.BuildingWordBattle;
@@ -14,7 +14,7 @@ import me.koutachan.buildingwordbattle.map.AreaCreator;
 import me.koutachan.buildingwordbattle.playerdata.PlayerData;
 import me.koutachan.buildingwordbattle.playerdata.PlayerDataUtil;
 import me.koutachan.buildingwordbattle.playerdata.impl.enums.TeamEnum;
-import me.koutachan.buildingwordbattle.util.ConfigUtil;
+import me.koutachan.buildingwordbattle.util.pair.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
