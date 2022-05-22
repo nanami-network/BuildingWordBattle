@@ -108,6 +108,8 @@ public class BuildingWordUtility {
 
             mainThreadGameMode(player, GameMode.CREATIVE);
 
+            player.getInventory().clear();
+
             if (teleport) {
                 mainThreadTeleport(player, new Location(world, BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosX"), BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosY"), BuildingWordBattle.INSTANCE.getConfig().getInt("lobbyPosZ")));
             }
@@ -308,7 +310,13 @@ public class BuildingWordUtility {
                 }
             }
 
-            temporary.sort(Comparator.comparingInt(o -> o.getValue().size()));
+            temporary.sort((t1, t2) -> {
+                final int total1 = (int) t1.getValue().stream().mapToDouble(r -> r).sum();
+
+                final int total2 = (int) t2.getValue().stream().mapToDouble(r -> r).sum();
+
+                return Integer.compare(total1, total2);
+            });
 
             for (Pair<PlayerData, List<Integer>> list : temporary) {
                 if (!put(list.getKey(), list.getValue(), finalResults)) throw new IllegalStateException("invalid List." + list.getValue());
