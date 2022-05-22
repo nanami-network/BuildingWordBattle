@@ -297,7 +297,7 @@ public class BuildingWordUtility {
                     Pair<PlayerData, List<Integer>> it = possibly.get(i);
 
                     possibly.forEach(list -> {
-                        if (it != list) {
+                        if (it != list && !it.getValue().containsAll(list.getValue())) {
                             it.getValue().removeAll(list.getValue());
                         }
                     });
