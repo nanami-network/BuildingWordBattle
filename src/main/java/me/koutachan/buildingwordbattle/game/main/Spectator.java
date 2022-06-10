@@ -85,9 +85,9 @@ public class Spectator {
         if (time < 20) {
             sendTitle("――――ステージ――――", areaCreator.getMapName(), false);
         } else if (time < 55 && time > 25) {
-            sendTitle("~作成", areaCreator.getAuthorData().getPlayer().getName(), false);
+            sendTitle("~作成", areaCreator.getAuthorData() != null ? areaCreator.getAuthorData().getPlayer().getName() : "未設定", false);
         } else if (time < 85 && time > 60) {
-            sendTitle("~回答", areaCreator.getAnswerData().getPlayer().getName(), false);
+            sendTitle("~回答", areaCreator.getAnswerData() != null ? areaCreator.getAnswerData().getPlayer().getName() : "未設定", false);
         }
 
         if (time >= 95) {
