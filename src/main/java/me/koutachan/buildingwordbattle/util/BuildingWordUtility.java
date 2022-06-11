@@ -292,16 +292,7 @@ public class BuildingWordUtility {
             List<Pair<PlayerData, List<Integer>>> temporary = new ArrayList<>();
 
             for (List<Pair<PlayerData, List<Integer>>> possibly : doubleLists.values()) {
-                for (int i = 0; i < possibly.size(); i++) {
-
-                    Pair<PlayerData, List<Integer>> it = possibly.get(i);
-
-                    possibly.forEach(list -> {
-                        if (it != list && !it.getValue().containsAll(list.getValue())) {
-                            it.getValue().removeAll(list.getValue());
-                        }
-                    });
-
+                for (Pair<PlayerData, List<Integer>> it : possibly) {
                     if (it.getValue().isEmpty()) {
                         throw new IllegalStateException("empty List.");
                     } else {
